@@ -509,6 +509,35 @@ i[class^="ti"] {
 /* ==========================================================================
    Tab 3: References List from references.json (references.html)
    ========================================================================== */
+/* Direct Large Search Bar (No categories, clean & focused) */
+.ref-search-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease;
+}
+
+.ref-search-bar:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.08);
+}
+
+.ref-search-bar input {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  width: 100%;
+  color: var(--text-main);
+  outline: none;
+}
+
 .ref-header-row {
   display: flex;
   justify-content: space-between;

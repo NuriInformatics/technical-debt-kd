@@ -1,144 +1,74 @@
-// Controller Checklist Harian Berbasis Tanggal (Dated JSON)
+// Interactive In-DOM Checklist State Controller
+// Zero fetch(), 100% works on file:// protocol with localStorage persistence
 
-let availableSnapshots = [];
-let currentSnapshot = null;
+function updateChecklistStats() {
+  const cards = document.querySelectorAll(".check-card");
+  let resolved = 0;
 
-async function initChecklist() {
-  await loadSnapshotIndex();
-}
-
-async function loadSnapshotIndex() {
-  try {
-    const res = await fetch("history/index.json");
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    availableSnapshots = await res.json();
-    renderDateSelector();
-
-    if (availableSnapshots.length > 0) {
-      loadDateSnapshot(availableSnapshots[0].file);
+  cards.forEach(card => {
+    const icon = card.querySelector(".check-box-icon");
+    if (icon && icon.classList.contains("is-resolved")) {
+      resolved++;
     }
-  } catch (err) {
-    console.error("Gagal memuat index checklist:", err);
-    loadDateSnapshot("history/2026-10-16.json");
-  }
-}
-
-function renderDateSelector() {
-  const container = document.getElementById("date-selector-container");
-  if (!container || availableSnapshots.length === 0) return;
-
-  container.innerHTML = `
-    <div style="display:flex; align-items:center; gap:8px;">
-      <label for="date-select" style="font-size:12.5px; font-weight:600; color:#475569;">
-        <i class="ti ti-calendar"></i> Arsip Tanggal:
-      </label>
-      <select id="date-select" class="date-dropdown" onchange="onSelectDate(this.value)">
-        ${availableSnapshots.map(s => `
-          <option value="${s.file}">${s.date} &bull; ${s.title} (${s.items_count} item)</option>
-        `).join("")}
-      </select>
-    </div>
-  `;
-}
-
-async function loadDateSnapshot(filename) {
-  const path = filename.startsWith("history/") ? filename : `history/${filename}`;
-  const container = document.getElementById("checklist-items-container");
-
-  try {
-    const res = await fetch(path);
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    currentSnapshot = await res.json();
-    renderSnapshotData();
-  } catch (err) {
-    console.error("Gagal memuat snapshot checklist:", err);
-    if (container) {
-      container.innerHTML = `
-        <div style="background:#fff; border:1px solid #fed7aa; border-radius:10px; padding:28px; text-align:center; color:#9a3412;">
-          <i class="ti ti-alert-triangle" style="font-size:32px; display:block; margin-bottom:10px;"></i>
-          <strong>Perhatian Protokol file://</strong><br>
-          <span style="font-size:13px; color:#64748b;">
-            Browser membatasi <code>fetch()</code> lokal pada file JSON.<br>
-            Jalankan local server untuk membaca arsip dinamis:<br>
-            <code>python3 -m http.server 8000</code> dari root repositori.
-          </span>
-        </div>
-      `;
-    }
-  }
-}
-
-function renderSnapshotData() {
-  if (!currentSnapshot) return;
-
-  // Render header info
-  const headerElem = document.getElementById("snapshot-header");
-  if (headerElem) {
-    headerElem.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:16px 20px;">
-        <div>
-          <div style="font-family:var(--font-mono); font-size:12px; font-weight:700; color:#2563eb; margin-bottom:2px;">
-            <i class="ti ti-calendar-event"></i> CATATAN TANGGAL: ${currentSnapshot.date}
-          </div>
-          <h3 style="font-size:16px; font-weight:700; color:#0f172a; margin-bottom:4px;">${currentSnapshot.title}</h3>
-          <div style="font-size:12.5px; color:#64748b;">
-            Berkas: <code>${currentSnapshot.document}</code> &bull; Status: <strong>${currentSnapshot.status}</strong>
-          </div>
-        </div>
-        <div style="display:flex; gap:10px;">
-          <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:6px; padding:6px 14px; text-align:center;">
-            <span style="font-family:var(--font-mono); font-size:18px; font-weight:700; color:#e11d48; display:block; line-height:1;">${currentSnapshot.summary.pending}</span>
-            <span style="font-size:11px; color:#9f1239; font-weight:600;">Perlu Tindakan</span>
-          </div>
-          <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:6px; padding:6px 14px; text-align:center;">
-            <span style="font-family:var(--font-mono); font-size:18px; font-weight:700; color:#059669; display:block; line-height:1;">${currentSnapshot.summary.resolved}</span>
-            <span style="font-size:11px; color:#065f46; font-weight:600;">Selesai</span>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  // Render items
-  const container = document.getElementById("checklist-items-container");
-  if (!container || !currentSnapshot.items) return;
-
-  container.innerHTML = "";
-  currentSnapshot.items.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "check-card";
-    const sevClass = item.severity === "Penting" ? "sev-penting" : "sev-sedang";
-    const isResolved = item.status === "resolved";
-
-    card.innerHTML = `
-      <div class="check-box-icon" style="${isResolved ? 'background:#ecfdf5; border-color:#10b981; color:#059669;' : ''}">
-        <i class="ti ${isResolved ? 'ti-check' : 'ti-pencil'}"></i>
-      </div>
-      <div class="check-content">
-        <div class="check-header">
-          <span class="check-id">${item.id}</span>
-          <span class="check-loc">${item.location}</span>
-          <span class="check-sev ${sevClass}">${item.severity}</span>
-        </div>
-        <h4 class="check-title">${item.title}</h4>
-        <div class="check-diff-grid">
-          <div class="diff-box-problem">
-            <span class="diff-tag-label"><i class="ti ti-alert-circle"></i> Kondisi di Draf PDF:</span>
-            ${item.problem}
-          </div>
-          <div class="diff-box-solution">
-            <span class="diff-tag-label"><i class="ti ti-check"></i> Saran Perbaikan di Word:</span>
-            ${item.solution}
-          </div>
-        </div>
-      </div>
-    `;
-    container.appendChild(card);
   });
+
+  const pending = cards.length - resolved;
+  const pendingElem = document.getElementById("stat-pending");
+  const resolvedElem = document.getElementById("stat-resolved");
+
+  if (pendingElem) pendingElem.textContent = pending;
+  if (resolvedElem) resolvedElem.textContent = resolved;
 }
 
-function onSelectDate(file) {
-  loadDateSnapshot(file);
+function toggleCheckItem(boxElem) {
+  const isResolved = boxElem.classList.toggle("is-resolved");
+  const checkIcon = boxElem.querySelector("i");
+  const card = boxElem.closest(".check-card");
+  const cardId = card ? card.getAttribute("data-id") : null;
+
+  if (isResolved) {
+    boxElem.style.backgroundColor = "#ecfdf5";
+    boxElem.style.borderColor = "#10b981";
+    boxElem.style.color = "#059669";
+    if (checkIcon) checkIcon.style.display = "block";
+    if (card) card.style.opacity = "0.7";
+  } else {
+    boxElem.style.backgroundColor = "";
+    boxElem.style.borderColor = "#cbd5e1";
+    boxElem.style.color = "transparent";
+    if (checkIcon) checkIcon.style.display = "none";
+    if (card) card.style.opacity = "1";
+  }
+
+  // Save to localStorage
+  if (cardId) {
+    try {
+      localStorage.setItem("checklist_" + cardId, isResolved ? "1" : "0");
+    } catch (e) {}
+  }
+
+  updateChecklistStats();
 }
 
-document.addEventListener("DOMContentLoaded", initChecklist);
+// Restore saved state on load
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".check-card").forEach(card => {
+    const cardId = card.getAttribute("data-id");
+    const box = card.querySelector(".check-box-icon");
+    if (!cardId || !box) return;
+
+    try {
+      if (localStorage.getItem("checklist_" + cardId) === "1") {
+        box.classList.add("is-resolved");
+        box.style.backgroundColor = "#ecfdf5";
+        box.style.borderColor = "#10b981";
+        box.style.color = "#059669";
+        const checkIcon = box.querySelector("i");
+        if (checkIcon) checkIcon.style.display = "block";
+        card.style.opacity = "0.7";
+      }
+    } catch (e) {}
+  });
+
+  updateChecklistStats();
+});
