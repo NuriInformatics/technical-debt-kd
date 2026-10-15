@@ -1,1 +1,83 @@
-2026-10-16.json
+{
+  "date": "2026-10-16",
+  "title": "Audit Naskah Draf Bab 3 & Penyelarasan Judul Bab 1",
+  "document": "Distillation/Draft PDF/Hanief Fathul Bahri Ahmad-Distillation BAB 3.pdf",
+  "status": "Draf Awal (Menunggu Bimbingan Dosen)",
+  "summary": {
+    "total": 7,
+    "pending": 7,
+    "resolved": 0
+  },
+  "items": [
+    {
+      "id": "ALT-01",
+      "category": "Administratif",
+      "severity": "Penting",
+      "status": "pending",
+      "location": "Cover Bab 3 (Halaman 1)",
+      "title": "Placeholder Judul Tesis Belum Diisi",
+      "problem": "Tertulis teks '[ Tuliskan Judul Rencana Tesis S2 yang telah disetujui / direvisi pada Tugas 01 & 02 ]'.",
+      "solution": "Salin judul resmi dari Bab 1: DETEKSI SELF-ADMITTED TECHNICAL DEBT MULTI ARTEFAK DOMAIN MENGGUNAKAN DISTILASI CODEBERT."
+    },
+    {
+      "id": "ALT-02",
+      "category": "Administratif",
+      "severity": "Penting",
+      "status": "pending",
+      "location": "Cover Bab 3 (Halaman 1)",
+      "title": "Typo NIM Mahasiswa",
+      "problem": "Tertulis NIM 14250028 (kelebihan digit '4'), sedangkan pada Bab 1 adalah 1250028.",
+      "solution": "Koreksi menjadi 1250028 agar selaras dengan PDDIKTI dan sistem akademik kampus."
+    },
+    {
+      "id": "ALT-03",
+      "category": "Metodologi",
+      "severity": "Penting",
+      "status": "pending",
+      "location": "Subbab 3.2 Poin 5 (Halaman 7)",
+      "title": "Kontradiksi Skala Parameter Teacher",
+      "problem": "Narasi teks menyebut 'Teacher berskala 7 miliar parameter', sementara Tabel 3.2 sudah memakai DeepSeek-Coder-1.3B.",
+      "solution": "Ubah narasi teks menjadi '1,3 Miliar parameter' agar sinkron dengan Tabel 3.2 dan muat di Colab T4."
+    },
+    {
+      "id": "ALT-04",
+      "category": "Sitasi",
+      "severity": "Penting",
+      "status": "pending",
+      "location": "Subbab 3.5.1 Metrik (Halaman 16)",
+      "title": "Paper Chicco et al. (2021) Hilang di Daftar Pustaka",
+      "problem": "Disitir di isi teks untuk justifikasi metrik MCC, namun belum masuk di daftar pustaka [1]-[12] PDF Bab 3.",
+      "solution": "Tambahkan entri Chicco et al. (2021) ke bibliografi file Word."
+    },
+    {
+      "id": "ALT-05",
+      "category": "Sitasi",
+      "severity": "Sedang",
+      "status": "pending",
+      "location": "Halaman 16 & 17",
+      "title": "Nomor Sitasi Tertukar",
+      "problem": "Sitasi AUC-PR menunjuk rujukan [5] (Melin et al., sains), sedangkan domain sains menunjuk [11] (Gu et al., Apache).",
+      "solution": "Tukar dan luruskan nomor rujukan sitasi di naskah Word."
+    },
+    {
+      "id": "ALT-06",
+      "category": "Tipografi",
+      "severity": "Sedang",
+      "status": "pending",
+      "location": "Subbab 3.4.1 (Halaman 11-12)",
+      "title": "Formula Soft-Targets Terpotong Margin",
+      "problem": "Pembilang exp(z_k/T) terpotong ke bawah margin halaman, hanya menyisakan baris penyebut.",
+      "solution": "Format formula Word Equation dalam 1 baris utuh agar tidak terpecah halaman."
+    },
+    {
+      "id": "ALT-07",
+      "category": "Tipografi",
+      "severity": "Sedang",
+      "status": "pending",
+      "location": "Subbab 3.5.1 (Halaman 16)",
+      "title": "Formula Macro-F1 Bertumpuk",
+      "problem": "Teks indeks bertumpuk dan tanda kurung kurawal himpunan k in {0, 1} hilang saat render PDF.",
+      "solution": "Gunakan persamaan equation standar dua baris terpisah."
+    }
+  ]
+}

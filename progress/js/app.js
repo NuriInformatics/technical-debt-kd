@@ -1,0 +1,532 @@
+/**
+ * TECHNICAL DEBT KD - MASTER RESEARCH CONSOLE CONTROLLER
+ * Zero Hardcode, Dynamic JSON Loader, GitHub Pages Native
+ */
+
+// Application State
+const state = {
+  activeTab: 'rq',
+  rq: [],
+  datasets: [],
+  references: [],
+  filteredReferences: [],
+  audit: null,
+  auditHistory: [],
+  completedAuditIds: new Set(),
+  theme: localStorage.getItem('console_theme') || 'dark'
+};
+
+// DOM References Cache
+const dom = {
+  tabBtns: document.querySelectorAll('.tab-btn'),
+  views: {
+    rq: document.getElementById('view-rq'),
+    datasets: document.getElementById('view-datasets'),
+    references: document.getElementById('view-references'),
+    audit: document.getElementById('view-audit')
+  },
+  toast: document.getElementById('toast'),
+  themeToggle: document.getElementById('theme-toggle'),
+  headerStats: {
+    rq: document.getElementById('stat-rq-count'),
+    data: document.getElementById('stat-data-count'),
+    ref: document.getElementById('stat-ref-count'),
+    audit: document.getElementById('stat-audit-count')
+  }
+};
+
+// --------------------------------------------------------------------------
+// 1. INITIALIZATION & DATA FETCHING
+// --------------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', async () => {
+  initTheme();
+  initRouting();
+  initKeyboardShortcuts();
+  await loadAllData();
+});
+
+function initTheme() {
+  document.documentElement.setAttribute('data-theme', state.theme);
+  updateThemeIcon();
+
+  if (dom.themeToggle) {
+    dom.themeToggle.addEventListener('click', () => {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', state.theme);
+      localStorage.setItem('console_theme', state.theme);
+      updateThemeIcon();
+    });
+  }
+}
+
+function updateThemeIcon() {
+  if (!dom.themeToggle) return;
+  dom.themeToggle.innerHTML = state.theme === 'dark' 
+    ? '<i class="ti ti-sun"></i>' 
+    : '<i class="ti ti-moon"></i>';
+}
+
+async function loadAllData() {
+  try {
+    // Relative paths compatible with GitHub Pages at any depth
+    const [rqRes, dataRes, refRes, histIndexRes, auditRes] = await Promise.allSettled([
+      fetch('data/rq.json').then(r => r.json()),
+      fetch('data/datasets.json').then(r => r.json()),
+      fetch('data/references.json').then(r => r.json()),
+      fetch('history/index.json').then(r => r.json()),
+      fetch('history/2026-10-16.json').then(r => r.json())
+    ]);
+
+    if (rqRes.status === 'fulfilled') {
+      state.rq = rqRes.value;
+      renderRQ(state.rq);
+      if (dom.headerStats.rq) dom.headerStats.rq.textContent = state.rq.length;
+    }
+
+    if (dataRes.status === 'fulfilled') {
+      state.datasets = dataRes.value;
+      renderDatasets(state.datasets);
+      if (dom.headerStats.data) dom.headerStats.data.textContent = state.datasets.length;
+    }
+
+    if (refRes.status === 'fulfilled') {
+      state.references = refRes.value;
+      state.filteredReferences = [...state.references];
+      renderReferences(state.filteredReferences);
+      if (dom.headerStats.ref) dom.headerStats.ref.textContent = state.references.length;
+    }
+
+    if (histIndexRes.status === 'fulfilled') {
+      state.auditHistory = histIndexRes.value;
+    }
+
+    if (auditRes.status === 'fulfilled') {
+      state.audit = auditRes.value;
+      loadAuditChecklistState();
+      renderAudit(state.audit);
+      if (dom.headerStats.audit) dom.headerStats.audit.textContent = state.audit.items.length;
+    }
+
+  } catch (error) {
+    console.error('Data loader error:', error);
+    showToast('Gagal memuat data JSON. Pastikan file tersedia.');
+  }
+}
+
+// --------------------------------------------------------------------------
+// 2. VIEWPORT NAVIGATION & ROUTING
+// --------------------------------------------------------------------------
+function initRouting() {
+  // Listen to hash change
+  window.addEventListener('hashchange', handleHash);
+
+  // Tab button click handlers
+  dom.tabBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const tab = btn.getAttribute('data-tab');
+      switchTab(tab);
+      window.location.hash = tab;
+    });
+  });
+
+  // Initial tab from hash or default
+  handleHash();
+}
+
+function handleHash() {
+  const hash = window.location.hash.replace('#', '');
+  if (['rq', 'datasets', 'references', 'audit'].includes(hash)) {
+    switchTab(hash);
+  } else {
+    switchTab('rq');
+  }
+}
+
+function switchTab(tabId) {
+  state.activeTab = tabId;
+
+  // Update tabs visual state
+  dom.tabBtns.forEach(btn => {
+    if (btn.getAttribute('data-tab') === tabId) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Update views display
+  Object.keys(dom.views).forEach(key => {
+    if (dom.views[key]) {
+      if (key === tabId) {
+        dom.views[key].classList.add('active-view');
+      } else {
+        dom.views[key].classList.remove('active-view');
+      }
+    }
+  });
+}
+
+function initKeyboardShortcuts() {
+  window.addEventListener('keydown', (e) => {
+    // Avoid triggering when focused on input fields
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      if (e.key === 'Escape') {
+        e.target.blur();
+        e.target.value = '';
+        if (state.activeTab === 'references') {
+          filterReferences('');
+        }
+      }
+      return;
+    }
+
+    if (e.key === '1') { switchTab('rq'); window.location.hash = 'rq'; }
+    if (e.key === '2') { switchTab('datasets'); window.location.hash = 'datasets'; }
+    if (e.key === '3') { switchTab('references'); window.location.hash = 'references'; }
+    if (e.key === '4') { switchTab('audit'); window.location.hash = 'audit'; }
+
+    if (e.key === '/') {
+      e.preventDefault();
+      switchTab('references');
+      window.location.hash = 'references';
+      const searchInput = document.getElementById('ref-search-input');
+      if (searchInput) searchInput.focus();
+    }
+  });
+}
+
+// --------------------------------------------------------------------------
+// 3. RENDER VIEW 1: RUMUSAN MASALAH (RQ)
+// --------------------------------------------------------------------------
+function renderRQ(rqList) {
+  const container = document.getElementById('rq-container');
+  if (!container) return;
+
+  if (!rqList || rqList.length === 0) {
+    container.innerHTML = '<div class="empty-state">Data RQ belum tersedia.</div>';
+    return;
+  }
+
+  const html = rqList.map(rq => `
+    <div class="rq-card">
+      <div>
+        <div class="rq-badge-row">
+          <span class="rq-id-tag">${rq.id}</span>
+          <span class="rq-focus-tag">${rq.focus}</span>
+        </div>
+        <h3 class="rq-title">${rq.title}</h3>
+        <div class="rq-question-box">${rq.question}</div>
+        
+        <div class="rq-metrics-block">
+          <div class="metrics-label"><i class="ti ti-chart-bar"></i> Target Evaluasi &amp; Metrik</div>
+          <div class="metrics-list">
+            ${rq.metrics.map(m => `
+              <div class="metric-pill">
+                <span class="name">${m.name}</span>
+                <span class="val">${m.target}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="rq-footer-specs">
+        <div class="spec-line">
+          <span>Uji Statistika:</span>
+          <span>${rq.stats_test}</span>
+        </div>
+        <div class="spec-line">
+          <span>Baseline Model:</span>
+          <span>${rq.baselines.join(', ')}</span>
+        </div>
+        <div class="spec-line">
+          <span>Dataset Uji:</span>
+          <span>${rq.datasets.join(', ')}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  container.innerHTML = html;
+}
+
+// --------------------------------------------------------------------------
+// 4. RENDER VIEW 2: DATASETS (D1 - D4)
+// --------------------------------------------------------------------------
+function renderDatasets(datasetList) {
+  const container = document.getElementById('datasets-container');
+  if (!container) return;
+
+  if (!datasetList || datasetList.length === 0) {
+    container.innerHTML = '<div class="empty-state">Data dataset belum tersedia.</div>';
+    return;
+  }
+
+  const html = datasetList.map(ds => `
+    <div class="dataset-card">
+      <div>
+        <div class="dataset-head">
+          <span class="dataset-id">${ds.id}</span>
+          <span class="dataset-badge">${ds.badge}</span>
+        </div>
+        <h3 class="dataset-name">${ds.name}</h3>
+        <p class="dataset-domain">${ds.domain}</p>
+
+        <div class="dataset-stats-matrix">
+          <div class="stat-cell">
+            <span class="lbl">Sampel</span>
+            <span class="num">${Number(ds.samples).toLocaleString()}</span>
+          </div>
+          <div class="stat-cell">
+            <span class="lbl">Ukuran</span>
+            <span class="num">${ds.size_mb} MB</span>
+          </div>
+          <div class="stat-cell">
+            <span class="lbl">Distribusi</span>
+            <span class="num" style="font-size:11px;">${ds.distribution}</span>
+          </div>
+          <div class="stat-cell">
+            <span class="lbl">Bahasa</span>
+            <span class="num" style="font-size:11px;">${ds.language}</span>
+          </div>
+        </div>
+
+        <div class="dataset-artifacts">
+          <strong style="color:var(--text-primary); font-size:11px; text-transform:uppercase; font-family:var(--font-mono); display:block; margin-bottom:2px;">Artefak:</strong>
+          ${ds.artifacts}
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border-subtle); padding-top:12px; margin-top:12px;">
+        <div style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono); margin-bottom:8px;">
+          Ref: ${ds.reference}
+        </div>
+        <a href="${ds.source_repo}" target="_blank" rel="noopener" class="dataset-link-btn" style="width:100%;">
+          <i class="ti ti-brand-github"></i> Buka Sumber Korpus
+        </a>
+      </div>
+    </div>
+  `).join('');
+
+  container.innerHTML = html;
+}
+
+// --------------------------------------------------------------------------
+// 5. RENDER VIEW 3: REFERENCES (21 PAPERS)
+// --------------------------------------------------------------------------
+function renderReferences(refList) {
+  const tbody = document.getElementById('ref-table-body');
+  const countBadge = document.getElementById('ref-active-count');
+  if (!tbody) return;
+
+  if (countBadge) countBadge.textContent = `${refList.length} dari ${state.references.length}`;
+
+  if (!refList || refList.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center; padding:36px; color:var(--text-muted); font-family:var(--font-mono);">
+          <i class="ti ti-search-off" style="font-size:24px; display:block; margin-bottom:6px;"></i>
+          Tidak ada referensi yang cocok dengan kata kunci pencarian.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  const html = refList.map(r => {
+    const isScopus = r.index.toLowerCase().includes('scopus');
+    const badgeClass = isScopus ? 'badge-scopus' : 'badge-sinta';
+    const doiLink = r.doi ? `https://doi.org/${r.doi}` : '#';
+
+    return `
+      <tr>
+        <td style="font-family:var(--font-mono); font-weight:700; color:var(--text-muted);">${r.no}</td>
+        <td>
+          <div class="ref-title-text">${r.title}</div>
+          <div class="ref-authors">${r.author} (${r.year}) &bull; <em>${r.venue}</em></div>
+          <div style="margin-top:4px; font-size:11px; color:var(--accent-indigo); font-family:var(--font-mono);">
+            <i class="ti ti-compass"></i> ${r.role}
+          </div>
+        </td>
+        <td>
+          <span class="${badgeClass}">${r.index}</span>
+        </td>
+        <td style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted);">
+          <code>${r.file || '-'}</code>
+        </td>
+        <td>
+          <div class="ref-actions-cell">
+            ${r.doi ? `
+              <a href="${doiLink}" target="_blank" rel="noopener" class="action-icon-btn" title="Buka DOI Resmi">
+                <i class="ti ti-external-link"></i>
+              </a>
+            ` : ''}
+            <button class="action-icon-btn" onclick="copyCitation('${r.citation_key}', '${escapeQuote(r.title)}')" title="Salin Citation Key">
+              <i class="ti ti-copy"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  tbody.innerHTML = html;
+}
+
+function escapeQuote(str) {
+  return str ? str.replace(/'/g, "\\'") : '';
+}
+
+function filterReferences(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) {
+    state.filteredReferences = [...state.references];
+  } else {
+    state.filteredReferences = state.references.filter(r => {
+      return (
+        r.title.toLowerCase().includes(q) ||
+        r.author.toLowerCase().includes(q) ||
+        r.authors_full.toLowerCase().includes(q) ||
+        r.index.toLowerCase().includes(q) ||
+        r.venue.toLowerCase().includes(q) ||
+        String(r.year).includes(q) ||
+        r.role.toLowerCase().includes(q) ||
+        (r.citation_key && r.citation_key.toLowerCase().includes(q))
+      );
+    });
+  }
+  renderReferences(state.filteredReferences);
+}
+
+// Global search input listener
+document.addEventListener('input', (e) => {
+  if (e.target && e.target.id === 'ref-search-input') {
+    filterReferences(e.target.value);
+  }
+});
+
+function copyCitation(key, title) {
+  const text = `@article{${key},\n  title = {${title}}\n}`;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(`Citation key '${key}' disalin ke clipboard!`);
+  }).catch(() => {
+    showToast(`Key: ${key}`);
+  });
+}
+
+// --------------------------------------------------------------------------
+// 6. RENDER VIEW 4: AUDIT CHECKLIST (BAB 3 DRAFT)
+// --------------------------------------------------------------------------
+function loadAuditChecklistState() {
+  state.completedAuditIds.clear();
+  if (!state.audit || !state.audit.items) return;
+
+  state.audit.items.forEach(item => {
+    const val = localStorage.getItem('audit_' + item.id);
+    if (val === '1') {
+      state.completedAuditIds.add(item.id);
+    }
+  });
+}
+
+function renderAudit(auditData) {
+  const container = document.getElementById('audit-items-container');
+  const summaryPending = document.getElementById('audit-pending-count');
+  const summaryResolved = document.getElementById('audit-resolved-count');
+  const metaDate = document.getElementById('audit-meta-date');
+
+  if (!container || !auditData) return;
+
+  if (metaDate) metaDate.textContent = auditData.date;
+
+  const total = auditData.items.length;
+  const resolved = state.completedAuditIds.size;
+  const pending = total - resolved;
+
+  if (summaryPending) summaryPending.textContent = pending;
+  if (summaryResolved) summaryResolved.textContent = resolved;
+
+  const html = auditData.items.map(item => {
+    const isCompleted = state.completedAuditIds.has(item.id);
+    const sevClass = item.severity === 'Penting' ? 'sev-penting' : 'sev-sedang';
+
+    return `
+      <div class="audit-item-card ${isCompleted ? 'is-completed' : ''}" id="audit-card-${item.id}">
+        <div class="audit-checkbox ${isCompleted ? 'checked' : ''}" onclick="toggleAuditItem('${item.id}')" title="Tandai selesai">
+          <i class="ti ti-check" style="${isCompleted ? 'display:block;' : 'display:none;'}"></i>
+        </div>
+        <div class="audit-item-content">
+          <div class="audit-item-header">
+            <div class="audit-item-tags">
+              <span class="audit-code">${item.id}</span>
+              <span class="audit-loc">&bull; ${item.location}</span>
+            </div>
+            <span class="audit-sev-badge ${sevClass}">${item.severity}</span>
+          </div>
+          <h4 class="audit-item-title">${item.title}</h4>
+          
+          <div class="audit-diff-grid">
+            <div class="diff-box diff-problem">
+              <div class="diff-tag"><i class="ti ti-alert-triangle"></i> Draf Saat Ini:</div>
+              ${item.problem}
+            </div>
+            <div class="diff-box diff-solution">
+              <div class="diff-tag"><i class="ti ti-check"></i> Tindakan Perbaikan:</div>
+              ${item.solution}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = html;
+}
+
+function toggleAuditItem(id) {
+  const card = document.getElementById('audit-card-' + id);
+  if (!card) return;
+
+  const checkbox = card.querySelector('.audit-checkbox');
+  const checkIcon = checkbox ? checkbox.querySelector('i') : null;
+
+  if (state.completedAuditIds.has(id)) {
+    state.completedAuditIds.delete(id);
+    localStorage.setItem('audit_' + id, '0');
+    if (checkbox) checkbox.classList.remove('checked');
+    if (checkIcon) checkIcon.style.display = 'none';
+    card.classList.remove('is-completed');
+  } else {
+    state.completedAuditIds.add(id);
+    localStorage.setItem('audit_' + id, '1');
+    if (checkbox) checkbox.classList.add('checked');
+    if (checkIcon) checkIcon.style.display = 'block';
+    card.classList.add('is-completed');
+    showToast(`Item ${id} ditandai selesai!`);
+  }
+
+  // Update counters
+  const total = state.audit.items.length;
+  const resolved = state.completedAuditIds.size;
+  const pending = total - resolved;
+
+  const summaryPending = document.getElementById('audit-pending-count');
+  const summaryResolved = document.getElementById('audit-resolved-count');
+  if (summaryPending) summaryPending.textContent = pending;
+  if (summaryResolved) summaryResolved.textContent = resolved;
+}
+
+// --------------------------------------------------------------------------
+// 7. TOAST NOTIFICATION UTILITY
+// --------------------------------------------------------------------------
+let toastTimeout;
+function showToast(message) {
+  if (!dom.toast) return;
+  dom.toast.innerHTML = `<i class="ti ti-info-circle"></i> <span>${message}</span>`;
+  dom.toast.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    dom.toast.classList.remove('show');
+  }, 2800);
+}

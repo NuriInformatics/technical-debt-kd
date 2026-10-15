@@ -1,0 +1,62 @@
+[
+  {
+    "id": "D1",
+    "name": "Java Code Comments (Maldonado)",
+    "domain": "Source Code Comments",
+    "language": "Java",
+    "samples": 62275,
+    "size_mb": 5.2,
+    "distribution": "Imbalanced (~9% SATD)",
+    "artifacts": "Class, method, and inline code comments",
+    "source_repo": "https://github.com/maldonado/satd-detector",
+    "reference": "Maldonado & da Silva (2017) / Qu et al. (2023)",
+    "local_path": "dataset/D1_Maldonado_Java/",
+    "status": "Ready & Verified",
+    "badge": "Code Benchmark"
+  },
+  {
+    "id": "D2",
+    "name": "Multi-Source Apache Ecosystem",
+    "domain": "Cross-Artifact Software Repo",
+    "language": "Multi-language / Text",
+    "samples": 17000,
+    "size_mb": 6.8,
+    "distribution": "Balanced subset (Commits, Issues, PRs)",
+    "artifacts": "Commit messages, Pull Requests, Issue tracker discussions",
+    "source_repo": "https://github.com/Napier-SE-Research/multisource-satd",
+    "reference": "Li et al., Springer EMSE (2023)",
+    "local_path": "dataset/D2_MultiSource_Apache/",
+    "status": "Ready & Verified",
+    "badge": "Cross-Artifact"
+  },
+  {
+    "id": "D3",
+    "name": "Scientific Software Corpus (DOE/ORNL)",
+    "domain": "High-Performance Computing (HPC)",
+    "language": "C++, Fortran, Python",
+    "samples": 900358,
+    "size_mb": 22.0,
+    "distribution": "Highly Imbalanced (~2% SATD)",
+    "artifacts": "HPC scientific workflows, physics & math simulations",
+    "source_repo": "https://github.com/ORNL-SE/scientific-satd-corpus",
+    "reference": "Melin et al., ACM PASC '26",
+    "local_path": "dataset/D3_Scientific_DOE/",
+    "status": "Ready & Verified",
+    "badge": "HPC Scientific"
+  },
+  {
+    "id": "D4",
+    "name": "Implicit Masked Evaluation Suite",
+    "domain": "Adversarial / Anti-Shortcut Testing",
+    "language": "Curated Multi-Domain",
+    "samples": 4000,
+    "size_mb": 0.8,
+    "distribution": "50% Implicit SATD : 50% Clean Code",
+    "artifacts": "Comments with explicit triggers (TODO/FIXME/HACK) systematically masked with [MASK]",
+    "source_repo": "Local Thesis Pipeline Generator",
+    "reference": "Zhuang et al. (2022) / Gu et al. (2024)",
+    "local_path": "dataset/D4_Implicit_Masked/",
+    "status": "Generated & Verified",
+    "badge": "Adversarial Suite"
+  }
+]

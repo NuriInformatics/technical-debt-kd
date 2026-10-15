@@ -1,0 +1,49 @@
+[
+  {
+    "id": "RQ1",
+    "number": "01",
+    "title": "Pengaruh Knowledge Distillation",
+    "question": "Bagaimana pengaruh penerapan distilasi pengetahuan pada arsitektur CodeBERT terhadap peningkatan kemampuan deteksi Self-Admitted Technical Debt dibandingkan model baseline?",
+    "focus": "Knowledge Distillation vs Baseline",
+    "metrics": [
+      { "name": "Macro-F1", "target": "Signifikan > Baseline", "desc": "Keseimbangan presisi & recall kelas minoritas" },
+      { "name": "MCC", "target": "Signifikan > Baseline", "desc": "Matthews Correlation Coefficient (Chicco et al., 2021)" },
+      { "name": "AUC-PR", "target": "Signifikan > Baseline", "desc": "Evaluasi pada distribusi highly imbalanced" }
+    ],
+    "stats_test": "Wilcoxon Signed-Rank Test (p < 0.05) & Cliff's Delta (|d| > 0.33)",
+    "baselines": ["TextCNN", "BiLSTM", "Standard CodeBERT-base"],
+    "datasets": ["D1 (Java Code)", "D2 (Multi-Source Apache)", "D3 (DOE/ORNL HPC)"],
+    "objective": "Membuktikan transfer representasi semantik dari Teacher (DeepSeek-Coder-1.3B) ke Student (CodeBERT-base 125M) melampaui pembelajaran fitur konvensional."
+  },
+  {
+    "id": "RQ2",
+    "number": "02",
+    "title": "Ketahanan pada SATD Implisit",
+    "question": "Sejauh mana Distilled CodeBERT efektif dalam mendeteksi Self-Admitted Technical Debt yang bersifat implisit ketika kata kunci eksplisit disamarkan atau dihilangkan?",
+    "focus": "Anti-Shortcut Learning",
+    "metrics": [
+      { "name": "Macro-F1 Degradation", "target": "< 5.0%", "desc": "Penurunan performa saat token eksplisit di-mask" },
+      { "name": "Recall SATD Implisit", "target": "> 80.0%", "desc": "Sensitivitas menangkap utang tanpa TODO/FIXME" }
+    ],
+    "stats_test": "Ablation Masking Test pada D4 (Implicit Masked Suite)",
+    "baselines": ["Model Shortcut Learning (Conventional DL)", "Teacher Model Raw"],
+    "datasets": ["D4 (Implicit Masked Suite - 4.000 sampel seimbang)"],
+    "objective": "Menguji ketahanan model terhadap shortcut learning; membuktikan model memahami semantik utang teknis bukan sekadar hafalan kata kunci pemicu."
+  },
+  {
+    "id": "RQ3",
+    "number": "03",
+    "title": "Efisiensi Komputasi Lingkungan CI/CD",
+    "question": "Bagaimana perbandingan kinerja Distilled CodeBERT dengan model pembanding ditinjau dari akurasi deteksi dan efisiensi komputasi pada skenario implementasi CI/CD?",
+    "focus": "Edge/CPU Production Deployment",
+    "metrics": [
+      { "name": "Inference Latency (tau)", "target": "< 30 ms / komentar", "desc": "Single-thread CPU inferensi via ONNX Runtime" },
+      { "name": "Peak Memory (RAM)", "target": "< 500 MB", "desc": "Runner container footprint (GitHub Actions compatible)" },
+      { "name": "Model Size", "target": "~125M params (< 500 MB disk)", "desc": "Bisa di-cache dalam workflow CI/CD tanpa GPU" }
+    ],
+    "stats_test": "Benchmark Throughput (ops/sec) & Profile Memori ONNX Runtime FP16/INT8",
+    "baselines": ["DeepSeek-Coder-1.3B (Teacher)", "Standard CodeBERT", "LLM Cloud API"],
+    "datasets": ["Pipeline Runner Simualasi GitHub Actions"],
+    "objective": "Menghasilkan model deteksi siap produksi yang layak diintegrasikan langsung ke dalam pipeline pull-request tanpa membebani biaya GPU server."
+  }
+]
