@@ -1,0 +1,54 @@
+name: Deploy Research Console to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble Site Payload
+        run: |
+          mkdir -p _site
+          # Salin konten progress ke root _site
+          cp -r progress/* _site/
+          # Sediakan mirror di _site/progress agar kedua URL valid
+          mkdir -p _site/progress
+          cp -r progress/* _site/progress/
+          # Salin PDF referensi jika ada
+          if [ -d "references" ]; then
+            mkdir -p _site/references _site/progress/references
+            cp -r references/* _site/references/ 2>/dev/null || true
+            cp -r references/* _site/progress/references/ 2>/dev/null || true
+          fi
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
