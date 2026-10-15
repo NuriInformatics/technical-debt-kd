@@ -19,82 +19,35 @@
 <body>
 
   <!-- ========================================================================
-       TOP AUTHORITATIVE HEADER (Author, Supervisor, Pulse Telemetry)
+       TOP CONSOLE MASTHEAD (Single Restrained Row)
        ======================================================================== -->
-  <header class="console-header">
-    <div class="header-inner">
-      <div class="brand-section">
-        <div class="brand-badge">
-          <span class="pulse-indicator"></span>
-          <span>SQEE-KD // S2</span>
+  <header class="console-masthead">
+    <div class="masthead-inner">
+      <div class="brand-block">
+        <div class="kicker-line">
+          <span>TESIS S2 INFORMATIKA</span>
+          <span class="kicker-sep">/</span>
+          <span>KELAS 14.3B.12 (SQEE)</span>
         </div>
-        <div class="brand-meta">
-          <h1>DETEKSI SATD MULTI ARTEFAK DOMAIN &bull; DISTILASI CODEBERT</h1>
-          <p>
-            Peneliti: <strong>Hanief Fathul Bahri Ahmad</strong> (NIM 1250028) &bull; Dosen: <strong>Dr. Irwansyah Saputra, M.Kom.</strong>
-          </p>
+        <h1 class="thesis-title">Deteksi Self-Admitted Technical Debt Multi-Artefak Menggunakan Distilasi CodeBERT</h1>
+        <div class="thesis-meta">
+          <span>Peneliti: <strong>Hanief Fathul Bahri Ahmad</strong> (NIM 1250028)</span>
+          <span class="meta-dot">&bull;</span>
+          <span>Pembimbing: <strong>Dr. Irwansyah Saputra, M.Kom.</strong></span>
         </div>
       </div>
 
-      <div class="header-actions">
-        <!-- Live Counters from JSON -->
-        <div class="quick-stats">
-          <div class="stat-item" title="Research Questions">
-            <i class="ti ti-target-arrow"></i>
-            <span class="val" id="stat-rq-count">-</span> RQ
-          </div>
-          <div class="stat-item" title="Dataset Terverifikasi">
-            <i class="ti ti-database"></i>
-            <span class="val" id="stat-data-count">-</span> Data
-          </div>
-          <div class="stat-item" title="Pustaka Primer">
-            <i class="ti ti-books"></i>
-            <span class="val" id="stat-ref-count">-</span> Pustaka
-          </div>
-          <div class="stat-item" title="Catatan Audit">
-            <i class="ti ti-alert-triangle"></i>
-            <span class="val" id="stat-audit-count">-</span> Audit
-          </div>
-        </div>
-
-        <button class="theme-toggle-btn" id="theme-toggle" title="Ganti Mode Gelap / Terang">
+      <div class="header-tools">
+        <a href="https://github.com/NuriInformatics/technical-debt-kd" target="_blank" rel="noopener" class="repo-link" title="Buka GitHub Repository">
+          <i class="ti ti-brand-github"></i>
+          <span>NuriInformatics/technical-debt-kd</span>
+        </a>
+        <button class="theme-toggle-btn" id="theme-toggle" title="Ganti Mode Gelap / Terang" aria-label="Toggle Theme">
           <i class="ti ti-sun"></i>
         </button>
       </div>
     </div>
   </header>
-
-  <!-- ========================================================================
-       CONTROL BAR / VIEWPORT SWITCHER (Fast Segmented Tabs + Shortcuts)
-       ======================================================================== -->
-  <nav class="control-bar">
-    <div class="control-inner">
-      <div class="nav-tabs">
-        <button class="tab-btn active" data-tab="rq">
-          <span class="tab-num">1</span>
-          <span>Rumusan Masalah (RQ)</span>
-        </button>
-        <button class="tab-btn" data-tab="datasets">
-          <span class="tab-num">2</span>
-          <span>Kesiapan Dataset (D1–D4)</span>
-        </button>
-        <button class="tab-btn" data-tab="references">
-          <span class="tab-num">3</span>
-          <span>Pustaka Primer (21)</span>
-        </button>
-        <button class="tab-btn" data-tab="audit">
-          <span class="tab-num">4</span>
-          <span>Checklist Draf Bab 3</span>
-        </button>
-      </div>
-
-      <div class="control-shortcuts">
-        <span>Tekan <span class="kbd-badge">1</span>–<span class="kbd-badge">4</span> untuk tab</span>
-        <span>&bull;</span>
-        <span><span class="kbd-badge">/</span> untuk cari pustaka</span>
-      </div>
-    </div>
-  </nav>
 
   <!-- ========================================================================
        MAIN CONSOLE VIEWPORT (All Dynamic Containers)
@@ -105,7 +58,7 @@
     <section class="view-panel active-view" id="view-rq">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-target-arrow" style="color:var(--accent-cyan);"></i> Kerangka Rumusan Masalah (Research Questions)</h2>
+          <h2><i class="ti ti-target-arrow"></i> Kerangka Rumusan Masalah (Research Questions)</h2>
           <p>Tiga hipotesis inti tesis yang diuji secara empiris melalui Knowledge Distillation dan benchmark non-parametrik.</p>
         </div>
       </div>
@@ -121,7 +74,7 @@
     <section class="view-panel" id="view-datasets">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-database" style="color:var(--accent-emerald);"></i> Kesiapan Dataset Empiris (D1–D4)</h2>
+          <h2><i class="ti ti-database"></i> Kesiapan Dataset Empiris (D1–D4)</h2>
           <p>Korpus pelatihan, transfer lintas domain artefak, dan uji ketahanan SATD implisit yang tersimpan di repositori.</p>
         </div>
       </div>
@@ -138,7 +91,7 @@
     <section class="view-panel" id="view-references">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-books" style="color:var(--accent-indigo);"></i> Katalog Referensi Ilmiah Primer</h2>
+          <h2><i class="ti ti-books"></i> Katalog Referensi Ilmiah Primer</h2>
           <p>21 paper bereputasi (Scopus Q1/Q2 &amp; SINTA 2) sebagai landasan teoretis, metrik evaluasi, dan baseline.</p>
         </div>
         <div class="panel-actions">
@@ -182,7 +135,7 @@
     <section class="view-panel" id="view-audit">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-alert-triangle" style="color:var(--accent-rose);"></i> Checklist Audit Perbaikan Draf Bab 3</h2>
+          <h2><i class="ti ti-alert-triangle"></i> Checklist Audit Perbaikan Draf Bab 3</h2>
           <p>Daftar temuan anomali pada naskah draf sebelum diajukan ke pembimbing. Klik kotak centang untuk menyimpan progres.</p>
         </div>
       </div>
@@ -192,7 +145,7 @@
         <aside class="audit-sidebar">
           <div class="audit-meta-card">
             <h3>Snapshot Draf Bab 3</h3>
-            <p>Tanggal: <strong id="audit-meta-date" style="color:var(--accent-cyan);">-</strong></p>
+            <p>Tanggal: <strong id="audit-meta-date">-</strong></p>
             <p style="margin-top:4px;">Berkas: <code>BAB 3.pdf</code></p>
           </div>
 
@@ -203,7 +156,7 @@
             </div>
             <div style="height:32px; width:1px; background:var(--border-subtle); margin:0 4px;"></div>
             <div class="progress-numbers">
-              <span class="big" style="color:var(--accent-emerald);" id="audit-resolved-count">-</span>
+              <span class="big" id="audit-resolved-count">-</span>
               <span class="label">Telah Selesai</span>
             </div>
           </div>
@@ -223,15 +176,38 @@
 
   </main>
 
+
   <!-- ========================================================================
-       CONSOLE FOOTER
+       FLOATING BOTTOM DOCK: Navigation Tabs (Pill Glass Dock)
        ======================================================================== -->
-  <footer class="console-footer">
-    <div class="footer-inner">
-      <span>Tesis S2 &bull; <strong>Hanief Fathul Bahri Ahmad</strong> (NIM 1250028) &bull; Dosen: Dr. Irwansyah Saputra, M.Kom.</span>
-      <span>Repo: <code>NuriInformatics/technical-debt-kd</code> &bull; Siap GitHub Pages</span>
+  <nav class="floating-dock" aria-label="Navigasi Console">
+    <div class="dock-container">
+      <button class="dock-btn tab-btn active" data-tab="rq">
+        <span class="dock-num">1</span>
+        <span class="dock-label">Rumusan Masalah</span>
+        <span class="dock-badge" id="tab-count-rq">3</span>
+      </button>
+      <button class="dock-btn tab-btn" data-tab="datasets">
+        <span class="dock-num">2</span>
+        <span class="dock-label">Dataset Empiris</span>
+        <span class="dock-badge" id="tab-count-data">4</span>
+      </button>
+      <button class="dock-btn tab-btn" data-tab="references">
+        <span class="dock-num">3</span>
+        <span class="dock-label">Pustaka Primer</span>
+        <span class="dock-badge" id="tab-count-ref">21</span>
+      </button>
+      <button class="dock-btn tab-btn" data-tab="audit">
+        <span class="dock-num">4</span>
+        <span class="dock-label">Checklist Draf</span>
+        <span class="dock-badge" id="tab-count-audit">7</span>
+      </button>
+      <div class="dock-divider"></div>
+      <div class="dock-hint" title="Tekan 1-4 pada keyboard untuk berpindah tab">
+        <span class="kbd">1–4</span>
+      </div>
     </div>
-  </footer>
+  </nav>
 
   <!-- Toast Notification Box -->
   <div class="toast-notice" id="toast"></div>

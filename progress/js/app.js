@@ -28,10 +28,10 @@ const dom = {
   toast: document.getElementById('toast'),
   themeToggle: document.getElementById('theme-toggle'),
   headerStats: {
-    rq: document.getElementById('stat-rq-count'),
-    data: document.getElementById('stat-data-count'),
-    ref: document.getElementById('stat-ref-count'),
-    audit: document.getElementById('stat-audit-count')
+    rq: document.getElementById('tab-count-rq'),
+    data: document.getElementById('tab-count-data'),
+    ref: document.getElementById('tab-count-ref'),
+    audit: document.getElementById('tab-count-audit')
   }
 };
 
@@ -117,6 +117,8 @@ async function loadAllData() {
 // 2. VIEWPORT NAVIGATION & ROUTING
 // --------------------------------------------------------------------------
 function initRouting() {
+  dom.tabBtns = document.querySelectorAll('.tab-btn');
+
   // Listen to hash change
   window.addEventListener('hashchange', handleHash);
 
@@ -345,7 +347,7 @@ function renderReferences(refList) {
         <td>
           <div class="ref-title-text">${r.title}</div>
           <div class="ref-authors">${r.author} (${r.year}) &bull; <em>${r.venue}</em></div>
-          <div style="margin-top:4px; font-size:11px; color:var(--accent-indigo); font-family:var(--font-mono);">
+          <div class="ref-role-tag">
             <i class="ti ti-compass"></i> ${r.role}
           </div>
         </td>
