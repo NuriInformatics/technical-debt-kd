@@ -668,6 +668,22 @@ i[class^="ti"] {
   font-size: 11px;
 }
 
+.date-dropdown {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: var(--text-main);
+  outline: none;
+  cursor: pointer;
+}
+
+.date-dropdown:focus {
+  border-color: var(--color-primary);
+}
+
 /* ==========================================================================
    Tab 4: Checklist Draf (checklist.html)
    ========================================================================= */

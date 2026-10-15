@@ -90,171 +90,24 @@
 
   <!-- Content -->
   <main class="container page-content">
-    <div class="view-header">
-      <h2 class="view-title">Checklist Perbaikan Naskah Draf Bab 3</h2>
-      <p class="view-desc">Daftar anomali dan saran perbaikan format/sitasi pada draf PDF untuk disempurnakan di file Word sebelum bimbingan dosen.</p>
+    <div class="view-header ref-header-row">
+      <div>
+        <h2 class="view-title">Checklist Perbaikan Naskah Draf Bab 3</h2>
+        <p class="view-desc">Dimuat dari arsip snapshot JSON harian di folder <code>checklists/YYYY-MM-DD.json</code>.</p>
+      </div>
+      <div id="date-selector-container">
+        <!-- Rendered by checklist.js -->
+      </div>
     </div>
 
-    <div class="checklist-container">
-      <!-- ALT-01 -->
-      <div class="check-card">
-        <div class="check-box-icon"><i class="ti ti-pencil"></i></div>
-        <div class="check-content">
-          <div class="check-header">
-            <span class="check-id">ALT-01</span>
-            <span class="check-loc">Cover Bab 3 (Halaman 1)</span>
-            <span class="check-sev sev-penting">Penting</span>
-          </div>
-          <h4 class="check-title">Placeholder Judul Tesis Belum Diisi</h4>
-          <div class="check-diff-grid">
-            <div class="diff-box-problem">
-              <span class="diff-tag-label"><i class="ti ti-alert-circle"></i> Kondisi di Draf PDF:</span>
-              Tertulis teks '[ Tuliskan Judul Rencana Tesis S2 yang telah disetujui / direvisi pada Tugas 01 &amp; 02 ]'.
-            </div>
-            <div class="diff-box-solution">
-              <span class="diff-tag-label"><i class="ti ti-check"></i> Saran Perbaikan di Word:</span>
-              Salin judul resmi dari Bab 1: DETEKSI SELF-ADMITTED TECHNICAL DEBT MULTI ARTEFAK DOMAIN MENGGUNAKAN DISTILASI CODEBERT.
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Snapshot Header (Date, Document, Summary) -->
+    <div id="snapshot-header"></div>
 
-      <!-- ALT-02 -->
-      <div class="check-card">
-        <div class="check-box-icon"><i class="ti ti-pencil"></i></div>
-        <div class="check-content">
-          <div class="check-header">
-            <span class="check-id">ALT-02</span>
-            <span class="check-loc">Cover Bab 3 (Halaman 1)</span>
-            <span class="check-sev sev-penting">Penting</span>
-          </div>
-          <h4 class="check-title">Typo NIM Mahasiswa</h4>
-          <div class="check-diff-grid">
-            <div class="diff-box-problem">
-              <span class="diff-tag-label"><i class="ti ti-alert-circle"></i> Kondisi di Draf PDF:</span>
-              Tertulis NIM 14250028 (kelebihan digit '4'), sedangkan pada Bab 1 adalah 1250028.
-            </div>
-            <div class="diff-box-solution">
-              <span class="diff-tag-label"><i class="ti ti-check"></i> Saran Perbaikan di Word:</span>
-              Koreksi menjadi 1250028 agar selaras dengan PDDIKTI dan sistem akademik kampus.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ALT-03 -->
-      <div class="check-card">
-        <div class="check-box-icon"><i class="ti ti-pencil"></i></div>
-        <div class="check-content">
-          <div class="check-header">
-            <span class="check-id">ALT-03</span>
-            <span class="check-loc">Subbab 3.2 Poin 5 (Halaman 7)</span>
-            <span class="check-sev sev-penting">Penting</span>
-          </div>
-          <h4 class="check-title">Kontradiksi Skala Parameter Teacher</h4>
-          <div class="check-diff-grid">
-            <div class="diff-box-problem">
-              <span class="diff-tag-label"><i class="ti ti-alert-circle"></i> Kondisi di Draf PDF:</span>
-              Narasi teks menyebut 'Teacher berskala 7 miliar parameter', sementara Tabel 3.2 sudah memakai DeepSeek-Coder-1.3B.
-            </div>
-            <div class="diff-box-solution">
-              <span class="diff-tag-label"><i class="ti ti-check"></i> Saran Perbaikan di Word:</span>
-              Ubah narasi teks menjadi '1,3 Miliar parameter' agar sinkron dengan Tabel 3.2 dan muat di Colab T4.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ALT-04 -->
-      <div class="check-card">
-        <div class="check-box-icon"><i class="ti ti-pencil"></i></div>
-        <div class="check-content">
-          <div class="check-header">
-            <span class="check-id">ALT-04</span>
-            <span class="check-loc">Subbab 3.5.1 Metrik (Halaman 16)</span>
-            <span class="check-sev sev-penting">Penting</span>
-          </div>
-          <h4 class="check-title">Paper Chicco et al. (2021) Hilang di Daftar Pustaka</h4>
-          <div class="check-diff-grid">
-            <div class="diff-box-problem">
-              <span class="diff-tag-label"><i class="ti ti-alert-circle"></i> Kondisi di Draf PDF:</span>
-              Disitir di isi teks untuk justifikasi metrik MCC, namun belum masuk di daftar pustaka [1]-[12] PDF Bab 3.
-            </div>
-            <div class="diff-box-solution">
-              <span class="diff-tag-label"><i class="ti ti-check"></i> Saran Perbaikan di Word:</span>
-              Tambahkan entri Chicco et al. (2021) ke bibliografi file Word.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ALT-05 -->
-      <div class="check-card">
-        <div class="check-box-icon"><i class="ti ti-pencil"></i></div>
-        <div class="check-content">
-          <div class="check-header">
-            <span class="check-id">ALT-05</span>
-            <span class="check-loc">Halaman 16 &amp; 17</span>
-            <span class="check-sev sev-sedang">Sedang</span>
-          </div>
-          <h4 class="check-title">Nomor Sitasi Tertukar</h4>
-          <div class="check-diff-grid">
-            <div class="diff-box-problem">
-              <span class="diff-tag-label"><i class="ti ti-alert-circle"></i> Kondisi di Draf PDF:</span>
-              Sitasi AUC-PR menunjuk rujukan [5] (Melin et al., sains), sedangkan domain sains menunjuk [11] (Gu et al., Apache).
-            </div>
-            <div class="diff-box-solution">
-              <span class="diff-tag-label"><i class="ti ti-check"></i> Saran Perbaikan di Word:</span>
-              Tukar dan luruskan nomor rujukan sitasi di naskah Word.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ALT-06 -->
-      <div class="check-card">
-        <div class="check-box-icon"><i class="ti ti-pencil"></i></div>
-        <div class="check-content">
-          <div class="check-header">
-            <span class="check-id">ALT-06</span>
-            <span class="check-loc">Subbab 3.4.1 (Halaman 11-12)</span>
-            <span class="check-sev sev-sedang">Sedang</span>
-          </div>
-          <h4 class="check-title">Formula Soft-Targets Terpotong Margin</h4>
-          <div class="check-diff-grid">
-            <div class="diff-box-problem">
-              <span class="diff-tag-label"><i class="ti ti-alert-circle"></i> Kondisi di Draf PDF:</span>
-              Pembilang exp(z_k/T) terpotong ke bawah margin halaman, hanya menyisakan baris penyebut.
-            </div>
-            <div class="diff-box-solution">
-              <span class="diff-tag-label"><i class="ti ti-check"></i> Saran Perbaikan di Word:</span>
-              Format formula Word Equation dalam 1 baris utuh agar tidak terpecah halaman.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ALT-07 -->
-      <div class="check-card">
-        <div class="check-box-icon"><i class="ti ti-pencil"></i></div>
-        <div class="check-content">
-          <div class="check-header">
-            <span class="check-id">ALT-07</span>
-            <span class="check-loc">Subbab 3.5.1 (Halaman 16)</span>
-            <span class="check-sev sev-sedang">Sedang</span>
-          </div>
-          <h4 class="check-title">Formula Macro-F1 Bertumpuk</h4>
-          <div class="check-diff-grid">
-            <div class="diff-box-problem">
-              <span class="diff-tag-label"><i class="ti ti-alert-circle"></i> Kondisi di Draf PDF:</span>
-              Teks indeks bertumpuk dan tanda kurung kurawal himpunan k in {0, 1} hilang saat render PDF.
-            </div>
-            <div class="diff-box-solution">
-              <span class="diff-tag-label"><i class="ti ti-check"></i> Saran Perbaikan di Word:</span>
-              Gunakan persamaan equation standar dua baris terpisah.
-            </div>
-          </div>
-        </div>
+    <!-- Items List -->
+    <div class="checklist-container" id="checklist-items-container">
+      <div style="padding:24px; text-align:center; color:#64748b;">
+        <i class="ti ti-loader" style="font-size:24px; animation:spin 1s linear infinite;"></i>
+        Memuat data checklist...
       </div>
     </div>
   </main>
@@ -266,5 +119,6 @@
     </div>
   </footer>
 
+  <script src="checklist.js"></script>
 </body>
 </html>
