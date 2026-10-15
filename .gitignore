@@ -1,0 +1,28 @@
+# Python & Virtual Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Model Weights & Checkpoints (Simpan lokal/HuggingFace)
+models/*.pt
+models/*.bin
+models/*.safetensors
+!models/.gitkeep
+!models/export_onnx.py
+
+# Proteksi Naskah Tesis & Draft Akademik (Tidak diunggah ke publik)
+Draft/
+Draft PDF/
+*.docx
+*.doc
+
+# Abaikan PDF hasil render draft, KECUALI arsip referensi jurnal di folder references/
+*.pdf
+!references/*.pdf
+
+# OS Artifacts
+.DS_Store
+Thumbs.db

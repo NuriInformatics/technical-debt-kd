@@ -1,0 +1,12 @@
+# Changelog & History Revisi Naskah Tesis
+
+Format pencatatan riwayat revisi, koreksi typo, dan audit naskah akademik:
+
+| Tanggal | Bagian Naskah | Tipe | Uraian Sebelum | Uraian Sesudah | Status | Reviewer |
+|---|---|---|---|---|---|---|
+| 2026-10-16 | Cover Bab 3 | Placeholder | `[ Tuliskan Judul Rencana... ]` | *"Deteksi Utang Teknis Implisit..."* | Teridentifikasi | Audit AI |
+| 2026-10-16 | Cover Bab 3 | Typo NIM | `NIM: 14250028` | `NIM: 1250028` | Teridentifikasi | Audit AI |
+| 2026-10-16 | Subbab 3.2 Poin 5 | Kontradiksi | *"Teacher berskala 7 miliar..."* | *"Teacher berskala 1,3 miliar..."* | Selesai di MD | Audit AI |
+| 2026-10-16 | Subbab 3.5.1 MCC | Missing Ref | Chicco (2021) tanpa pustaka | Ditambahkan ke Daftar Pustaka | Selesai di MD | Audit AI |
+| 2026-10-16 | Subbab 3.4.1 Formula | Broken Math | Pembilang $\exp(z/T)$ terputus | Rumus disederhanakan | Selesai di MD | Audit AI |
+| 2026-10-16 | Subbab 3.5.3 | Out of Scope | Subbab Estimasi Effort Software | Dihapus (Fokus Defect Prediction) | Selesai di MD | Arahan Dosen |

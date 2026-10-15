@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress & Audit Dashboard - Tesis S2 Hanief F. B. Ahmad</title>
+  <!-- Tabler Icons CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <div>
+        <div class="badge-status"><i class="ti ti-activity"></i> Tesis S2 Magister Ilmu Komputer • Status: On-Track</div>
+        <h1 class="header-title">Deteksi Utang Teknis Implisit dan Ringan pada Pipeline CI/CD Menggunakan Distilasi CodeBERT</h1>
+        <p class="header-subtitle">
+          <i class="ti ti-user"></i> Peneliti: <strong>Hanief Fathul Bahri Ahmad</strong> (NIM: 1250028) &bull; 
+          <i class="ti ti-school"></i> Dosen: <strong>Dr. Irwansyah Saputra, M.Kom.</strong>
+        </p>
+      </div>
+      <div class="header-actions">
+        <span class="live-clock" id="timestamp"><i class="ti ti-clock"></i> </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <!-- Stat Cards Overview -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header-row">
+          <div class="stat-label">Total Referensi Terverifikasi</div>
+          <i class="ti ti-books stat-icon text-indigo"></i>
+        </div>
+        <div class="stat-value text-indigo">21 <span class="stat-sub">Paper (2021–2026)</span></div>
+        <div class="stat-desc"><i class="ti ti-check"></i> 23 File PDF Fisik Tersimpan di <code>/references</code></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header-row">
+          <div class="stat-label">Estimasi Naskah Bab 3</div>
+          <i class="ti ti-file-text stat-icon text-emerald"></i>
+        </div>
+        <div class="stat-value text-emerald">23 <span class="stat-sub">Halaman</span></div>
+        <div class="stat-desc"><i class="ti ti-list-check"></i> 6 Subbab Utama &bull; Sesuai 3 Research Questions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header-row">
+          <div class="stat-label">Kesiapan Dataset (D1–D4)</div>
+          <i class="ti ti-database stat-icon text-blue"></i>
+        </div>
+        <div class="stat-value text-blue">978k <span class="stat-sub">Sampel</span></div>
+        <div class="stat-desc"><i class="ti ti-folders"></i> D1 (62k), D2 (17k), D3 (900k), D4 (4k Masked)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header-row">
+          <div class="stat-label">Task & Temuan Audit AI</div>
+          <i class="ti ti-alert-triangle stat-icon text-amber"></i>
+        </div>
+        <div class="stat-value text-amber" id="task-stat-count">0 / 0</div>
+        <div class="stat-desc" id="task-stat-desc">Memuat data task...</div>
+      </div>
+    </section>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="tab-tasks">
+        <i class="ti ti-checklist"></i> Task & Audit AI Naskah
+      </button>
+      <button class="tab-btn" data-tab="tab-history">
+        <i class="ti ti-history"></i> History Revisi & Typo
+      </button>
+      <button class="tab-btn" data-tab="tab-notes">
+        <i class="ti ti-notes"></i> Catatan & Log Dosen
+      </button>
+      <button class="tab-btn" data-tab="tab-references">
+        <i class="ti ti-bookmark"></i> Daftar 21 Referensi Empiris
+      </button>
+      <button class="tab-btn" data-tab="tab-rq">
+        <i class="ti ti-target-arrow"></i> Matriks Pencapaian RQ
+      </button>
+    </nav>
+
+    <!-- Tab 1: Task & Audit AI Naskah -->
+    <section id="tab-tasks" class="tab-pane active">
+      <div class="pane-header">
+        <div>
+          <h2>Checklist Task & Hasil Audit Anomali Naskah Draft</h2>
+          <p class="section-desc">Daftar temuan audit kecacatan naskah (salah sitasi, formula pecah, placeholder template) dan langkah revisi.</p>
+        </div>
+        <div class="filter-controls">
+          <button class="filter-btn active" data-filter="all"><i class="ti ti-list"></i> Semua (<span id="count-all">0</span>)</button>
+          <button class="filter-btn" data-filter="pending"><i class="ti ti-clock-pause"></i> Belum Selesai (<span id="count-pending">0</span>)</button>
+          <button class="filter-btn" data-filter="done"><i class="ti ti-check"></i> Selesai (<span id="count-done">0</span>)</button>
+        </div>
+      </div>
+
+      <div class="task-add-bar">
+        <input type="text" id="new-task-input" placeholder="Tambah catatan revisi / task baru...">
+        <select id="new-task-cat">
+          <option value="Administrasi">Administrasi</option>
+          <option value="Sitasi">Sitasi & Referensi</option>
+          <option value="Teknis">Teknis / Model</option>
+          <option value="Formula">Formula Matematika</option>
+        </select>
+        <button id="add-task-btn" class="btn btn-primary"><i class="ti ti-plus"></i> Tambah Task</button>
+      </div>
+
+      <div class="task-list" id="task-list-container">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Tab 2: History Revisi & Typo -->
+    <section id="tab-history" class="tab-pane">
+      <div class="pane-header">
+        <div>
+          <h2>Riwayat Catatan Typo, Koreksi Formula & Changelog</h2>
+          <p class="section-desc">Arsip kronologis perubahan dan revisi naskah tersimpan di <code>progress/history/</code>.</p>
+        </div>
+        <div class="search-box">
+          <input type="text" id="search-history" placeholder="Filter history revisi/typo...">
+        </div>
+      </div>
+
+      <div class="history-timeline" id="history-timeline-container">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Tab 3: Catatan Dosen -->
+    <section id="tab-notes" class="tab-pane">
+      <div class="pane-header">
+        <div>
+          <h2>Log Catatan & Bimbingan Dosen</h2>
+          <p class="section-desc">Catatan arahan dari Dosen Pengampu / Pembimbing dan status implementasinya.</p>
+        </div>
+      </div>
+
+      <div class="note-add-box">
+        <h3><i class="ti ti-pencil"></i> Input Catatan Bimbingan Baru</h3>
+        <div class="form-row">
+          <input type="date" id="note-date">
+          <input type="text" id="note-author" placeholder="Nama Dosen (misal: Dr. Irwansyah Saputra, M.Kom.)">
+        </div>
+        <textarea id="note-content" rows="3" placeholder="Tuliskan poin-poin catatan revisi atau arahan dosen..."></textarea>
+        <button id="add-note-btn" class="btn btn-primary"><i class="ti ti-device-floppy"></i> Simpan Catatan Bimbingan</button>
+      </div>
+
+      <div class="notes-grid" id="notes-container">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Tab 4: Daftar Referensi -->
+    <section id="tab-references" class="tab-pane">
+      <div class="pane-header">
+        <div>
+          <h2>Daftar 21 Referensi Rujukan Bab 3 (2021–2026)</h2>
+          <p class="section-desc">Seluruh referensi telah dilengkapi bukti file PDF fisik di folder <code>/references</code>.</p>
+        </div>
+        <div class="search-box">
+          <input type="text" id="search-ref" placeholder="Cari penulis, judul, indeks (Q1/SINTA)...">
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">No</th>
+              <th>Sitasi & Penulis</th>
+              <th>Judul Paper & Sumber Publikasi</th>
+              <th>Tahun</th>
+              <th>Indeks</th>
+              <th>File PDF Lokal</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ref-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab 5: Matriks RQ -->
+    <section id="tab-rq" class="tab-pane">
+      <div class="pane-header">
+        <div>
+          <h2>Matriks Penyelarasan Research Questions (RQ)</h2>
+          <p class="section-desc">Pemetaan rancangan metodologi Bab 3 terhadap 3 rumusan masalah resmi.</p>
+        </div>
+      </div>
+
+      <div class="rq-grid">
+        <div class="rq-card">
+          <div class="rq-tag"><i class="ti ti-award"></i> RQ1 &bull; Akurasi & Efektivitas</div>
+          <h3>Superioritas Distilled-CodeBERT vs Baseline</h3>
+          <p class="rq-question">Apakah transfer penalaran dari Teacher DeepSeek-Coder-1.3B ke Student CodeBERT mampu mengungguli model konvensional (TextCNN, BiLSTM, Standard CodeBERT)?</p>
+          <div class="rq-metrics">
+            <span class="metric-pill"><i class="ti ti-chart-bar"></i> F1-Macro &gt; 0.75</span>
+            <span class="metric-pill"><i class="ti ti-chart-line"></i> MCC &gt; 0.65</span>
+            <span class="metric-pill"><i class="ti ti-calculator"></i> Wilcoxon &amp; Cliff's Delta</span>
+          </div>
+          <div class="rq-dataset"><i class="ti ti-database"></i> Korpus Data: <strong>D1 (Java Comments), D2 (Multi-Source Apache), D3 (Scientific Software)</strong></div>
+        </div>
+
+        <div class="rq-card">
+          <div class="rq-tag"><i class="ti ti-shield-check"></i> RQ2 &bull; Ketahanan Semantik</div>
+          <h3>Mitigasi Shortcut Learning pada Utang Implisit</h3>
+          <p class="rq-question">Apakah model terdistilasi mampu mempertahankan deteksi ketika kata kunci penanda eksplisit (TODO, FIXME, HACK) disamarkan?</p>
+          <div class="rq-metrics">
+            <span class="metric-pill"><i class="ti ti-shield"></i> Degradasi F1 &lt; 5%</span>
+            <span class="metric-pill"><i class="ti ti-sparkles"></i> Integrated Gradients Attribution</span>
+          </div>
+          <div class="rq-dataset"><i class="ti ti-database"></i> Korpus Data: <strong>D4 (Implicit Masked Test Suite - 4.000 sampel seimbang)</strong></div>
+        </div>
+
+        <div class="rq-card">
+          <div class="rq-tag"><i class="ti ti-cpu"></i> RQ3 &bull; Kelayakan CI/CD</div>
+          <h3>Latensi &amp; Efisiensi Runner Single-Core CPU</h3>
+          <p class="rq-question">Apakah model memenuhi ambang batas latensi &lt; 30 ms dan memori &lt; 500 MB pada lingkungan eksekusi CPU murni tanpa GPU?</p>
+          <div class="rq-metrics">
+            <span class="metric-pill"><i class="ti ti-bolt"></i> Latensi: &tau; &lt; 30 ms</span>
+            <span class="metric-pill"><i class="ti ti-device-sd-card"></i> Memori: &lt; 500 MB RAM</span>
+            <span class="metric-pill"><i class="ti ti-binary"></i> ONNX Runtime CPU</span>
+          </div>
+          <div class="rq-dataset"><i class="ti ti-server"></i> Simulasi: <strong>Intel Xeon 1 vCPU @ 2.4 GHz, RAM 4 GB (GitHub Actions Standard Runner)</strong></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <span><i class="ti ti-git-branch"></i> Repository: <code>NuriInformatics/technical-debt-kd</code></span>
+      <span><i class="ti ti-folder-check"></i> Dashboard Statis Lokal &bull; Tabler Icons Integrated</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
