@@ -9,7 +9,7 @@ async function initChecklist() {
 
 async function loadSnapshotIndex() {
   try {
-    const res = await fetch("checklists/index.json");
+    const res = await fetch("history/index.json");
     if (!res.ok) throw new Error("HTTP " + res.status);
     availableSnapshots = await res.json();
     renderDateSelector();
@@ -19,7 +19,7 @@ async function loadSnapshotIndex() {
     }
   } catch (err) {
     console.error("Gagal memuat index checklist:", err);
-    loadDateSnapshot("checklists/2026-10-16.json");
+    loadDateSnapshot("history/2026-10-16.json");
   }
 }
 
@@ -42,7 +42,7 @@ function renderDateSelector() {
 }
 
 async function loadDateSnapshot(filename) {
-  const path = filename.startsWith("checklists/") ? filename : `checklists/${filename}`;
+  const path = filename.startsWith("history/") ? filename : `history/${filename}`;
   const container = document.getElementById("checklist-items-container");
 
   try {

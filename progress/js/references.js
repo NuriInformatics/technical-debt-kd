@@ -8,7 +8,12 @@ let searchQuery = '';
 async function loadReferences() {
   const container = document.getElementById("ref-list-container");
   try {
-    const res = await fetch("references.json").catch(() => fetch("../references.json"));
+    let res;
+    try {
+      res = await fetch("../references.json");
+    } catch (e) {
+      res = await fetch("references.json");
+    }
     if (!res.ok) throw new Error("HTTP " + res.status);
     allReferences = await res.json();
     renderReferences();
