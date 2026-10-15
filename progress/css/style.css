@@ -1,31 +1,38 @@
 /* ==========================================================================
    TECHNICAL DEBT KD - MASTER RESEARCH CONSOLE
-   Aesthetic: Swiss Minimalist & Architectural Monochrome
-   Palette System:
-     - Dark Mode: Strict 2 Colors (Deep Obsidian Black + Crisp White/Silver)
-     - Light Mode: Strict 3 Colors (Paper White + Deep Ink + Neutral Slate)
+   Aesthetic: Obsidian & Emerald Technical Studio (Dark) / Botanical Paper (Light)
+   Harmonious Palette System:
+     - Dark Mode: Obsidian Black (#090a0d) + Vibrant Emerald Accent (#10b981) + Slate/Silver Text
+     - Light Mode: Crisp Paper (#fcfcfd) + Deep Forest Emerald Accent (#059669) + Dark Ink Text
    Navigation: Bottom Floating Glass Dock (Capsule)
    Radius: Softly Rounded (No harsh sharp edges)
    ========================================================================== */
 
 :root {
-  /* DARK MODE: STRICT 2 COLORS (Black + White/Silver) */
-  --bg-canvas: #09090b;
-  --bg-surface: #121215;
-  --bg-elevated: #1a1a1f;
-  --bg-hover: #24242a;
+  /* DARK MODE: OBSIDIAN BLACK + VIBRANT EMERALD GREEN */
+  --bg-canvas: #090a0d;
+  --bg-surface: #111318;
+  --bg-elevated: #181b22;
+  --bg-hover: #1f232c;
   
-  --border-subtle: #27272a;
-  --border-active: #ffffff;
-  --border-focus: rgba(255, 255, 255, 0.4);
+  --border-subtle: #242933;
+  --border-focus: #10b981;
+  --border-glow: rgba(16, 185, 129, 0.25);
   
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --text-inverted: #09090b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverted: #042f1a;
 
-  --dock-bg: rgba(18, 18, 22, 0.85);
-  --dock-border: rgba(255, 255, 255, 0.12);
+  /* Signature Brand Accent: Emerald / Mint */
+  --accent: #10b981;
+  --accent-muted: #059669;
+  --accent-tint: rgba(16, 185, 129, 0.1);
+  --accent-border: rgba(16, 185, 129, 0.28);
+  --accent-text: #34d399;
+
+  --dock-bg: rgba(17, 19, 24, 0.88);
+  --dock-border: rgba(255, 255, 255, 0.1);
   --dock-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
 
   --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -45,22 +52,29 @@
 }
 
 [data-theme="light"] {
-  /* LIGHT MODE: STRICT 3 COLORS (White + Ink + Neutral Slate) */
-  --bg-canvas: #ffffff;
-  --bg-surface: #fafafa;
-  --bg-elevated: #f4f4f5;
-  --bg-hover: #e4e4e7;
+  /* LIGHT MODE: CRISP PAPER WHITE + DEEP EMERALD GREEN */
+  --bg-canvas: #fcfcfd;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f4f5f7;
+  --bg-hover: #e9ecef;
   
-  --border-subtle: #e4e4e7;
-  --border-active: #09090b;
-  --border-focus: rgba(9, 9, 11, 0.3);
+  --border-subtle: #e2e5eb;
+  --border-focus: #059669;
+  --border-glow: rgba(5, 150, 105, 0.2);
   
-  --text-primary: #09090b;       /* Color 2: Dark Ink */
-  --text-secondary: #52525b;     /* Color 3: Slate Gray */
-  --text-muted: #71717a;         /* Color 3: Slate Gray Muted */
-  --text-inverted: #ffffff;      /* Color 1: Paper White */
+  --text-primary: #0f172a;       /* Dark Ink */
+  --text-secondary: #475569;     /* Slate Gray */
+  --text-muted: #64748b;         /* Slate Muted */
+  --text-inverted: #ffffff;
 
-  --dock-bg: rgba(255, 255, 255, 0.9);
+  /* Signature Brand Accent: Deep Forest Emerald */
+  --accent: #059669;
+  --accent-muted: #047857;
+  --accent-tint: rgba(5, 150, 105, 0.08);
+  --accent-border: rgba(5, 150, 105, 0.25);
+  --accent-text: #065f46;
+
+  --dock-bg: rgba(255, 255, 255, 0.92);
   --dock-border: rgba(0, 0, 0, 0.08);
   --dock-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
 }
@@ -85,9 +99,10 @@ html, body {
 /* Subtle architectural grain / grid */
 body {
   background-image: 
+    radial-gradient(circle at 50% 0%, var(--accent-tint) 0%, transparent 50%),
     linear-gradient(to right, rgba(125, 125, 125, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(125, 125, 125, 0.04) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-size: 100% 100%, 32px 32px, 32px 32px;
   display: flex;
   flex-direction: column;
 }
@@ -137,10 +152,10 @@ body {
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 10.5px;
+  font-weight: 700;
   letter-spacing: 0.8px;
-  color: var(--text-muted);
+  color: var(--accent);
   text-transform: uppercase;
 }
 
@@ -199,8 +214,8 @@ body {
 
 .repo-link:hover {
   background: var(--bg-elevated);
-  border-color: var(--border-focus);
-  color: var(--text-primary);
+  border-color: var(--accent-border);
+  color: var(--accent);
 }
 
 .theme-toggle-btn {
@@ -219,8 +234,8 @@ body {
 
 .theme-toggle-btn:hover {
   background: var(--bg-elevated);
-  color: var(--text-primary);
-  border-color: var(--border-focus);
+  color: var(--accent);
+  border-color: var(--accent-border);
 }
 
 /* ==========================================================================
@@ -287,24 +302,24 @@ body {
 
 .dock-btn:hover {
   color: var(--text-primary);
-  background: var(--bg-surface);
+  background: var(--accent-tint);
 }
 
-/* Inverted contrast when active */
+/* Signature Emerald Active State */
 .dock-btn.active {
-  background: var(--text-primary);
+  background: var(--accent);
   color: var(--text-inverted);
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
 }
 
 .dock-btn.active .dock-num {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .dock-btn.active .dock-badge {
   background: var(--text-inverted);
-  color: var(--text-primary);
+  color: var(--accent);
   border-color: var(--text-inverted);
 }
 
@@ -382,6 +397,10 @@ body {
   gap: 10px;
 }
 
+.panel-title-wrap h2 i {
+  color: var(--accent);
+}
+
 .panel-title-wrap p {
   font-size: 13px;
   color: var(--text-secondary);
@@ -430,8 +449,9 @@ body {
 }
 
 .rq-card:hover {
-  border-color: var(--border-focus);
+  border-color: var(--accent-border);
   transform: translateY(-2px);
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.4);
 }
 
 .rq-badge-row {
@@ -445,9 +465,9 @@ body {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  background: var(--bg-elevated);
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
+  background: var(--accent-tint);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
   padding: 3px 8px;
   border-radius: var(--radius-xs);
 }
@@ -469,7 +489,7 @@ body {
 
 .rq-question-box {
   background: var(--bg-elevated);
-  border-left: 3px solid var(--text-primary);
+  border-left: 3px solid var(--accent);
   padding: 12px 14px;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-size: 13px;
@@ -518,7 +538,7 @@ body {
 
 .metric-pill .val {
   font-family: var(--font-mono);
-  color: var(--text-primary);
+  color: var(--accent);
   font-weight: 700;
   font-size: 11.5px;
 }
@@ -574,7 +594,7 @@ body {
 }
 
 .dataset-card:hover {
-  border-color: var(--border-focus);
+  border-color: var(--accent-border);
   transform: translateY(-2px);
 }
 
@@ -589,17 +609,18 @@ body {
   font-family: var(--font-mono);
   font-size: 16px;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--accent);
 }
 
 .dataset-badge {
   font-family: var(--font-mono);
   font-size: 10px;
+  font-weight: 600;
   padding: 3px 8px;
   border-radius: var(--radius-pill);
-  background: var(--bg-elevated);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
+  background: var(--accent-tint);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
 }
 
 .dataset-name {
@@ -672,8 +693,9 @@ body {
 }
 
 .dataset-link-btn:hover {
-  background: var(--bg-hover);
-  border-color: var(--border-focus);
+  background: var(--accent-tint);
+  border-color: var(--accent-border);
+  color: var(--accent);
 }
 
 /* ==========================================================================
@@ -715,8 +737,8 @@ body {
 }
 
 .ref-search-input:focus {
-  border-color: var(--border-active);
-  box-shadow: 0 0 0 3px var(--border-focus);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--border-glow);
 }
 
 .search-shortcut-hint {
@@ -788,7 +810,7 @@ body {
 .ref-role-tag {
   margin-top: 6px;
   font-size: 11.5px;
-  color: var(--text-secondary);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   display: flex;
   align-items: center;
@@ -802,9 +824,9 @@ body {
   font-weight: 600;
   padding: 3px 8px;
   border-radius: var(--radius-pill);
-  background: var(--bg-elevated);
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
+  background: var(--accent-tint);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
   white-space: nowrap;
 }
 
@@ -830,13 +852,13 @@ body {
 }
 
 .action-icon-btn:hover {
-  color: var(--text-primary);
-  border-color: var(--border-focus);
+  color: var(--accent);
+  border-color: var(--accent-border);
 }
 
 /* ==========================================================================
    VIEW 4: CHECKLIST AUDIT DRAF BAB 3
-   ========================================================================= */
+   ========================================================================== */
 .audit-cockpit {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -913,8 +935,12 @@ body {
   transition: var(--transition-fast);
 }
 
+.audit-item-card:hover {
+  border-color: var(--accent-border);
+}
+
 .audit-item-card.is-completed {
-  opacity: 0.55;
+  opacity: 0.6;
   background: var(--bg-canvas);
 }
 
@@ -934,13 +960,13 @@ body {
 }
 
 .audit-checkbox:hover {
-  border-color: var(--text-primary);
+  border-color: var(--accent);
 }
 
-/* Inverted checked state */
+/* Signature Emerald Checked State */
 .audit-checkbox.checked {
-  background: var(--text-primary);
-  border-color: var(--text-primary);
+  background: var(--accent);
+  border-color: var(--accent);
   color: var(--text-inverted);
 }
 
@@ -965,7 +991,7 @@ body {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--accent);
 }
 
 .audit-loc {
@@ -977,6 +1003,7 @@ body {
 .audit-sev-badge {
   font-family: var(--font-mono);
   font-size: 10px;
+  font-weight: 600;
   padding: 2px 7px;
   border-radius: var(--radius-pill);
   background: var(--bg-elevated);
@@ -1011,9 +1038,11 @@ body {
   color: var(--text-secondary);
 }
 
+/* Solution Box Highlighted with Subtle Emerald Harmony */
 .diff-solution {
-  color: var(--text-primary);
-  border-color: var(--border-focus);
+  background: var(--accent-tint);
+  border-color: var(--accent-border);
+  color: var(--accent-text);
 }
 
 .diff-tag {
@@ -1035,13 +1064,13 @@ body {
   bottom: 84px; /* Above the floating dock */
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  background: var(--text-primary);
+  background: var(--accent);
   color: var(--text-inverted);
   padding: 9px 18px;
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   opacity: 0;
   pointer-events: none;
