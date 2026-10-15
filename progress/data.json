@@ -4,125 +4,84 @@
     "english_title": "Multi-Artifact Domain Self-Admitted Technical Debt Detection Using Distilled CodeBERT",
     "student": "Hanief Fathul Bahri Ahmad",
     "nim": "1250028",
-    "class": "14.3B.12 / Jumat 17:00 – 19:30 WIB",
+    "class": "14.3B.12 / Jumat, 17:00 – 19:30 WIB",
     "program": "Magister Ilmu Komputer (S2)",
     "course": "Software Quality & Effort Estimation (SQEE - M057)",
     "advisor": "Dr. Irwansyah Saputra, M.Kom.",
     "advisor_nip": "201909149",
     "academic_year": "Semester Gasal 2026/2027",
-    "status": "In Progress (Penyelarasan Bab 1 & Bab 3)",
+    "status": "Draf Siap Uji / Menunggu Bimbingan Dosen",
     "date": "2026-10-16"
   },
   "metrics": {
     "total_references": 21,
     "pdf_verified": 23,
-    "estimated_pages": 23,
     "dataset_samples": "978.633",
-    "official_revisions_count": 3,
-    "ai_alerts_count": 7
+    "alerts_count": 7
   },
-  "official_revisions": [
-    {
-      "id": "REV-01",
-      "source": "Arahan Dosen Pengampu (Dr. Irwansyah Saputra, M.Kom.)",
-      "date": "2026-10-14",
-      "target_section": "Subbab 3.5 Metrik Evaluasi & Subbab 3.6.3 Uji Signifikansi",
-      "topic": "Penetapan Metrik Evaluasi Kebal Imbalance & Uji Non-Parametrik",
-      "directive": "Evaluasi klasifikasi biner wajib menggunakan metrik yang kebal ketimpangan kelas (class imbalance), yaitu Matthews Correlation Coefficient (MCC) dan Macro-F1. Uji komparasi antar-model tidak boleh mengandalkan perbedaan nilai rerata numerik semata, melainkan wajib diuji melalui protokol statistika inferensial non-parametrik (Wilcoxon Signed-Rank Test & Cliff's Delta) karena sebaran metrik software engineering terbukti tidak berdistribusi normal.",
-      "implementation_status": "Implemented in MD (Pending sync to Word/PDF)",
-      "evidence": "Subbab 3.5.1 diperkuat dengan teorema Chicco et al. (2021). Subbab 3.6.3 mengadopsi protokol statistik Abdu et al. (2024)."
-    },
-    {
-      "id": "REV-02",
-      "source": "Arahan Dosen Pengampu (Dr. Irwansyah Saputra, M.Kom.)",
-      "date": "2026-10-12",
-      "target_section": "Subbab 3.5.3 Estimasi Effort",
-      "topic": "Pembersihan Ruang Lingkup: Hapus Subbab Estimasi Effort",
-      "directive": "Hapus subbab estimasi effort rekayasa perangkat lunak karena penelitian tesis ini berfokus pada prediksi cacat dan pendeteksian utang teknis (klasifikasi biner pada komentar/artefak teks), bukan estimasi durasi waktu rekayasa atau biaya (regresi). Struktur metodologi harus strictly deduktif menjawab 3 Research Questions dari Bab 1.",
-      "implementation_status": "Implemented in MD (Pending sync to Word/PDF)",
-      "evidence": "Subbab 3.5.3 (Effort Estimation) dihapus total dari naskah naskah Markdown Bab 3."
-    },
-    {
-      "id": "REV-03",
-      "source": "Arahan Dosen Pengampu (Dr. Irwansyah Saputra, M.Kom.)",
-      "date": "2026-10-12",
-      "target_section": "Subbab 3.2 & Subbab 3.4 Formulasi Distilasi",
-      "topic": "Kelayakan Lingkungan Eksperimen Komputasi",
-      "directive": "Pastikan seluruh rancangan eksperimen distilasi pengetahuan dapat dieksekusi secara nyata pada lingkungan komputasi yang dapat diakses (misal Google Colab GPU T4 16 GB VRAM) tanpa mengalami out-of-memory (OOM).",
-      "implementation_status": "Implemented in MD (Pending sync to Word/PDF)",
-      "evidence": "Model Teacher dialihkan dari 7B ke DeepSeek-Coder-1.3B (FP16 Native, ~3 GB VRAM)."
-    }
-  ],
-  "ai_advisory_alerts": [
+  "draft_audit_alerts": [
     {
       "id": "ALT-01",
       "category": "Administratif",
-      "severity": "High",
+      "severity": "Penting",
       "location": "Cover Bab 3 (Halaman 1)",
-      "title": "Placeholder Judul Tesis Belum Terisi",
-      "finding": "Pada cover Bab 3 tertulis '[ Tuliskan Judul Rencana Tesis S2 yang telah disetujui / direvisi pada Tugas 01 & 02 ]'.",
-      "recommendation": "Ganti dengan judul resmi yang telah diajukan pada Bab 1: 'DETEKSI SELF-ADMITTED TECHNICAL DEBT MULTI ARTEFAK DOMAIN MENGGUNAKAN DISTILASI CODEBERT'.",
-      "status": "Alert Active (Perlu edit di Word)"
+      "title": "Placeholder Judul Tesis Belum Diisi",
+      "problem": "Tertulis teks '[ Tuliskan Judul Rencana Tesis S2 yang telah disetujui / direvisi pada Tugas 01 & 02 ]'.",
+      "solution": "Salin judul resmi dari Bab 1: DETEKSI SELF-ADMITTED TECHNICAL DEBT MULTI ARTEFAK DOMAIN MENGGUNAKAN DISTILASI CODEBERT."
     },
     {
       "id": "ALT-02",
       "category": "Administratif",
-      "severity": "High",
+      "severity": "Penting",
       "location": "Cover Bab 3 (Halaman 1)",
-      "title": "Typo Penulisan NIM Mahasiswa",
-      "finding": "Pada cover Bab 3 tertulis NIM 14250028, sedangkan pada cover Bab 1 tertulis 1250028 (kelebihan angka '4').",
-      "recommendation": "Hapus angka '4' di awal NIM menjadi 1250028 agar sinkron dengan Bab 1 dan sistem kampus.",
-      "status": "Alert Active (Perlu edit di Word)"
+      "title": "Typo NIM Mahasiswa",
+      "problem": "Tertulis NIM 14250028 (kelebihan digit '4'), sedangkan pada Bab 1 adalah 1250028.",
+      "solution": "Koreksi menjadi 1250028 agar selaras dengan PDDIKTI / sistem akademik."
     },
     {
       "id": "ALT-03",
-      "category": "Konsistensi Teknis",
-      "severity": "High",
+      "category": "Metodologi",
+      "severity": "Penting",
       "location": "Subbab 3.2 Poin 5 (Halaman 7)",
-      "title": "Kontradiksi Skala Parameter Teacher (7B vs 1.3B)",
-      "finding": "Narasi di Halaman 7 masih menyebut 'Teacher berskala 7 miliar parameter', padahal Tabel 3.2 telah menggunakan DeepSeek-Coder-1.3B.",
-      "recommendation": "Ubah teks di Halaman 7 menjadi 1,3 Miliar parameter agar selaras dengan Tabel 3.2.",
-      "status": "Alert Active (Perlu edit di Word)"
+      "title": "Kontradiksi Skala Parameter Teacher",
+      "problem": "Narasi teks menyebut 'Teacher berskala 7 miliar parameter', sementara Tabel 3.2 sudah memakai DeepSeek-Coder-1.3B.",
+      "solution": "Ubah narasi teks menjadi '1,3 Miliar parameter' agar sinkron dengan Tabel 3.2 dan muat di Colab T4."
     },
     {
       "id": "ALT-04",
-      "category": "Sitasi & Bibliografi",
-      "severity": "High",
+      "category": "Sitasi",
+      "severity": "Penting",
       "location": "Subbab 3.5.1 Metrik (Halaman 16)",
-      "title": "Paper Chicco et al. (2021) Hilang dari Daftar Pustaka",
-      "finding": "Di teks disitir 'Chicco, Starovoitov, dan Jurman (2021) dalam IEEE Access...', tetapi rujukan [1]-[12] di PDF tidak mencantumkan paper ini.",
-      "recommendation": "Tambahkan entri bibliografi Chicco et al. (2021) ke Daftar Pustaka file Word.",
-      "status": "Alert Active (Perlu edit di Word)"
+      "title": "Paper Chicco et al. (2021) Hilang di Daftar Pustaka",
+      "problem": "Disitir di isi teks untuk justifikasi metrik MCC, namun belum masuk di daftar pustaka [1]-[12] PDF Bab 3.",
+      "solution": "Tambahkan entri Chicco et al. (2021) ke bibliografi file Word."
     },
     {
       "id": "ALT-05",
-      "category": "Sitasi & Bibliografi",
-      "severity": "Medium",
-      "location": "Halaman 16 & Halaman 17",
-      "title": "Salah Sasaran Nomor Sitasi ([5] dan [11])",
-      "finding": "Sitasi AUC-PR menunjuk rujukan [5] (Melin et al., komputasi sains), dan domain sains menunjuk rujukan [11] (Gu et al., komentar Apache).",
-      "recommendation": "Tukar dan luruskan nomor rujukan sitasi di naskah Word.",
-      "status": "Alert Active (Perlu edit di Word)"
+      "category": "Sitasi",
+      "severity": "Sedang",
+      "location": "Halaman 16 & 17",
+      "title": "Nomor Sitasi Tertukar",
+      "problem": "Sitasi AUC-PR menunjuk rujukan [5] (Melin et al., sains), sedangkan domain sains menunjuk [11] (Gu et al., Apache).",
+      "solution": "Tukar dan luruskan nomor rujukan sitasi di naskah Word."
     },
     {
       "id": "ALT-06",
-      "category": "Formula Matematika",
-      "severity": "Medium",
+      "category": "Tipografi",
+      "severity": "Sedang",
       "location": "Subbab 3.4.1 (Halaman 11-12)",
-      "title": "Formula Soft-Targets Terputus Margin",
-      "finding": "Pembilang exp(z_k/T) terpotong batas bawah halaman, hanya menyisakan penyebut sum exp(z_j/T).",
-      "recommendation": "Gunakan format formula Word Equation satu baris agar tidak terpecah ke halaman berikutnya.",
-      "status": "Alert Active (Perlu edit di Word)"
+      "title": "Formula Soft-Targets Terpotong Margin",
+      "problem": "Pembilang exp(z_k/T) terpotong ke bawah margin halaman, hanya menyisakan baris penyebut.",
+      "solution": "Format formula Word Equation dalam 1 baris utuh agar tidak terpecah halaman."
     },
     {
       "id": "ALT-07",
-      "category": "Formula Matematika",
-      "severity": "Medium",
+      "category": "Tipografi",
+      "severity": "Sedang",
       "location": "Subbab 3.5.1 (Halaman 16)",
-      "title": "Formula F1_macro dan Simbol Himpunan Bertumpuk",
-      "finding": "Teks indeks bertumpuk 'k in F1macro = ...' dan simbol kurung kurawal himpunan '(k in 0, 1)' hilang.",
-      "recommendation": "Pisahkan rumus kelas dan rumus macro menjadi dua baris independen dengan notasi k in {0, 1}.",
-      "status": "Alert Active (Perlu edit di Word)"
+      "title": "Formula Macro-F1 Bertumpuk",
+      "problem": "Teks indeks bertumpuk dan tanda kurung kurawal himpunan k in {0, 1} hilang saat render PDF.",
+      "solution": "Gunakan persamaan equation standar dua baris terpisah."
     }
   ],
   "datasets": [
@@ -133,7 +92,8 @@
       "rows": "62.275 baris",
       "file": "dataset/D1_code_comments.csv",
       "repo_url": "https://github.com/yikun-li/satd-different-sources-data",
-      "status": "Downloaded (5.2 MB)"
+      "size": "5.2 MB",
+      "status": "Ready (Downloaded)"
     },
     {
       "code": "D2",
@@ -142,7 +102,8 @@
       "rows": "17.000 baris",
       "file": "dataset/D2_commit_messages.csv, D2_issues.csv, D2_pull_requests.csv",
       "repo_url": "https://github.com/yikun-li/satd-different-sources-data",
-      "status": "Downloaded (6.8 MB)"
+      "size": "6.8 MB",
+      "status": "Ready (Downloaded)"
     },
     {
       "code": "D3",
@@ -151,7 +112,8 @@
       "rows": "900.358 baris",
       "file": "dataset/D3_scientific_master.csv",
       "repo_url": "https://github.com/MelinHead225/PASC26-Replication-Package",
-      "status": "Downloaded (22.0 MB)"
+      "size": "22.0 MB",
+      "status": "Ready (Downloaded)"
     },
     {
       "code": "D4",
@@ -160,30 +122,40 @@
       "rows": "4.000 baris",
       "file": "dataset/D4_implicit_masked_test.csv",
       "repo_url": "dataset/generate_d4_masked.py",
-      "status": "Generated (4k Balanced)"
+      "size": "340 KB",
+      "status": "Ready (Generated)"
     }
   ],
   "rq_mappings": [
     {
       "rq": "RQ1",
-      "title": "Pengaruh Distilasi Pengetahuan terhadap Peningkatan Deteksi SATD",
+      "tag": "Efektivitas Distilasi",
+      "title": "Pengaruh Distilasi Pengetahuan terhadap Deteksi SATD",
       "question": "Bagaimana pengaruh penerapan distilasi pengetahuan pada arsitektur CodeBERT terhadap peningkatan kemampuan deteksi Self-Admitted Technical Debt dibandingkan model baseline?",
-      "target": "Superioritas metrik F1-Macro, MCC, dan AUC-PR teruji secara statistik non-parametrik (Wilcoxon Signed-Rank Test p < 0.05, Cliff's Delta d > 0.33) terhadap TextCNN, BiLSTM, dan CodeBERT standar.",
-      "corpus": "D1 (Comments), D2 (Multi-Source Apache), D3 (Scientific Software)"
+      "metric": "Macro-F1, MCC, AUC-PR",
+      "test": "Wilcoxon Signed-Rank Test (p < 0.05) & Cliff's Delta (|d| > 0.33)",
+      "baseline": "TextCNN, BiLSTM, Standard CodeBERT",
+      "corpus": "D1 (Comments), D2 (Multi-Source Apache), D3 (Scientific)"
     },
     {
       "rq": "RQ2",
-      "title": "Efektivitas Deteksi SATD Implisit via Masking Kata Kunci",
+      "tag": "Ketahanan Implisit",
+      "title": "Deteksi SATD Implisit via Penyamaran Kata Kunci (Masking)",
       "question": "Sejauh mana Distilled CodeBERT efektif dalam mendeteksi Self-Admitted Technical Debt yang bersifat implisit ketika kata kunci eksplisit disamarkan atau dihilangkan?",
-      "target": "Stabilitas skor F1-Macro dengan batas degradasi < 5% pada korpus D4 masked test suite (penyamaran token TODO, FIXME, HACK, WORKAROUND).",
-      "corpus": "D4 (Implicit Masked Test Suite - 4.000 sampel seimbang)"
+      "metric": "Degradasi Macro-F1 < 5%",
+      "test": "Evaluasi Komparatif pada Korpus Bertopeng [MASK]",
+      "baseline": "Model dengan Shortcut Learning (Gagal tanpa token TODO/FIXME)",
+      "corpus": "D4 (Implicit Masked Test Suite - 4.000 sampel)"
     },
     {
       "rq": "RQ3",
-      "title": "Akurasi Deteksi dan Efisiensi Komputasi pada Skenario CI/CD",
+      "tag": "Efisiensi CI/CD",
+      "title": "Akurasi vs Efisiensi Komputasi pada Runner CI/CD",
       "question": "Bagaimana perbandingan kinerja Distilled CodeBERT dengan model pembanding ditinjau dari akurasi deteksi dan efisiensi komputasi pada skenario implementasi CI/CD?",
-      "target": "Memenuhi kriteria latensi inferensi CPU single-core tau < 30 ms/komentar dan memori puncak M_peak < 500 MB RAM (Format ONNX Runtime CPU).",
-      "corpus": "Simulasi Runner Lingkungan Intel Xeon 1 vCPU @ 2.4 GHz, RAM 4 GB"
+      "metric": "Latensi CPU < 30 ms/komentar & RAM < 500 MB",
+      "test": "Simulasi ONNX Runtime CPU Single-Core (Intel Xeon 2.4 GHz)",
+      "baseline": "DeepSeek-Coder 1.3B / 7B (Latensi > 1.200 ms, RAM > 3 GB)",
+      "corpus": "Runner Simulasi CI/CD Pipeline"
     }
   ]
 }

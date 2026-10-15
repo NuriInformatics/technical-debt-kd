@@ -13,7 +13,7 @@
 * **Dosen Pengampu:** Dr. Irwansyah Saputra, M.Kom. (NIP: 201909149)
 * 📊 **Dashboard Progres & Audit Naskah:** Buka [`progress/index.html`](progress/index.html) di browser.
 * 🎯 **Research Gap & 3 Rumusan Masalah:** Baca [`Gap-research.md`](Gap-research.md).
-* 📚 **Daftar 21 Pustaka Empiris (APA 7th):** Lihat [`references.txt`](references.txt).
+* 📚 **Daftar 21 Pustaka Empiris (JSON Terstruktur):** Lihat [`references.json`](references.json).
 
 ---
 
@@ -23,15 +23,15 @@
 technical-debt-kd/
 ├── dataset/         # Korpus D1, D2, D3 terunduh & skrip generator D4
 ├── models/          # Tempat bobot model & skrip ekspor ONNX untuk CPU CI/CD
-├── progress/        # Dashboard web statis progres & audit revisi naskah
-│   ├── data.json    # Data terpusat (Arahan resmi dosen, alert audit AI, metrik)
-│   ├── index.html   # Console UI minimalis elegan (tanpa form tiruan)
-│   ├── style.css    # Styling editorial modern (Plus Jakarta Sans & JetBrains Mono)
-│   ├── app.js       # Logika render data riil & navigasi tab
-│   └── history/     # Log riwayat catatan audit & changelog revisi
+├── progress/        # Dashboard web statis progres & audit naskah
+│   ├── data.json    # Metadata terpusat (RQ, dataset, checklist audit draf)
+│   ├── index.html   # Console UI ringkas & mudah dinavigasi
+│   ├── style.css    # Styling editorial modern & bersih
+│   ├── app.js       # Logika render data & pemuatan references.json
+│   └── history/     # Log riwayat catatan audit draf
 ├── references/      # Arsip 23 file PDF rujukan primer (Scopus Q1/Q2 & SINTA 1/2)
 ├── Gap-research.md  # Kesenjangan riset empiris & perumusan 3 RQ Bab 1
-├── references.txt   # Daftar referensi teks terstandar APA 7th
+├── references.json  # Database 21 referensi terstruktur (bisa dipakai lintas modul)
 └── README.md        # Ringkasan repositori
 ```
 

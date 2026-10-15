@@ -3,239 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thesis Progress & Academic Audit Console</title>
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <title>Dashboard Tesis S2 &bull; Multi-Artifact SATD Detection</title>
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <!-- Tabler Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Top Minimalist Bar -->
-  <header class="masthead">
-    <div class="container masthead-inner">
-      <div class="masthead-main">
-        <div class="meta-strip">
-          <span class="mono-badge">PROPOSAL TESIS S2</span>
-          <span class="meta-divider">/</span>
-          <span class="meta-label">Software Quality & Effort Estimation (SQEE) &bull; Kelas 14.3B.12</span>
-          <span class="meta-divider">/</span>
-          <span class="meta-status"><i class="ti ti-point-filled"></i> Penyelarasan Bab 1 & Bab 3</span>
-        </div>
-        <h1 class="thesis-headline">DETEKSI SELF-ADMITTED TECHNICAL DEBT MULTI ARTEFAK DOMAIN MENGGUNAKAN DISTILASI CODEBERT</h1>
-        <div class="author-line">
-          <span>Peneliti: <strong>Hanief Fathul Bahri Ahmad</strong> <span class="mono-tag">NIM 1250028</span></span>
-          <span class="bullet">&bull;</span>
-          <span>Dosen Pengampu: <strong>Dr. Irwansyah Saputra, M.Kom.</strong></span>
+
+  <!-- Top Simple Navigation & Identity -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="header-brand">
+        <span class="badge-s2">TESIS S2</span>
+        <div class="brand-text">
+          <h1 class="brand-title">DETEKSI SELF-ADMITTED TECHNICAL DEBT MULTI ARTEFAK DOMAIN MENGGUNAKAN DISTILASI CODEBERT</h1>
+          <p class="brand-sub">
+            <span>Peneliti: <strong>Hanief Fathul Bahri Ahmad</strong> (NIM 1250028)</span>
+            <span class="sep">&bull;</span>
+            <span>Dosen: <strong>Dr. Irwansyah Saputra, M.Kom.</strong></span>
+            <span class="sep">&bull;</span>
+            <span>Kelas 14.3B.12 (SQEE)</span>
+          </p>
         </div>
       </div>
-      <div class="masthead-side">
-        <div class="repo-badge">
-          <i class="ti ti-git-branch"></i>
-          <span>NuriInformatics/technical-debt-kd</span>
+      <div class="header-status">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span>Draf Bab 1 & Bab 3 Siap Uji</span>
         </div>
-        <div class="date-stamp" id="live-date">Semester Gasal 2026/2027</div>
+        <div class="git-tag">
+          <i class="ti ti-brand-git"></i> <code>NuriInformatics/technical-debt-kd</code>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Metric Strip -->
-  <section class="metric-section">
-    <div class="container">
-      <div class="metric-strip">
-        <div class="metric-item">
-          <span class="metric-num text-primary">3</span>
-          <div class="metric-info">
-            <span class="metric-title">Arahan Revisi Dosen</span>
-            <span class="metric-sub">Resmi dari Dr. Irwansyah Saputra</span>
-          </div>
+  <!-- Quick Numbers -->
+  <section class="stat-strip">
+    <div class="container stat-grid">
+      <button class="stat-card" onclick="switchTab('tab-rq')">
+        <div class="stat-icon icon-blue"><i class="ti ti-target-arrow"></i></div>
+        <div class="stat-detail">
+          <span class="stat-val">3</span>
+          <span class="stat-lbl">Rumusan Masalah (RQ)</span>
         </div>
-        <div class="metric-item">
-          <span class="metric-num text-warning">7</span>
-          <div class="metric-info">
-            <span class="metric-title">Saran Alert Audit AI</span>
-            <span class="metric-sub">Deteksi anomali teks draft PDF</span>
-          </div>
+      </button>
+
+      <button class="stat-card" onclick="switchTab('tab-datasets')">
+        <div class="stat-icon icon-emerald"><i class="ti ti-database"></i></div>
+        <div class="stat-detail">
+          <span class="stat-val">978k</span>
+          <span class="stat-lbl">Sampel Data (D1–D4)</span>
         </div>
-        <div class="metric-item">
-          <span class="metric-num text-accent">978k</span>
-          <div class="metric-info">
-            <span class="metric-title">Sampel Dataset Empiris</span>
-            <span class="metric-sub">Korpus D1, D2, D3 terunduh + D4</span>
-          </div>
+      </button>
+
+      <button class="stat-card" onclick="switchTab('tab-references')">
+        <div class="stat-icon icon-indigo"><i class="ti ti-books"></i></div>
+        <div class="stat-detail">
+          <span class="stat-val" id="ref-count-stat">21</span>
+          <span class="stat-lbl">Pustaka Primer (JSON)</span>
         </div>
-        <div class="metric-item">
-          <span class="metric-num text-dark">21</span>
-          <div class="metric-info">
-            <span class="metric-title">Referensi Primer Terverifikasi</span>
-            <span class="metric-sub">23 PDF fisik tersimpan di <code>/references</code></span>
-          </div>
+      </button>
+
+      <button class="stat-card" onclick="switchTab('tab-alerts')">
+        <div class="stat-icon icon-amber"><i class="ti ti-alert-triangle"></i></div>
+        <div class="stat-detail">
+          <span class="stat-val">7</span>
+          <span class="stat-lbl">Catatan Audit Draf</span>
         </div>
-      </div>
+      </button>
     </div>
   </section>
 
-  <!-- Navigation Bar -->
-  <nav class="nav-bar">
-    <div class="container nav-inner">
-      <div class="tab-group">
-        <button class="nav-tab active" data-tab="tab-revisions">
-          <i class="ti ti-message-2-check"></i> Log Revisi Resmi Dosen (3)
+  <!-- Main Tabs (Simplified into 4 Clean Views) -->
+  <div class="tab-nav-wrapper">
+    <div class="container tab-nav-container">
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="tab-rq" onclick="switchTab('tab-rq')">
+          <i class="ti ti-target-arrow"></i> 1. Rumusan Masalah (Bab 1)
         </button>
-        <button class="nav-tab" data-tab="tab-alerts">
-          <i class="ti ti-alert-triangle"></i> Saran & Alert Audit AI (7)
+        <button class="tab-btn" data-tab="tab-datasets" onclick="switchTab('tab-datasets')">
+          <i class="ti ti-database"></i> 2. Kesiapan Dataset (D1–D4)
         </button>
-        <button class="nav-tab" data-tab="tab-diff">
-          <i class="ti ti-git-compare"></i> Perbandingan Diff Naskah
+        <button class="tab-btn" data-tab="tab-references" onclick="switchTab('tab-references')">
+          <i class="ti ti-books"></i> 3. Referensi Ilmiah (<span id="tab-ref-count">21</span>)
         </button>
-        <button class="nav-tab" data-tab="tab-datasets">
-          <i class="ti ti-database"></i> Kesiapan Dataset (D1–D4)
-        </button>
-        <button class="nav-tab" data-tab="tab-references">
-          <i class="ti ti-books"></i> Literatur & PDF Fisik (21)
-        </button>
-        <button class="nav-tab" data-tab="tab-rq">
-          <i class="ti ti-target-arrow"></i> Matriks RQ Bab 1
+        <button class="tab-btn" data-tab="tab-alerts" onclick="switchTab('tab-alerts')">
+          <i class="ti ti-checklist"></i> 4. Checklist Perbaikan Draf (7)
         </button>
       </div>
     </div>
-  </nav>
+  </div>
 
-  <!-- Main Content Areas -->
-  <main class="container content-area">
-    <!-- TAB 1: Log Revisi Resmi Dosen -->
-    <section id="tab-revisions" class="tab-pane active">
-      <div class="section-lead">
+  <!-- Content Container -->
+  <main class="container page-content">
+    
+    <!-- TAB 1: RUMUSAN MASALAH -->
+    <section id="tab-rq" class="tab-view active">
+      <div class="view-header">
         <div>
-          <h2 class="section-title">Log Revisi Resmi Dosen Pengampu / Pembimbing</h2>
-          <p class="section-desc">Instruksi bimbingan langsung dari <strong>Dr. Irwansyah Saputra, M.Kom.</strong> yang menjadi dasar acuan pembaruan naskah tesis.</p>
-        </div>
-        <div class="pill-stats">
-          <span class="pill pill-success"><i class="ti ti-check"></i> 3 Arahan Resmi Tercatat</span>
+          <h2 class="view-title">3 Rumusan Masalah & Kerangka Evaluasi</h2>
+          <p class="view-desc">Deduktif menjawab masalah deteksi utang teknis lintas domain dan efisiensi CI/CD sesuai Bab 1 Subbab 1.2.2.</p>
         </div>
       </div>
 
-      <div class="revision-grid" id="official-revisions-container">
-        <!-- Rendered by JS from data.json -->
+      <div class="rq-list" id="rq-container">
+        <!-- Rendered by JS -->
       </div>
     </section>
 
-    <!-- TAB 2: Saran & Alert Audit AI -->
-    <section id="tab-alerts" class="tab-pane">
-      <div class="section-lead">
+    <!-- TAB 2: DATASET -->
+    <section id="tab-datasets" class="tab-view">
+      <div class="view-header">
         <div>
-          <h2 class="section-title">Saran & Alert Audit AI Naskah Draft Bab 3</h2>
-          <p class="section-desc">Hasil telaah otomatis agen AI terhadap berkas <code>Draft PDF</code> untuk mendeteksi placeholder, typo penulisan NIM, sitasi terlewat, dan formula matematika terputus sebelum bimbingan atau ekspor Word.</p>
-        </div>
-        <div class="pill-stats">
-          <span class="pill pill-warning"><i class="ti ti-alert-circle"></i> 7 Alert Terdeteksi di PDF</span>
+          <h2 class="view-title">Korpus Dataset Empiris (D1 s/d D4)</h2>
+          <p class="view-desc">Seluruh data telah tersimpan di direktori lokal <code>dataset/</code> dan terhubung ke repositori sumber terverifikasi.</p>
         </div>
       </div>
 
-      <div class="audit-table-wrapper">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th style="width: 85px;">Kode</th>
-              <th style="width: 170px;">Lokasi Naskah</th>
-              <th style="width: 140px;">Kategori Alert</th>
-              <th>Temuan Masalah & Rekomendasi Solusi AI</th>
-              <th style="width: 90px;">Tingkat</th>
-              <th style="width: 180px;">Status Tindak Lanjut</th>
-            </tr>
-          </thead>
-          <tbody id="ai-alerts-table-body">
-            <!-- Rendered by JS from data.json -->
-          </tbody>
-        </table>
+      <div class="dataset-grid" id="dataset-container">
+        <!-- Rendered by JS -->
       </div>
     </section>
 
-    <!-- TAB 3: Perbandingan Diff Naskah -->
-    <section id="tab-diff" class="tab-pane">
-      <div class="section-lead">
+    <!-- TAB 3: REFERENSI DARI JSON -->
+    <section id="tab-references" class="tab-view">
+      <div class="view-header ref-header-row">
         <div>
-          <h2 class="section-title">Perbandingan Diff Teks: Draft Lama vs Naskah Rekomendasi</h2>
-          <p class="section-desc">Bukti perbandingan teks untuk menindaklanjuti arahan dosen dan peringatan audit AI.</p>
+          <h2 class="view-title">Daftar Pustaka Primer (APA 7th Edition)</h2>
+          <p class="view-desc">Sumber data tunggal dimuat langsung dari <code>references.json</code>. Dilengkapi 23 berkas PDF di folder <code>references/</code>.</p>
+        </div>
+        <div class="ref-actions">
+          <div class="search-box">
+            <i class="ti ti-search"></i>
+            <input type="text" id="ref-search" placeholder="Cari penulis, judul, Scopus, SINTA..." oninput="onSearchRefs(this.value)">
+          </div>
+          <div class="filter-pills" id="filter-pills">
+            <button class="pill active" onclick="filterCategory('all', this)">Semua (21)</button>
+            <button class="pill" onclick="filterCategory('Q1', this)">Scopus Q1</button>
+            <button class="pill" onclick="filterCategory('Q2', this)">Scopus Q2</button>
+            <button class="pill" onclick="filterCategory('SINTA', this)">SINTA 1 & 2</button>
+          </div>
         </div>
       </div>
 
-      <div class="diff-container" id="diff-cards-container">
-        <!-- Rendered by JS from data.json -->
+      <div class="ref-card-list" id="reference-list-container">
+        <!-- Rendered by JS from references.json -->
       </div>
     </section>
 
-    <!-- TAB 4: Kesiapan Dataset -->
-    <section id="tab-datasets" class="tab-pane">
-      <div class="section-lead">
+    <!-- TAB 4: CHECKLIST PERBAIKAN DRAF (AUDIT AI) -->
+    <section id="tab-alerts" class="tab-view">
+      <div class="view-header">
         <div>
-          <h2 class="section-title">Korpus Empiris & Kesiapan Repositori Lokal</h2>
-          <p class="section-desc">Seluruh berkas CSV tersimpan lokal pada folder <code>dataset/</code> dan terhubung ke repositori publik resmi.</p>
+          <h2 class="view-title">Checklist Perbaikan Naskah Draf Bab 3</h2>
+          <p class="view-desc">Daftar anomali dan saran perbaikan format/sitasi pada draf PDF untuk disempurnakan di file Word sebelum bimbingan.</p>
         </div>
       </div>
 
-      <div class="dataset-grid" id="dataset-grid-container">
-        <!-- Rendered by JS from data.json -->
+      <div class="checklist-container" id="alerts-container">
+        <!-- Rendered by JS -->
       </div>
     </section>
 
-    <!-- TAB 5: Literatur & PDF Fisik -->
-    <section id="tab-references" class="tab-pane">
-      <div class="section-lead">
-        <div>
-          <h2 class="section-title">Daftar 21 Pustaka Primer (APA 7th Edition)</h2>
-          <p class="section-desc">Seluruh rujukan telah dilengkapi bukti fisik 23 file PDF pada folder <code>references/</code> untuk keperluan sidang.</p>
-        </div>
-        <div class="table-search">
-          <i class="ti ti-search"></i>
-          <input type="text" id="ref-search-input" placeholder="Saring berdasarkan nama penulis, judul, atau indeks Scopus/SINTA...">
-        </div>
-      </div>
-
-      <div class="audit-table-wrapper">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th style="width: 50px;">No</th>
-              <th style="width: 180px;">Penulis & Tahun</th>
-              <th>Judul Paper & Sumber Publikasi</th>
-              <th style="width: 130px;">Indeks Mutu</th>
-              <th style="width: 260px;">Berkas PDF Lokal</th>
-              <th style="width: 110px;">Verifikasi</th>
-            </tr>
-          </thead>
-          <tbody id="ref-table-body">
-            <!-- Rendered by JS from data.json -->
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- TAB 6: Matriks RQ -->
-    <section id="tab-rq" class="tab-pane">
-      <div class="section-lead">
-        <div>
-          <h2 class="section-title">Matriks Penyelarasan 3 Rumusan Masalah (Bab 1)</h2>
-          <p class="section-desc">Teks rumusan masalah resmi diambil langsung dari naskah proposal Bab 1 Subbab 1.2.2.</p>
-        </div>
-      </div>
-
-      <div class="rq-layout" id="rq-cards-container">
-        <!-- Rendered by JS from data.json -->
-      </div>
-    </section>
   </main>
 
-  <footer class="colophon">
-    <div class="container colophon-inner">
-      <div class="colophon-left">
-        <strong>Tesis S2 Magister Ilmu Komputer</strong> &bull; Hanief Fathul Bahri Ahmad (NIM: 1250028)
-      </div>
-      <div class="colophon-right">
-        <span>Arsitektur Statis Terpadu &bull; Status Revisi Resmi Dosen &amp; Alert AI</span>
-      </div>
+  <!-- Clean Footer -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <span>Proposal Tesis S2 &bull; <strong>Hanief Fathul Bahri Ahmad</strong> (NIM 1250028)</span>
+      <span>Dosen Pengampu: Dr. Irwansyah Saputra, M.Kom.</span>
     </div>
   </footer>
 
