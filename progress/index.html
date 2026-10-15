@@ -54,18 +54,45 @@
        ======================================================================== -->
   <main class="console-viewport">
 
-    <!-- VIEW 1: RUMUSAN MASALAH (RQ) -->
-    <section class="view-panel active-view" id="view-rq">
+    <!-- VIEW 1: AUDIT DRAFT (DEFAULT VIEW) -->
+    <section class="view-panel active-view" id="view-audit">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-target-arrow"></i> Rumusan Masalah</h2>
+          <h2><i class="ti ti-notes"></i> Audit Draft</h2>
         </div>
       </div>
-      <!-- Skeletons replaced dynamically by app.js from data/rq.json -->
-      <div class="rq-grid" id="rq-container">
-        <div class="skeleton-loader"></div>
-        <div class="skeleton-loader"></div>
-        <div class="skeleton-loader"></div>
+
+      <div class="audit-cockpit">
+        <!-- Left Sidebar: Meta & Metrics -->
+        <aside class="audit-sidebar">
+          <div class="audit-meta-card">
+            <h3>Snapshot Audit</h3>
+            <p>Tanggal: <strong id="audit-meta-date">-</strong></p>
+            <p style="margin-top:4px;">Naskah: <code id="audit-meta-doc">BAB 3.pdf</code></p>
+          </div>
+
+          <div class="progress-ring-container">
+            <div class="progress-numbers">
+              <span class="big" id="audit-pending-count">-</span>
+              <span class="label">Perlu Tindakan</span>
+            </div>
+            <div style="height:32px; width:1px; background:var(--border-subtle); margin:0 4px;"></div>
+            <div class="progress-numbers">
+              <span class="big" id="audit-resolved-count">-</span>
+              <span class="label">Telah Selesai</span>
+            </div>
+          </div>
+
+          <div style="font-size:11.5px; color:var(--text-muted); line-height:1.45; border-top:1px solid var(--border-subtle); padding-top:12px;">
+            <i class="ti ti-robot"></i> Status audit diverifikasi dan diperbarui otomatis oleh AI Agent.
+          </div>
+        </aside>
+
+        <!-- Right Content: Interactive Items -->
+        <div class="audit-items-list" id="audit-items-container">
+          <div class="skeleton-loader"></div>
+          <div class="skeleton-loader"></div>
+        </div>
       </div>
     </section>
 
@@ -128,45 +155,18 @@
       </div>
     </section>
 
-    <!-- VIEW 4: AUDIT DRAFT -->
-    <section class="view-panel" id="view-audit">
+    <!-- VIEW 4: RUMUSAN MASALAH (RQ) -->
+    <section class="view-panel" id="view-rq">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-notes"></i> Audit Draft</h2>
+          <h2><i class="ti ti-target-arrow"></i> Rumusan Masalah</h2>
         </div>
       </div>
-
-      <div class="audit-cockpit">
-        <!-- Left Sidebar: Meta & Metrics -->
-        <aside class="audit-sidebar">
-          <div class="audit-meta-card">
-            <h3>Snapshot Audit</h3>
-            <p>Tanggal: <strong id="audit-meta-date">-</strong></p>
-            <p style="margin-top:4px;">Naskah: <code id="audit-meta-doc">BAB 3.pdf</code></p>
-          </div>
-
-          <div class="progress-ring-container">
-            <div class="progress-numbers">
-              <span class="big" id="audit-pending-count">-</span>
-              <span class="label">Perlu Tindakan</span>
-            </div>
-            <div style="height:32px; width:1px; background:var(--border-subtle); margin:0 4px;"></div>
-            <div class="progress-numbers">
-              <span class="big" id="audit-resolved-count">-</span>
-              <span class="label">Telah Selesai</span>
-            </div>
-          </div>
-
-          <div style="font-size:11.5px; color:var(--text-muted); line-height:1.45; border-top:1px solid var(--border-subtle); padding-top:12px;">
-            <i class="ti ti-robot"></i> Status audit diverifikasi dan diperbarui otomatis oleh AI Agent.
-          </div>
-        </aside>
-
-        <!-- Right Content: Interactive Items -->
-        <div class="audit-items-list" id="audit-items-container">
-          <div class="skeleton-loader"></div>
-          <div class="skeleton-loader"></div>
-        </div>
+      <!-- Skeletons replaced dynamically by app.js from data/rq.json -->
+      <div class="rq-grid" id="rq-container">
+        <div class="skeleton-loader"></div>
+        <div class="skeleton-loader"></div>
+        <div class="skeleton-loader"></div>
       </div>
     </section>
 
@@ -178,10 +178,10 @@
        ======================================================================== -->
   <nav class="floating-dock" aria-label="Navigasi Console">
     <div class="dock-container">
-      <button class="dock-btn tab-btn active" data-tab="rq">
+      <button class="dock-btn tab-btn active" data-tab="audit">
         <span class="dock-num">1</span>
-        <span class="dock-label">Rumusan Masalah</span>
-        <span class="dock-badge" id="tab-count-rq">3</span>
+        <span class="dock-label">Audit Draft</span>
+        <span class="dock-badge" id="tab-count-audit">7</span>
       </button>
       <button class="dock-btn tab-btn" data-tab="datasets">
         <span class="dock-num">2</span>
@@ -193,10 +193,10 @@
         <span class="dock-label">Pustaka Primer</span>
         <span class="dock-badge" id="tab-count-ref">21</span>
       </button>
-      <button class="dock-btn tab-btn" data-tab="audit">
+      <button class="dock-btn tab-btn" data-tab="rq">
         <span class="dock-num">4</span>
-        <span class="dock-label">Audit Draft</span>
-        <span class="dock-badge" id="tab-count-audit">7</span>
+        <span class="dock-label">Rumusan Masalah</span>
+        <span class="dock-badge" id="tab-count-rq">3</span>
       </button>
       <div class="dock-divider"></div>
       <div class="dock-hint" title="Tekan 1-4 pada keyboard untuk berpindah tab">

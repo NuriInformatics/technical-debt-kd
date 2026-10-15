@@ -1,9 +1,8 @@
 /* ==========================================================================
    TECHNICAL DEBT KD - MASTER RESEARCH CONSOLE
-   Aesthetic: Obsidian & Emerald Technical Studio (Dark) / Botanical Paper (Light)
-   Harmonious Palette System:
+   Aesthetic:
      - Dark Mode: Obsidian Black (#090a0d) + Vibrant Emerald Accent (#10b981) + Slate/Silver Text
-     - Light Mode: Crisp Paper (#fcfcfd) + Deep Forest Emerald Accent (#059669) + Dark Ink Text
+     - Light Mode: Crisp Paper (#f0f2f6) + Crimson Red Accent (#dc2626) + Dark Ink Black (#09090b)
    Navigation: Bottom Floating Glass Dock (Capsule)
    Radius: Softly Rounded (No harsh sharp edges)
    ========================================================================== */
@@ -54,33 +53,33 @@
 }
 
 [data-theme="light"] {
-  /* LIGHT MODE: CRISP PAPER WITH CONTRAST ELEVATION */
-  --bg-canvas: #edf0f5;          /* Distinct, soft technical light canvas */
+  /* LIGHT MODE: CRISP PAPER + CRIMSON RED & DEEP BLACK ACCENTS */
+  --bg-canvas: #f0f2f6;          /* Distinct, soft technical light canvas */
   --bg-surface: #ffffff;         /* Pure white cards that clearly pop against canvas */
-  --bg-elevated: #f6f8fb;        /* Clear elevated box */
-  --bg-hover: #e2e8f0;
+  --bg-elevated: #f8f9fb;        /* Clear elevated box */
+  --bg-hover: #e4e7ee;
   
   --border-subtle: #cbd5e1;      /* Visible, crisp architectural border */
-  --border-focus: #047857;
-  --border-glow: rgba(4, 120, 87, 0.2);
+  --border-focus: #dc2626;       /* Crimson Red */
+  --border-glow: rgba(220, 38, 38, 0.28);
   
-  --text-primary: #09090b;       /* Pure high-contrast dark ink */
-  --text-secondary: #334155;     /* Clear dark slate */
-  --text-muted: #64748b;         /* Slate Muted */
+  --text-primary: #09090b;       /* Pure high-contrast dark ink / black */
+  --text-secondary: #18181b;     /* Deep charcoal / dark ink */
+  --text-muted: #52525b;         /* Neutral slate */
   --text-inverted: #ffffff;
 
-  /* Signature Brand Accent: Deep Rich Forest Emerald */
-  --accent: #047857;
-  --accent-muted: #065f46;
-  --accent-tint: rgba(4, 120, 87, 0.08);
-  --accent-border: rgba(4, 120, 87, 0.28);
-  --accent-text: #047857;
+  /* Signature Brand Accent: Crimson Red with Black Balance */
+  --accent: #dc2626;
+  --accent-muted: #b91c1c;
+  --accent-tint: rgba(220, 38, 38, 0.08);
+  --accent-border: rgba(220, 38, 38, 0.28);
+  --accent-text: #b91c1c;
 
   --dock-bg: rgba(255, 255, 255, 0.94);
-  --dock-border: rgba(0, 0, 0, 0.12);
-  --dock-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+  --dock-border: rgba(9, 9, 11, 0.16);
+  --dock-shadow: 0 16px 36px rgba(9, 9, 11, 0.12);
 
-  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 20px -3px rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 1px 3px rgba(9, 9, 11, 0.05), 0 8px 20px -3px rgba(9, 9, 11, 0.06);
 }
 
 *, *::before, *::after {
@@ -309,12 +308,12 @@ body {
   background: var(--accent-tint);
 }
 
-/* Signature Emerald Active State */
+/* Active Tab State */
 .dock-btn.active {
   background: var(--accent);
   color: var(--text-inverted);
   font-weight: 700;
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 4px 16px var(--border-glow);
 }
 
 .dock-btn.active .dock-num {
@@ -325,6 +324,12 @@ body {
   background: var(--text-inverted);
   color: var(--accent);
   border-color: var(--text-inverted);
+}
+
+[data-theme="light"] .dock-btn.active .dock-badge {
+  background: #09090b;
+  color: #ffffff;
+  border-color: #09090b;
 }
 
 .dock-divider {

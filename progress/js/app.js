@@ -5,7 +5,7 @@
 
 // Application State
 const state = {
-  activeTab: 'rq',
+  activeTab: 'audit',
   rq: [],
   datasets: [],
   references: [],
@@ -138,10 +138,10 @@ function initRouting() {
 
 function handleHash() {
   const hash = window.location.hash.replace('#', '');
-  if (['rq', 'datasets', 'references', 'audit'].includes(hash)) {
+  if (['audit', 'datasets', 'references', 'rq'].includes(hash)) {
     switchTab(hash);
   } else {
-    switchTab('rq');
+    switchTab('audit');
   }
 }
 
@@ -183,10 +183,10 @@ function initKeyboardShortcuts() {
       return;
     }
 
-    if (e.key === '1') { switchTab('rq'); window.location.hash = 'rq'; }
+    if (e.key === '1') { switchTab('audit'); window.location.hash = 'audit'; }
     if (e.key === '2') { switchTab('datasets'); window.location.hash = 'datasets'; }
     if (e.key === '3') { switchTab('references'); window.location.hash = 'references'; }
-    if (e.key === '4') { switchTab('audit'); window.location.hash = 'audit'; }
+    if (e.key === '4') { switchTab('rq'); window.location.hash = 'rq'; }
 
     if (e.key === '/') {
       e.preventDefault();
