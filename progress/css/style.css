@@ -35,6 +35,8 @@
   --dock-border: rgba(255, 255, 255, 0.1);
   --dock-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
 
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+
   --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -52,31 +54,33 @@
 }
 
 [data-theme="light"] {
-  /* LIGHT MODE: CRISP PAPER WHITE + DEEP EMERALD GREEN */
-  --bg-canvas: #fcfcfd;
-  --bg-surface: #ffffff;
-  --bg-elevated: #f4f5f7;
-  --bg-hover: #e9ecef;
+  /* LIGHT MODE: CRISP PAPER WITH CONTRAST ELEVATION */
+  --bg-canvas: #edf0f5;          /* Distinct, soft technical light canvas */
+  --bg-surface: #ffffff;         /* Pure white cards that clearly pop against canvas */
+  --bg-elevated: #f6f8fb;        /* Clear elevated box */
+  --bg-hover: #e2e8f0;
   
-  --border-subtle: #e2e5eb;
-  --border-focus: #059669;
-  --border-glow: rgba(5, 150, 105, 0.2);
+  --border-subtle: #cbd5e1;      /* Visible, crisp architectural border */
+  --border-focus: #047857;
+  --border-glow: rgba(4, 120, 87, 0.2);
   
-  --text-primary: #0f172a;       /* Dark Ink */
-  --text-secondary: #475569;     /* Slate Gray */
+  --text-primary: #09090b;       /* Pure high-contrast dark ink */
+  --text-secondary: #334155;     /* Clear dark slate */
   --text-muted: #64748b;         /* Slate Muted */
   --text-inverted: #ffffff;
 
-  /* Signature Brand Accent: Deep Forest Emerald */
-  --accent: #059669;
-  --accent-muted: #047857;
-  --accent-tint: rgba(5, 150, 105, 0.08);
-  --accent-border: rgba(5, 150, 105, 0.25);
-  --accent-text: #065f46;
+  /* Signature Brand Accent: Deep Rich Forest Emerald */
+  --accent: #047857;
+  --accent-muted: #065f46;
+  --accent-tint: rgba(4, 120, 87, 0.08);
+  --accent-border: rgba(4, 120, 87, 0.28);
+  --accent-text: #047857;
 
-  --dock-bg: rgba(255, 255, 255, 0.92);
-  --dock-border: rgba(0, 0, 0, 0.08);
-  --dock-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+  --dock-bg: rgba(255, 255, 255, 0.94);
+  --dock-border: rgba(0, 0, 0, 0.12);
+  --dock-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 20px -3px rgba(15, 23, 42, 0.05);
 }
 
 *, *::before, *::after {
@@ -444,7 +448,7 @@ body {
   padding: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  box-shadow: var(--shadow-card);
   transition: var(--transition-smooth);
 }
 
@@ -485,17 +489,22 @@ body {
   margin-bottom: 12px;
   color: var(--text-primary);
   line-height: 1.35;
+  min-height: 44px;
 }
 
 .rq-question-box {
   background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
   border-left: 3px solid var(--accent);
   padding: 12px 14px;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   color: var(--text-secondary);
   line-height: 1.55;
   margin-bottom: 18px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
 }
 
 .rq-metrics-block {
@@ -543,33 +552,40 @@ body {
   font-size: 11.5px;
 }
 
-.rq-footer-specs {
+.rq-specs-box {
   border-top: 1px solid var(--border-subtle);
   padding-top: 14px;
-  margin-top: 14px;
-  font-size: 12px;
-  color: var(--text-secondary);
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-}
-
-.spec-line {
-  display: flex;
-  justify-content: space-between;
   gap: 8px;
 }
 
-.spec-line span:first-child {
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 11px;
+.spec-row {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.spec-line span:last-child {
-  text-align: right;
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+.spec-val {
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-primary);
+  line-height: 1.4;
+  text-align: left;
 }
 
 /* ==========================================================================
@@ -590,6 +606,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: var(--shadow-card);
   transition: var(--transition-smooth);
 }
 
@@ -759,6 +776,7 @@ body {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 
 .ref-table {
@@ -874,6 +892,7 @@ body {
   flex-direction: column;
   gap: 16px;
   height: fit-content;
+  box-shadow: var(--shadow-card);
 }
 
 .audit-meta-card h3 {
@@ -932,6 +951,7 @@ body {
   padding: 18px 20px;
   display: flex;
   gap: 16px;
+  box-shadow: var(--shadow-card);
   transition: var(--transition-fast);
 }
 
@@ -940,34 +960,64 @@ body {
 }
 
 .audit-item-card.is-completed {
-  opacity: 0.6;
-  background: var(--bg-canvas);
+  opacity: 0.7;
 }
 
-.audit-checkbox {
-  width: 24px;
-  height: 24px;
+.audit-status-icon {
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-sm);
-  border: 2px solid var(--border-subtle);
-  background: var(--bg-elevated);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   flex-shrink: 0;
+  font-size: 15px;
   margin-top: 2px;
-  transition: var(--transition-fast);
 }
 
-.audit-checkbox:hover {
-  border-color: var(--accent);
+.audit-status-icon.pending {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
-/* Signature Emerald Checked State */
-.audit-checkbox.checked {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--text-inverted);
+.audit-status-icon.resolved {
+  background: var(--accent-tint);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.audit-badges-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.audit-state-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.audit-state-badge.pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+[data-theme="dark"] .audit-state-badge.pending {
+  color: #fbbf24;
+}
+
+.audit-state-badge.resolved {
+  background: var(--accent-tint);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
 }
 
 .audit-item-content {

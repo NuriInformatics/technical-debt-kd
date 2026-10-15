@@ -233,18 +233,18 @@ function renderRQ(rqList) {
         </div>
       </div>
 
-      <div class="rq-footer-specs">
-        <div class="spec-line">
-          <span>Uji Statistika:</span>
-          <span>${rq.stats_test}</span>
+      <div class="rq-specs-box">
+        <div class="spec-row">
+          <span class="spec-label">Uji Statistik</span>
+          <span class="spec-val">${rq.stats_test}</span>
         </div>
-        <div class="spec-line">
-          <span>Baseline Model:</span>
-          <span>${rq.baselines.join(', ')}</span>
+        <div class="spec-row">
+          <span class="spec-label">Baseline Model</span>
+          <span class="spec-val">${rq.baselines.join(', ')}</span>
         </div>
-        <div class="spec-line">
-          <span>Dataset Uji:</span>
-          <span>${rq.datasets.join(', ')}</span>
+        <div class="spec-row">
+          <span class="spec-label">Dataset Uji</span>
+          <span class="spec-val">${rq.datasets.join(', ')}</span>
         </div>
       </div>
     </div>
@@ -437,26 +437,31 @@ function renderAudit(auditData) {
   const summaryPending = document.getElementById('audit-pending-count');
   const summaryResolved = document.getElementById('audit-resolved-count');
   const metaDate = document.getElementById('audit-meta-date');
+  const metaDoc = document.getElementById('audit-meta-doc');
 
   if (!container || !auditData) return;
 
-  if (metaDate) metaDate.textContent = auditData.date;
+  if (metaDate && auditData.date) metaDate.textContent = auditData.date;
+  if (metaDoc && auditData.document) {
+    metaDoc.textContent = auditData.document.split('/').pop();
+  }
 
   const total = auditData.items.length;
-  const resolved = state.completedAuditIds.size;
+  const resolved = auditData.items.filter(item => item.status === 'resolved').length;
   const pending = total - resolved;
 
   if (summaryPending) summaryPending.textContent = pending;
   if (summaryResolved) summaryResolved.textContent = resolved;
+  if (dom.headerStats.audit) dom.headerStats.audit.textContent = pending;
 
   const html = auditData.items.map(item => {
-    const isCompleted = state.completedAuditIds.has(item.id);
+    const isResolved = item.status === 'resolved';
     const sevClass = item.severity === 'Penting' ? 'sev-penting' : 'sev-sedang';
 
     return `
-      <div class="audit-item-card ${isCompleted ? 'is-completed' : ''}" id="audit-card-${item.id}">
-        <div class="audit-checkbox ${isCompleted ? 'checked' : ''}" onclick="toggleAuditItem('${item.id}')" title="Tandai selesai">
-          <i class="ti ti-check" style="${isCompleted ? 'display:block;' : 'display:none;'}"></i>
+      <div class="audit-item-card ${isResolved ? 'is-completed' : ''}" id="audit-card-${item.id}">
+        <div class="audit-status-icon ${isResolved ? 'resolved' : 'pending'}" title="${isResolved ? 'Telah Diperbaiki' : 'Perlu Tindakan'}">
+          <i class="ti ${isResolved ? 'ti-check' : 'ti-alert-triangle'}"></i>
         </div>
         <div class="audit-item-content">
           <div class="audit-item-header">
@@ -464,7 +469,12 @@ function renderAudit(auditData) {
               <span class="audit-code">${item.id}</span>
               <span class="audit-loc">&bull; ${item.location}</span>
             </div>
-            <span class="audit-sev-badge ${sevClass}">${item.severity}</span>
+            <div class="audit-badges-wrap">
+              <span class="audit-sev-badge ${sevClass}">${item.severity}</span>
+              <span class="audit-state-badge ${isResolved ? 'resolved' : 'pending'}">
+                ${isResolved ? '<i class="ti ti-check"></i> Selesai' : '<i class="ti ti-clock"></i> Perlu Tindakan'}
+              </span>
+            </div>
           </div>
           <h4 class="audit-item-title">${item.title}</h4>
           
@@ -484,39 +494,6 @@ function renderAudit(auditData) {
   }).join('');
 
   container.innerHTML = html;
-}
-
-function toggleAuditItem(id) {
-  const card = document.getElementById('audit-card-' + id);
-  if (!card) return;
-
-  const checkbox = card.querySelector('.audit-checkbox');
-  const checkIcon = checkbox ? checkbox.querySelector('i') : null;
-
-  if (state.completedAuditIds.has(id)) {
-    state.completedAuditIds.delete(id);
-    localStorage.setItem('audit_' + id, '0');
-    if (checkbox) checkbox.classList.remove('checked');
-    if (checkIcon) checkIcon.style.display = 'none';
-    card.classList.remove('is-completed');
-  } else {
-    state.completedAuditIds.add(id);
-    localStorage.setItem('audit_' + id, '1');
-    if (checkbox) checkbox.classList.add('checked');
-    if (checkIcon) checkIcon.style.display = 'block';
-    card.classList.add('is-completed');
-    showToast(`Item ${id} ditandai selesai!`);
-  }
-
-  // Update counters
-  const total = state.audit.items.length;
-  const resolved = state.completedAuditIds.size;
-  const pending = total - resolved;
-
-  const summaryPending = document.getElementById('audit-pending-count');
-  const summaryResolved = document.getElementById('audit-resolved-count');
-  if (summaryPending) summaryPending.textContent = pending;
-  if (summaryResolved) summaryResolved.textContent = resolved;
 }
 
 // --------------------------------------------------------------------------

@@ -23,7 +23,8 @@
     "focus": "Anti-Shortcut Learning",
     "metrics": [
       { "name": "Macro-F1 Degradation", "target": "< 5.0%", "desc": "Penurunan performa saat token eksplisit di-mask" },
-      { "name": "Recall SATD Implisit", "target": "> 80.0%", "desc": "Sensitivitas menangkap utang tanpa TODO/FIXME" }
+      { "name": "Recall SATD Implisit", "target": "> 80.0%", "desc": "Sensitivitas menangkap utang tanpa TODO/FIXME" },
+      { "name": "Implicit Macro-F1", "target": "> 0.78", "desc": "F1-score pada subset SATD implisit tanpa pemicu eksplisit" }
     ],
     "stats_test": "Ablation Masking Test pada D4 (Implicit Masked Suite)",
     "baselines": ["Model Shortcut Learning (Conventional DL)", "Teacher Model Raw"],
@@ -43,7 +44,7 @@
     ],
     "stats_test": "Benchmark Throughput (ops/sec) & Profile Memori ONNX Runtime FP16/INT8",
     "baselines": ["DeepSeek-Coder-1.3B (Teacher)", "Standard CodeBERT", "LLM Cloud API"],
-    "datasets": ["Pipeline Runner Simualasi GitHub Actions"],
+    "datasets": ["Pipeline Runner Simulasi GitHub Actions"],
     "objective": "Menghasilkan model deteksi siap produksi yang layak diintegrasikan langsung ke dalam pipeline pull-request tanpa membebani biaya GPU server."
   }
 ]

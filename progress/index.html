@@ -58,8 +58,7 @@
     <section class="view-panel active-view" id="view-rq">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-target-arrow"></i> Kerangka Rumusan Masalah (Research Questions)</h2>
-          <p>Tiga hipotesis inti tesis yang diuji secara empiris melalui Knowledge Distillation dan benchmark non-parametrik.</p>
+          <h2><i class="ti ti-target-arrow"></i> Rumusan Masalah</h2>
         </div>
       </div>
       <!-- Skeletons replaced dynamically by app.js from data/rq.json -->
@@ -74,8 +73,7 @@
     <section class="view-panel" id="view-datasets">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-database"></i> Kesiapan Dataset Empiris (D1–D4)</h2>
-          <p>Korpus pelatihan, transfer lintas domain artefak, dan uji ketahanan SATD implisit yang tersimpan di repositori.</p>
+          <h2><i class="ti ti-database"></i> Dataset Empiris</h2>
         </div>
       </div>
       <!-- Skeletons replaced dynamically by app.js from data/datasets.json -->
@@ -91,8 +89,7 @@
     <section class="view-panel" id="view-references">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-books"></i> Katalog Referensi Ilmiah Primer</h2>
-          <p>21 paper bereputasi (Scopus Q1/Q2 &amp; SINTA 2) sebagai landasan teoretis, metrik evaluasi, dan baseline.</p>
+          <h2><i class="ti ti-books"></i> Pustaka Primer</h2>
         </div>
         <div class="panel-actions">
           <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-muted);" id="ref-active-count">Memuat pustaka...</span>
@@ -131,12 +128,11 @@
       </div>
     </section>
 
-    <!-- VIEW 4: CHECKLIST AUDIT DRAF -->
+    <!-- VIEW 4: AUDIT DRAFT -->
     <section class="view-panel" id="view-audit">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-alert-triangle"></i> Checklist Audit Perbaikan Draf Bab 3</h2>
-          <p>Daftar temuan anomali pada naskah draf sebelum diajukan ke pembimbing. Klik kotak centang untuk menyimpan progres.</p>
+          <h2><i class="ti ti-notes"></i> Audit Draft</h2>
         </div>
       </div>
 
@@ -144,9 +140,9 @@
         <!-- Left Sidebar: Meta & Metrics -->
         <aside class="audit-sidebar">
           <div class="audit-meta-card">
-            <h3>Snapshot Draf Bab 3</h3>
+            <h3>Snapshot Audit</h3>
             <p>Tanggal: <strong id="audit-meta-date">-</strong></p>
-            <p style="margin-top:4px;">Berkas: <code>BAB 3.pdf</code></p>
+            <p style="margin-top:4px;">Naskah: <code id="audit-meta-doc">BAB 3.pdf</code></p>
           </div>
 
           <div class="progress-ring-container">
@@ -162,7 +158,7 @@
           </div>
 
           <div style="font-size:11.5px; color:var(--text-muted); line-height:1.45; border-top:1px solid var(--border-subtle); padding-top:12px;">
-            <i class="ti ti-info-circle"></i> Status tersimpan otomatis di browser lokal (<code>localStorage</code>) tanpa backend.
+            <i class="ti ti-robot"></i> Status audit diverifikasi dan diperbarui otomatis oleh AI Agent.
           </div>
         </aside>
 
@@ -199,7 +195,7 @@
       </button>
       <button class="dock-btn tab-btn" data-tab="audit">
         <span class="dock-num">4</span>
-        <span class="dock-label">Checklist Draf</span>
+        <span class="dock-label">Audit Draft</span>
         <span class="dock-badge" id="tab-count-audit">7</span>
       </button>
       <div class="dock-divider"></div>
