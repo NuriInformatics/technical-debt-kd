@@ -1,17 +1,18 @@
 # technical-debt-kd
 
-> **Deteksi Utang Teknis Implisit dan Ringan pada Pipeline CI/CD Menggunakan Distilasi CodeBERT**  
-> *Lightweight & Implicit SATD Detection in CI/CD via Knowledge Distillation (DeepSeek-Coder-1.3B &rarr; CodeBERT 125M)*
+> **DETEKSI SELF-ADMITTED TECHNICAL DEBT MULTI ARTEFAK DOMAIN MENGGUNAKAN DISTILASI CODEBERT**  
+> *Multi-Artifact Domain Self-Admitted Technical Debt Detection Using Distilled CodeBERT*
 
 ---
 
 ## 📌 Ringkasan Tesis & Tautan Cepat
 
 * **Peneliti:** Hanief Fathul Bahri Ahmad (NIM: 1250028)
-* **Program Studi:** Magister Ilmu Komputer (S2)
-* **Dosen Pengampu:** Dr. Irwansyah Saputra, M.Kom.
+* **Program Studi:** Magister Ilmu Komputer (S2) &bull; Kelas: 14.3B.12
+* **Mata Kuliah:** Software Quality & Effort Estimation (SQEE - M057)
+* **Dosen Pengampu:** Dr. Irwansyah Saputra, M.Kom. (NIP: 201909149)
 * 📊 **Dashboard Progres & Audit Naskah:** Buka [`progress/index.html`](progress/index.html) di browser.
-* 🎯 **Research Gap & Rumusan Masalah:** Baca [`Gap-research.md`](Gap-research.md).
+* 🎯 **Research Gap & 3 Rumusan Masalah:** Baca [`Gap-research.md`](Gap-research.md).
 * 📚 **Daftar 21 Pustaka Empiris (APA 7th):** Lihat [`references.txt`](references.txt).
 
 ---
@@ -23,9 +24,13 @@ technical-debt-kd/
 ├── dataset/         # Korpus D1, D2, D3 terunduh & skrip generator D4
 ├── models/          # Tempat bobot model & skrip ekspor ONNX untuk CPU CI/CD
 ├── progress/        # Dashboard web statis progres & audit revisi naskah
-│   └── history/     # Log riwayat koreksi typo, sitasi, dan naskah Bab 3
+│   ├── data.json    # Data terpusat (Arahan resmi dosen, alert audit AI, metrik)
+│   ├── index.html   # Console UI minimalis elegan (tanpa form tiruan)
+│   ├── style.css    # Styling editorial modern (Plus Jakarta Sans & JetBrains Mono)
+│   ├── app.js       # Logika render data riil & navigasi tab
+│   └── history/     # Log riwayat catatan audit & changelog revisi
 ├── references/      # Arsip 23 file PDF rujukan primer (Scopus Q1/Q2 & SINTA 1/2)
-├── Gap-research.md  # Kesenjangan riset empiris & perumusan 3 RQ
+├── Gap-research.md  # Kesenjangan riset empiris & perumusan 3 RQ Bab 1
 ├── references.txt   # Daftar referensi teks terstandar APA 7th
 └── README.md        # Ringkasan repositori
 ```
