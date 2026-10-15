@@ -1,6 +1,6 @@
 /* ==========================================================================
    Clean, Modern Academic Dashboard Stylesheet
-   Focus: Legibility, Simplicity, Fast Visual Scanning ("Mudah & Nyaman")
+   Modular Multi-Page Layout (index.html, dataset.html, references.html, checklist.html)
    ========================================================================== */
 
 :root {
@@ -157,7 +157,7 @@ i[class^="ti"] {
 }
 
 /* ==========================================================================
-   Stat Strip (Clickable Fast Jump Cards)
+   Stat Strip (Clickable Fast Jump Links)
    ========================================================================== */
 .stat-strip {
   background-color: var(--bg-card);
@@ -191,12 +191,19 @@ i[class^="ti"] {
   text-align: left;
   transition: all 0.15s ease;
   font-family: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .stat-card:hover {
   border-color: var(--color-primary);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
+}
+
+.stat-card.active-card {
+  border-color: var(--text-main);
+  background-color: #fafbfc;
 }
 
 .stat-icon {
@@ -235,7 +242,7 @@ i[class^="ti"] {
 }
 
 /* ==========================================================================
-   Tab Navigation (Simple, Clear Tabs)
+   Tab Navigation Bar (Native HTML Links)
    ========================================================================== */
 .tab-nav-wrapper {
   background-color: var(--bg-card);
@@ -266,6 +273,7 @@ i[class^="ti"] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
   transition: all 0.15s ease;
 }
 
@@ -281,25 +289,11 @@ i[class^="ti"] {
 }
 
 /* ==========================================================================
-   Page Content & Tab Views
+   Page Content
    ========================================================================== */
 .page-content {
   padding: 32px 20px 48px;
   flex: 1;
-}
-
-.tab-view {
-  display: none;
-  animation: fadeIn 0.15s ease-out;
-}
-
-.tab-view.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .view-header {
@@ -327,7 +321,7 @@ i[class^="ti"] {
 }
 
 /* ==========================================================================
-   Tab 1: RQ Cards (Simple, readable, focused)
+   Tab 1: RQ Cards (index.html)
    ========================================================================== */
 .rq-list {
   display: flex;
@@ -420,7 +414,7 @@ i[class^="ti"] {
 }
 
 /* ==========================================================================
-   Tab 2: Dataset Cards (Clear, structured)
+   Tab 2: Dataset Cards (dataset.html)
    ========================================================================== */
 .dataset-grid {
   display: grid;
@@ -492,6 +486,13 @@ i[class^="ti"] {
   font-size: 11px;
 }
 
+.dataset-file-info code {
+  background: #f1f5f9;
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: var(--text-main);
+}
+
 .dataset-btn {
   color: var(--color-primary);
   text-decoration: none;
@@ -506,7 +507,7 @@ i[class^="ti"] {
 }
 
 /* ==========================================================================
-   Tab 3: References List from JSON
+   Tab 3: References List from references.json (references.html)
    ========================================================================== */
 .ref-header-row {
   display: flex;
@@ -562,6 +563,7 @@ i[class^="ti"] {
   font-weight: 600;
   color: var(--text-muted);
   cursor: pointer;
+  border: 1px solid var(--border-color);
 }
 
 .filter-pills .pill:hover {
@@ -667,8 +669,8 @@ i[class^="ti"] {
 }
 
 /* ==========================================================================
-   Tab 4: Checklist Perbaikan Draf
-   ========================================================================== */
+   Tab 4: Checklist Draf (checklist.html)
+   ========================================================================= */
 .checklist-container {
   display: flex;
   flex-direction: column;
@@ -694,7 +696,7 @@ i[class^="ti"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: transparent;
+  color: #64748b;
   flex-shrink: 0;
   margin-top: 2px;
 }

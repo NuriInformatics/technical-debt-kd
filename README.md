@@ -23,11 +23,14 @@
 technical-debt-kd/
 ├── dataset/         # Korpus D1, D2, D3 terunduh & skrip generator D4
 ├── models/          # Tempat bobot model & skrip ekspor ONNX untuk CPU CI/CD
-├── progress/        # Dashboard web statis progres & audit naskah
-│   ├── data.json    # Metadata terpusat (RQ, dataset, checklist audit draf)
-│   ├── index.html   # Console UI ringkas & mudah dinavigasi
+├── progress/        # Dashboard web statis progres & audit naskah (Modular)
+│   ├── index.html   # Halaman 1: Rumusan Masalah (RQ1–RQ3) & Ringkasan Tesis
+│   ├── dataset.html # Halaman 2: Kesiapan Dataset Empiris (D1–D4)
+│   ├── references.html # Halaman 3: Daftar 21 Pustaka (Search & Filter)
+│   ├── checklist.html  # Halaman 4: Checklist 7 Temuan Audit Draf Bab 3
+│   ├── references.js   # Loader & filter dinamis murni dari references.json
 │   ├── style.css    # Styling editorial modern & bersih
-│   ├── app.js       # Logika render data & pemuatan references.json
+│   ├── data.json    # Metadata terpusat (RQ, dataset, checklist audit draf)
 │   └── history/     # Log riwayat catatan audit draf
 ├── references/      # Arsip 23 file PDF rujukan primer (Scopus Q1/Q2 & SINTA 1/2)
 ├── Gap-research.md  # Kesenjangan riset empiris & perumusan 3 RQ Bab 1

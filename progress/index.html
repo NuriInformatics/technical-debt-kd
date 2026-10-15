@@ -3,22 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Tesis S2 &bull; Multi-Artifact SATD Detection</title>
+  <title>Rumusan Masalah &bull; Tesis S2 Hanief Fathul Bahri Ahmad</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Tabler Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-  
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Top Simple Navigation & Identity -->
+  <!-- Header -->
   <header class="app-header">
     <div class="container header-container">
       <div class="header-brand">
@@ -46,137 +41,156 @@
     </div>
   </header>
 
-  <!-- Quick Numbers -->
+  <!-- Quick Stat Jump Links -->
   <section class="stat-strip">
     <div class="container stat-grid">
-      <button class="stat-card" onclick="switchTab('tab-rq')">
+      <a href="index.html" class="stat-card active-card">
         <div class="stat-icon icon-blue"><i class="ti ti-target-arrow"></i></div>
         <div class="stat-detail">
           <span class="stat-val">3</span>
           <span class="stat-lbl">Rumusan Masalah (RQ)</span>
         </div>
-      </button>
+      </a>
 
-      <button class="stat-card" onclick="switchTab('tab-datasets')">
+      <a href="dataset.html" class="stat-card">
         <div class="stat-icon icon-emerald"><i class="ti ti-database"></i></div>
         <div class="stat-detail">
           <span class="stat-val">978k</span>
           <span class="stat-lbl">Sampel Data (D1–D4)</span>
         </div>
-      </button>
+      </a>
 
-      <button class="stat-card" onclick="switchTab('tab-references')">
+      <a href="references.html" class="stat-card">
         <div class="stat-icon icon-indigo"><i class="ti ti-books"></i></div>
         <div class="stat-detail">
-          <span class="stat-val" id="ref-count-stat">21</span>
+          <span class="stat-val">21</span>
           <span class="stat-lbl">Pustaka Primer (JSON)</span>
         </div>
-      </button>
+      </a>
 
-      <button class="stat-card" onclick="switchTab('tab-alerts')">
+      <a href="checklist.html" class="stat-card">
         <div class="stat-icon icon-amber"><i class="ti ti-alert-triangle"></i></div>
         <div class="stat-detail">
           <span class="stat-val">7</span>
           <span class="stat-lbl">Catatan Audit Draf</span>
         </div>
-      </button>
+      </a>
     </div>
   </section>
 
-  <!-- Main Tabs (Simplified into 4 Clean Views) -->
+  <!-- Tab Nav -->
   <div class="tab-nav-wrapper">
-    <div class="container tab-nav-container">
-      <div class="tab-nav">
-        <button class="tab-btn active" data-tab="tab-rq" onclick="switchTab('tab-rq')">
-          <i class="ti ti-target-arrow"></i> 1. Rumusan Masalah (Bab 1)
-        </button>
-        <button class="tab-btn" data-tab="tab-datasets" onclick="switchTab('tab-datasets')">
-          <i class="ti ti-database"></i> 2. Kesiapan Dataset (D1–D4)
-        </button>
-        <button class="tab-btn" data-tab="tab-references" onclick="switchTab('tab-references')">
-          <i class="ti ti-books"></i> 3. Referensi Ilmiah (<span id="tab-ref-count">21</span>)
-        </button>
-        <button class="tab-btn" data-tab="tab-alerts" onclick="switchTab('tab-alerts')">
-          <i class="ti ti-checklist"></i> 4. Checklist Perbaikan Draf (7)
-        </button>
-      </div>
+    <div class="container tab-nav">
+      <a href="index.html" class="tab-btn active"><i class="ti ti-target-arrow"></i> 1. Rumusan Masalah (Bab 1)</a>
+      <a href="dataset.html" class="tab-btn"><i class="ti ti-database"></i> 2. Kesiapan Dataset (D1–D4)</a>
+      <a href="references.html" class="tab-btn"><i class="ti ti-books"></i> 3. Referensi Ilmiah (21)</a>
+      <a href="checklist.html" class="tab-btn"><i class="ti ti-checklist"></i> 4. Checklist Draf (7)</a>
     </div>
   </div>
 
-  <!-- Content Container -->
+  <!-- Content -->
   <main class="container page-content">
-    
-    <!-- TAB 1: RUMUSAN MASALAH -->
-    <section id="tab-rq" class="tab-view active">
-      <div class="view-header">
-        <div>
-          <h2 class="view-title">3 Rumusan Masalah & Kerangka Evaluasi</h2>
-          <p class="view-desc">Deduktif menjawab masalah deteksi utang teknis lintas domain dan efisiensi CI/CD sesuai Bab 1 Subbab 1.2.2.</p>
+    <div class="view-header">
+      <h2 class="view-title">3 Rumusan Masalah & Kerangka Metodologi</h2>
+      <p class="view-desc">Verbatim dari proposal Bab 1 Subbab 1.2.2 menjawab deteksi utang teknis lintas domain dan efisiensi runner CI/CD.</p>
+    </div>
+
+    <div class="rq-list">
+      <!-- RQ1 -->
+      <div class="rq-card">
+        <div class="rq-top">
+          <span class="rq-badge"><i class="ti ti-target"></i> RQ1</span>
+          <span class="rq-tag">Efektivitas Distilasi Pengetahuan</span>
         </div>
-      </div>
-
-      <div class="rq-list" id="rq-container">
-        <!-- Rendered by JS -->
-      </div>
-    </section>
-
-    <!-- TAB 2: DATASET -->
-    <section id="tab-datasets" class="tab-view">
-      <div class="view-header">
-        <div>
-          <h2 class="view-title">Korpus Dataset Empiris (D1 s/d D4)</h2>
-          <p class="view-desc">Seluruh data telah tersimpan di direktori lokal <code>dataset/</code> dan terhubung ke repositori sumber terverifikasi.</p>
+        <h3 class="rq-main-title">Pengaruh Distilasi Pengetahuan terhadap Peningkatan Deteksi SATD</h3>
+        <div class="rq-question-box">
+          <strong>Rumusan Masalah:</strong><br>
+          &ldquo;Bagaimana pengaruh penerapan distilasi pengetahuan pada arsitektur CodeBERT terhadap peningkatan kemampuan deteksi Self-Admitted Technical Debt dibandingkan model baseline?&rdquo;
         </div>
-      </div>
-
-      <div class="dataset-grid" id="dataset-container">
-        <!-- Rendered by JS -->
-      </div>
-    </section>
-
-    <!-- TAB 3: REFERENSI DARI JSON -->
-    <section id="tab-references" class="tab-view">
-      <div class="view-header ref-header-row">
-        <div>
-          <h2 class="view-title">Daftar Pustaka Primer (APA 7th Edition)</h2>
-          <p class="view-desc">Sumber data tunggal dimuat langsung dari <code>references.json</code>. Dilengkapi 23 berkas PDF di folder <code>references/</code>.</p>
-        </div>
-        <div class="ref-actions">
-          <div class="search-box">
-            <i class="ti ti-search"></i>
-            <input type="text" id="ref-search" placeholder="Cari penulis, judul, Scopus, SINTA..." oninput="onSearchRefs(this.value)">
+        <div class="rq-specs-grid">
+          <div class="rq-spec-item">
+            <strong>Target Metrik</strong>
+            <span>Macro-F1, MCC, AUC-PR</span>
           </div>
-          <div class="filter-pills" id="filter-pills">
-            <button class="pill active" onclick="filterCategory('all', this)">Semua (21)</button>
-            <button class="pill" onclick="filterCategory('Q1', this)">Scopus Q1</button>
-            <button class="pill" onclick="filterCategory('Q2', this)">Scopus Q2</button>
-            <button class="pill" onclick="filterCategory('SINTA', this)">SINTA 1 & 2</button>
+          <div class="rq-spec-item">
+            <strong>Metode Validasi</strong>
+            <span>Wilcoxon Signed-Rank Test (p &lt; 0.05) &amp; Cliff's Delta (|d| &gt; 0.33)</span>
+          </div>
+          <div class="rq-spec-item">
+            <strong>Model Pembanding</strong>
+            <span>TextCNN, BiLSTM, Standard CodeBERT</span>
+          </div>
+          <div class="rq-spec-item">
+            <strong>Korpus Evaluasi</strong>
+            <span>D1 (Comments), D2 (Multi-Source Apache), D3 (Scientific Software)</span>
           </div>
         </div>
       </div>
 
-      <div class="ref-card-list" id="reference-list-container">
-        <!-- Rendered by JS from references.json -->
-      </div>
-    </section>
-
-    <!-- TAB 4: CHECKLIST PERBAIKAN DRAF (AUDIT AI) -->
-    <section id="tab-alerts" class="tab-view">
-      <div class="view-header">
-        <div>
-          <h2 class="view-title">Checklist Perbaikan Naskah Draf Bab 3</h2>
-          <p class="view-desc">Daftar anomali dan saran perbaikan format/sitasi pada draf PDF untuk disempurnakan di file Word sebelum bimbingan.</p>
+      <!-- RQ2 -->
+      <div class="rq-card">
+        <div class="rq-top">
+          <span class="rq-badge"><i class="ti ti-target"></i> RQ2</span>
+          <span class="rq-tag">Ketahanan Deteksi Implisit</span>
+        </div>
+        <h3 class="rq-main-title">Efektivitas Deteksi SATD Implisit via Penyamaran Kata Kunci (Masking)</h3>
+        <div class="rq-question-box">
+          <strong>Rumusan Masalah:</strong><br>
+          &ldquo;Sejauh mana Distilled CodeBERT efektif dalam mendeteksi Self-Admitted Technical Debt yang bersifat implisit ketika kata kunci eksplisit disamarkan atau dihilangkan?&rdquo;
+        </div>
+        <div class="rq-specs-grid">
+          <div class="rq-spec-item">
+            <strong>Target Metrik</strong>
+            <span>Degradasi Macro-F1 &lt; 5%</span>
+          </div>
+          <div class="rq-spec-item">
+            <strong>Metode Validasi</strong>
+            <span>Evaluasi Komparatif pada Korpus Bertopeng [MASK]</span>
+          </div>
+          <div class="rq-spec-item">
+            <strong>Model Pembanding</strong>
+            <span>Model dengan Shortcut Learning (Gagal saat token TODO/FIXME dihapus)</span>
+          </div>
+          <div class="rq-spec-item">
+            <strong>Korpus Evaluasi</strong>
+            <span>D4 (Implicit Masked Test Suite - 4.000 sampel seimbang)</span>
+          </div>
         </div>
       </div>
 
-      <div class="checklist-container" id="alerts-container">
-        <!-- Rendered by JS -->
+      <!-- RQ3 -->
+      <div class="rq-card">
+        <div class="rq-top">
+          <span class="rq-badge"><i class="ti ti-target"></i> RQ3</span>
+          <span class="rq-tag">Efisiensi Runner CI/CD</span>
+        </div>
+        <h3 class="rq-main-title">Akurasi Deteksi dan Efisiensi Komputasi pada Skenario CI/CD</h3>
+        <div class="rq-question-box">
+          <strong>Rumusan Masalah:</strong><br>
+          &ldquo;Bagaimana perbandingan kinerja Distilled CodeBERT dengan model pembanding ditinjau dari akurasi deteksi dan efisiensi komputasi pada skenario implementasi CI/CD?&rdquo;
+        </div>
+        <div class="rq-specs-grid">
+          <div class="rq-spec-item">
+            <strong>Target Metrik</strong>
+            <span>Latensi CPU single-core &tau; &lt; 30 ms &amp; RAM puncak &lt; 500 MB</span>
+          </div>
+          <div class="rq-spec-item">
+            <strong>Metode Validasi</strong>
+            <span>Simulasi ONNX Runtime CPU (Intel Xeon 1 vCPU @ 2.4 GHz, RAM 4 GB)</span>
+          </div>
+          <div class="rq-spec-item">
+            <strong>Model Pembanding</strong>
+            <span>DeepSeek-Coder-1.3B / 7B (Latensi &gt; 1.200 ms, RAM &gt; 3 GB)</span>
+          </div>
+          <div class="rq-spec-item">
+            <strong>Korpus Evaluasi</strong>
+            <span>Simulasi Runner CI/CD Pipeline Otomatis</span>
+          </div>
+        </div>
       </div>
-    </section>
-
+    </div>
   </main>
 
-  <!-- Clean Footer -->
   <footer class="app-footer">
     <div class="container footer-content">
       <span>Proposal Tesis S2 &bull; <strong>Hanief Fathul Bahri Ahmad</strong> (NIM 1250028)</span>
@@ -184,6 +198,5 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
 </body>
 </html>

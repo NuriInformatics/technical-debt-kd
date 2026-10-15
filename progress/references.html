@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Pustaka &bull; Tesis S2 Hanief Fathul Bahri Ahmad</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="header-brand">
+        <span class="badge-s2">TESIS S2</span>
+        <div class="brand-text">
+          <h1 class="brand-title">DETEKSI SELF-ADMITTED TECHNICAL DEBT MULTI ARTEFAK DOMAIN MENGGUNAKAN DISTILASI CODEBERT</h1>
+          <p class="brand-sub">
+            <span>Peneliti: <strong>Hanief Fathul Bahri Ahmad</strong> (NIM 1250028)</span>
+            <span class="sep">&bull;</span>
+            <span>Dosen: <strong>Dr. Irwansyah Saputra, M.Kom.</strong></span>
+            <span class="sep">&bull;</span>
+            <span>Kelas 14.3B.12 (SQEE)</span>
+          </p>
+        </div>
+      </div>
+      <div class="header-status">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span>Draf Bab 1 & Bab 3 Siap Uji</span>
+        </div>
+        <div class="git-tag">
+          <i class="ti ti-brand-git"></i> <code>NuriInformatics/technical-debt-kd</code>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Stat Jump Links -->
+  <section class="stat-strip">
+    <div class="container stat-grid">
+      <a href="index.html" class="stat-card">
+        <div class="stat-icon icon-blue"><i class="ti ti-target-arrow"></i></div>
+        <div class="stat-detail">
+          <span class="stat-val">3</span>
+          <span class="stat-lbl">Rumusan Masalah (RQ)</span>
+        </div>
+      </a>
+
+      <a href="dataset.html" class="stat-card">
+        <div class="stat-icon icon-emerald"><i class="ti ti-database"></i></div>
+        <div class="stat-detail">
+          <span class="stat-val">978k</span>
+          <span class="stat-lbl">Sampel Data (D1–D4)</span>
+        </div>
+      </a>
+
+      <a href="references.html" class="stat-card active-card">
+        <div class="stat-icon icon-indigo"><i class="ti ti-books"></i></div>
+        <div class="stat-detail">
+          <span class="stat-val" id="ref-found-count">21</span>
+          <span class="stat-lbl">Pustaka Primer (JSON)</span>
+        </div>
+      </a>
+
+      <a href="checklist.html" class="stat-card">
+        <div class="stat-icon icon-amber"><i class="ti ti-alert-triangle"></i></div>
+        <div class="stat-detail">
+          <span class="stat-val">7</span>
+          <span class="stat-lbl">Catatan Audit Draf</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Tab Nav -->
+  <div class="tab-nav-wrapper">
+    <div class="container tab-nav">
+      <a href="index.html" class="tab-btn"><i class="ti ti-target-arrow"></i> 1. Rumusan Masalah (Bab 1)</a>
+      <a href="dataset.html" class="tab-btn"><i class="ti ti-database"></i> 2. Kesiapan Dataset (D1–D4)</a>
+      <a href="references.html" class="tab-btn active"><i class="ti ti-books"></i> 3. Referensi Ilmiah (21)</a>
+      <a href="checklist.html" class="tab-btn"><i class="ti ti-checklist"></i> 4. Checklist Draf (7)</a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <main class="container page-content">
+    <div class="view-header ref-header-row">
+      <div>
+        <h2 class="view-title">Daftar Pustaka Primer (APA 7th Edition)</h2>
+        <p class="view-desc">Dimuat langsung dari berkas data tunggal <code>references.json</code>. Dilengkapi 23 file PDF fisik di folder <code>references/</code>.</p>
+      </div>
+      <div class="ref-actions">
+        <div class="search-box">
+          <i class="ti ti-search"></i>
+          <input type="text" id="ref-search" placeholder="Cari penulis, judul, Scopus, SINTA..." oninput="onSearchRefs(this.value)">
+        </div>
+        <div class="filter-pills" id="filter-pills">
+          <button class="pill active" onclick="filterCategory('all', this)">Semua (21)</button>
+          <button class="pill" onclick="filterCategory('Q1', this)">Scopus Q1</button>
+          <button class="pill" onclick="filterCategory('Q2', this)">Scopus Q2</button>
+          <button class="pill" onclick="filterCategory('SINTA', this)">SINTA 1 &amp; 2</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container for dynamic render from references.json -->
+    <div class="ref-card-list" id="ref-list-container">
+      <div style="padding:24px; text-align:center; color:#64748b;">
+        <i class="ti ti-loader" style="font-size:24px; animation:spin 1s linear infinite;"></i>
+        Memuat data dari <code>references.json</code>...
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <span>Proposal Tesis S2 &bull; <strong>Hanief Fathul Bahri Ahmad</strong> (NIM 1250028)</span>
+      <span>Dosen Pengampu: Dr. Irwansyah Saputra, M.Kom.</span>
+    </div>
+  </footer>
+
+  <script src="references.js"></script>
+</body>
+</html>
