@@ -327,7 +327,7 @@ function renderReferences(refList) {
   if (!refList || refList.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="5" style="text-align:center; padding:36px; color:var(--text-muted); font-family:var(--font-mono);">
+        <td colspan="4" style="text-align:center; padding:36px; color:var(--text-muted); font-family:var(--font-mono);">
           <i class="ti ti-search-off" style="font-size:24px; display:block; margin-bottom:6px;"></i>
           Tidak ada referensi yang cocok dengan kata kunci pencarian.
         </td>
@@ -354,11 +354,8 @@ function renderReferences(refList) {
         <td>
           <span class="${badgeClass}">${r.index}</span>
         </td>
-        <td style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted);">
-          <code>${r.file || '-'}</code>
-        </td>
-        <td>
-          <div class="ref-actions-cell">
+        <td style="text-align: center;">
+          <div class="ref-actions-cell" style="justify-content: center;">
             ${r.doi ? `
               <a href="${doiLink}" target="_blank" rel="noopener" class="action-icon-btn" title="Buka DOI Resmi">
                 <i class="ti ti-external-link"></i>
