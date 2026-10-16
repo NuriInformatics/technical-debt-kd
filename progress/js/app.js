@@ -300,10 +300,7 @@ function renderDatasets(datasetList) {
         </div>
       </div>
 
-      <div style="border-top:1px solid var(--border-subtle); padding-top:12px; margin-top:12px;">
-        <div style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono); margin-bottom:8px;">
-          Ref: ${ds.reference}
-        </div>
+      <div style="border-top:1px solid var(--border-subtle); padding-top:14px; margin-top:14px;">
         <a href="${ds.source_repo}" target="_blank" rel="noopener" class="dataset-link-btn" style="width:100%;">
           <i class="ti ti-brand-github"></i> Buka Sumber Korpus
         </a>
