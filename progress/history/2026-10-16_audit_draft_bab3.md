@@ -1,6 +1,6 @@
 # Log History Revisi & Audit Naskah Bab 3
 **Tanggal Audit:** 16 Oktober 2026  
-**Objek Audit:** `Draft PDF/Hanief Fathul Bahri Ahmad-Distillation BAB 3.pdf` (23 Halaman)  
+**Objek Audit:** `Draft Naskah Bab 3.pdf` (23 Halaman)  
 **Tipe Catatan:** Anomali Naskah, Typo, Cacat Sitasi, dan Formula Matematika
 
 ---
