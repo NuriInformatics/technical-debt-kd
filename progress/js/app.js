@@ -361,7 +361,7 @@ function renderReferences(refList) {
                 <i class="ti ti-external-link"></i>
               </a>
             ` : ''}
-            <button class="action-icon-btn" onclick="copyCitation('${r.citation_key}', '${escapeQuote(r.title)}')" title="Salin Citation Key">
+            <button class="action-icon-btn" onclick="copyCitation(this, '${r.citation_key}')" title="Salin Sitasi BibTeX">
               <i class="ti ti-copy"></i>
             </button>
           </div>
@@ -405,13 +405,53 @@ document.addEventListener('input', (e) => {
   }
 });
 
-function copyCitation(key, title) {
-  const text = `@article{${key},\n  title = {${title}}\n}`;
-  navigator.clipboard.writeText(text).then(() => {
-    showToast(`Citation key '${key}' disalin ke clipboard!`);
-  }).catch(() => {
-    showToast(`Key: ${key}`);
+function copyCitation(btn, key) {
+  const ref = state.references.find(r => r.citation_key === key);
+  const text = ref 
+    ? `@article{${ref.citation_key},\n  author = {${ref.author}},\n  title = {${ref.title}},\n  journal = {${ref.venue}},\n  year = {${ref.year}}\n}`
+    : key;
+
+  copyToClipboard(text, () => {
+    if (btn) {
+      const origHtml = btn.innerHTML;
+      btn.innerHTML = '<i class="ti ti-check" style="color:var(--accent);"></i>';
+      btn.style.borderColor = 'var(--accent)';
+      setTimeout(() => {
+        btn.innerHTML = origHtml;
+        btn.style.borderColor = '';
+      }, 1500);
+    }
+    showToast(`Sitasi '${key}' berhasil disalin!`);
   });
+}
+
+function copyToClipboard(text, callback) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text)
+      .then(() => { if (callback) callback(); })
+      .catch(() => fallbackCopy(text, callback));
+  } else {
+    fallbackCopy(text, callback);
+  }
+}
+
+function fallbackCopy(text, callback) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.top = '-9999px';
+  textArea.style.left = '-9999px';
+  textArea.setAttribute('readonly', '');
+  document.body.appendChild(textArea);
+  textArea.select();
+  try {
+    document.execCommand('copy');
+    if (callback) callback();
+  } catch (err) {
+    showToast('Gagal menyalin ke clipboard');
+  } finally {
+    document.body.removeChild(textArea);
+  }
 }
 
 // --------------------------------------------------------------------------
