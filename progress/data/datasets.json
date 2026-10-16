@@ -8,7 +8,7 @@
     "size_mb": 5.2,
     "distribution": "Imbalanced (~9% SATD)",
     "artifacts": "Class, method, and inline code comments",
-    "source_repo": "https://github.com/yikun-li/satd-different-sources-data",
+    "source_repo": "https://github.com/yikun-li/satd-different-sources-data/blob/main/satd-dataset-code_comments.csv",
     "reference": "Maldonado & da Silva (2017) / Qu et al. (2023)",
     "local_path": "dataset/D1_Maldonado_Java/",
     "status": "Ready & Verified",
