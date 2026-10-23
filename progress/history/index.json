@@ -1,10 +1,18 @@
 [
   {
+    "date": "2026-10-23",
+    "file": "2026-10-23.json",
+    "title": "Audit Naskah & Lembar Tindak Lanjut Revisi Dosen Pembimbing",
+    "items_count": 7,
+    "pending": 2,
+    "resolved": 5
+  },
+  {
     "date": "2026-10-16",
     "file": "2026-10-16.json",
     "title": "Audit Naskah Draf Bab 3 & Penyelarasan Judul Bab 1",
     "items_count": 7,
-    "pending": 7,
-    "resolved": 0
+    "pending": 0,
+    "resolved": 7
   }
 ]

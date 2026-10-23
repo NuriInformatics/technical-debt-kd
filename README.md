@@ -5,12 +5,8 @@
 
 ---
 
-## 📌 Ringkasan Tesis & Informasi Riset
+## 📌 Ringkasan Tesis & Tautan Cepat
 
-* **Peneliti:** Hanief Fathul Bahri Ahmad (NIM: 14250028)
-* **Program Studi:** Magister Ilmu Komputer (S2) &bull; Kelas: 14.3B.12
-* **Mata Kuliah:** Software Quality & Effort Estimation (SQEE - M057)
-* **Dosen Pengampu:** Dr. Irwansyah Saputra, M.Kom. (NIP: 201909149)
 * 📊 **Dashboard Progres & Audit Naskah:** Buka [`progress/index.html`](progress/index.html) di browser.
 * 🎯 **Research Gap & 3 Rumusan Masalah:** Baca [`Gap-research.md`](Gap-research.md).
 * 📁 **Dataset Primer Terfokus:** [`dataset/D1_code_comments.csv`](dataset/D1_code_comments.csv) (Komentar Kode Java Maldonado, 62.275 baris).

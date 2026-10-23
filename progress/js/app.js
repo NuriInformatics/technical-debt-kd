@@ -74,7 +74,7 @@ async function loadAllData() {
       fetch('data/datasets.json').then(r => r.json()),
       fetch('data/references.json').then(r => r.json()),
       fetch('history/index.json').then(r => r.json()),
-      fetch('history/2026-10-16.json').then(r => r.json())
+      fetch('history/latest.json').then(r => r.json())
     ]);
 
     if (rqRes.status === 'fulfilled') {

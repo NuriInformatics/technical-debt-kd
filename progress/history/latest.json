@@ -1,73 +1,83 @@
 {
   "date": "2026-10-23",
-  "title": "Audit Naskah Revisi Dosen & Penyelarasan Repositori GitHub",
+  "title": "Audit Naskah & Lembar Tindak Lanjut Revisi Dosen Pembimbing",
   "document": "Hanief Fathul Bahri Ahmad-Distilled-BAB1-3.pdf",
-  "status": "Telah Diperbarui Sesuai Arahan Dosen",
+  "status": "Revisi Dosen Telah Diakomodasi di Repositori & Menunggu Sinkronisasi Word",
   "summary": {
-    "total": 6,
-    "pending": 0,
-    "resolved": 6
+    "total": 7,
+    "pending": 2,
+    "resolved": 5
   },
   "items": [
     {
-      "id": "ALT-01",
+      "id": "REV-01",
       "category": "Administratif",
       "severity": "Penting",
       "status": "resolved",
-      "location": "Cover Bab 1 - Bab 3",
-      "title": "Pembaruan Judul Resmi Proposal Tesis",
-      "problem": "Judul lama masih memakai multi-artefak domain dan belum mencerminkan mitigasi shortcut learning.",
-      "solution": "Diperbarui menjadi: DETEKSI SELF-ADMITTED TECHNICAL DEBT MENGGUNAKAN DISTILASI CODEBERT UNTUK MITIGASI SHORTCUT LEARNING."
+      "location": "Cover Bab I, II, III",
+      "title": "Penyelarasan Judul Resmi Proposal Tesis",
+      "problem": "Judul terdahulu menyebutkan domain multi-artefak ('Deteksi SATD Multi Artefak Domain...') yang sudah tidak relevan.",
+      "solution": "Diperbarui menjadi: 'DETEKSI SELF-ADMITTED TECHNICAL DEBT MENGGUNAKAN DISTILASI CODEBERT UNTUK MITIGASI SHORTCUT LEARNING'. Status di GitHub sudah selesai."
     },
     {
-      "id": "ALT-02",
+      "id": "REV-02",
       "category": "Ruang Lingkup",
       "severity": "Penting",
       "status": "resolved",
-      "location": "Direktori Dataset & Bab 3",
-      "title": "Fokus Eksklusif Korpus Komentar Kode (D1 Maldonado)",
-      "problem": "Dataset D2, D3, dan D4 sintetis membuyarkan fokus penelitian utama.",
-      "solution": "Dataset D2, D3, dan D4 dihapus dari repositori. Repositori GitHub kini 100% fokus pada D1_code_comments.csv (62.275 baris)."
+      "location": "Dataset Repository & Subbab 3.3",
+      "title": "Penyempitan Dataset: Fokus Eksklusif Komentar Kode (D1)",
+      "problem": "Adanya korpus commits, PRs, issues (D2) dan scientific HPC (D3) membuyarkan fokus penelitian utama.",
+      "solution": "Dataset D2 dan D3 telah dihapus dari repositori GitHub. Eksperimen dibatasi 100% pada D1_code_comments.csv (Maldonado Java 62.275 baris)."
     },
     {
-      "id": "ALT-03",
+      "id": "REV-03",
       "category": "Metodologi",
       "severity": "Penting",
       "status": "resolved",
-      "location": "Subbab 1.2 & Bab 3 (RQ)",
-      "title": "Penangguhan Studi Ablasi Data Sintetis D4",
-      "problem": "Dosen mengarahkan untuk menunda studi ablasi data sintetis dan fokus penuh pada masalah utama distilasi CodeBERT.",
-      "solution": "RQ diselaraskan ke 3 fokus utama: RQ1 (Efektivitas Deteksi SATD), RQ2 (Efisiensi Kompresi Parameter & Throughput CPU), dan RQ3 (Trade-off Kompresi vs Retensi F1 & XAI Integrated Gradients)."
+      "location": "Subbab 1.2.2 & 3.2 (Rumusan Masalah)",
+      "title": "Penangguhan Studi Ablasi Data Sintetis Bertopeng (D4)",
+      "problem": "Dosen mengarahkan untuk menunda studi ablasi data sintetis bertopeng (D4) dan fokus mendalam ke masalah utama distilasi CodeBERT.",
+      "solution": "Dataset D4 sintetis dihapus dari repo. RQ diselaraskan: RQ1 (Efektivitas Deteksi SATD), RQ2 (Efisiensi Kompresi Parameter & Throughput CPU), dan RQ3 (Trade-off Kompresi vs Retensi F1 & XAI Integrated Gradients)."
     },
     {
-      "id": "ALT-04",
+      "id": "REV-04",
+      "category": "Tooling & Deployment",
+      "severity": "Penting",
+      "status": "resolved",
+      "location": "Models & Subbab 3.6",
+      "title": "Peniadaan Dependensi dan Ekspor ONNX",
+      "problem": "Konversi ONNX tidak lagi menjadi sasaran keluaran wajib penelitian tesis.",
+      "solution": "Skrip export_onnx.py dihapus dari folder models/; evaluasi latensi inferensi difokuskan pada native PyTorch torch.no_grad() pada CPU runner."
+    },
+    {
+      "id": "REV-05",
       "category": "Arsitektur Model",
       "severity": "Penting",
       "status": "resolved",
-      "location": "Subbab 3.4 & Models",
-      "title": "Konfirmasi Arsitektur Teacher-Student (Option B)",
-      "problem": "Kontradiksi arsitektur Teacher DeepSeek vs CodeBERT.",
-      "solution": "Diselaraskan: Teacher = CodeBERT-base 12-layer (125M), Student = Distilled-CodeBERT 6-layer (66M). Skrip ekspor ONNX dihapus karena inferensi fokus pada PyTorch CPU."
+      "location": "Subbab 3.4.1 (Teacher-Student Pipeline)",
+      "title": "Konfirmasi Opsi B: Teacher CodeBERT 12L ke Student 6L",
+      "problem": "Pernah terdapat kontradiksi antara Teacher DeepSeek-Coder 1.3B dengan CodeBERT-base 125M.",
+      "solution": "Ditetapkan arsitektur Opsi B: Teacher = CodeBERT-base 12-layer (125M), Student = Distilled-CodeBERT 6-layer (66M) dengan inisialisasi lapisan berseling (1, 3, 5, 7, 9, 11)."
     },
     {
-      "id": "ALT-05",
+      "id": "REV-06",
       "category": "Sitasi",
-      "severity": "Penting",
-      "status": "resolved",
-      "location": "Daftar Pustaka Bab 1 & Bab 3",
-      "title": "Audit Penomoran Sitasi Mandiri Tiap Bab",
-      "problem": "Potensi tertukar atau nomor pustaka melompat antar Bab.",
-      "solution": "Sitasi diverifikasi lengkap: Bab 1 mandiri [1]-[14], Bab 3 mandiri [1]-[12]. Semua kunci sitasi valid dan terdaftar."
+      "severity": "Sedang",
+      "status": "pending",
+      "location": "Daftar Pustaka Naskah Word (Bab 1, 2, 3)",
+      "title": "Verifikasi & Penyalinan Sitasi Mandiri ke Naskah Word",
+      "problem": "Pastikan tidak ada nomor sitasi melompat atau format rusak saat menyalin ke Word.",
+      "solution": "Bab 1 menggunakan sitasi mandiri [1]-[14], Bab 3 menggunakan [1]-[12], dan Bab 2 menggunakan 15 jurnal peer-reviewed (2021-2026). Perlu disinkronkan saat finalisasi file .docx."
     },
     {
-      "id": "ALT-06",
-      "category": "Tooling & Runtime",
-      "severity": "Penting",
-      "status": "resolved",
-      "location": "Models & Deployment",
-      "title": "Peniadaan Dependensi ONNX Runtime",
-      "problem": "ONNX tidak lagi menjadi sasaran keluaran wajib penelitian.",
-      "solution": "Skrip export_onnx.py dihapus dari folder models/; pengujian latensi difokuskan pada native PyTorch no_grad() CPU execution."
+      "id": "REV-07",
+      "category": "Tipografi",
+      "severity": "Sedang",
+      "status": "pending",
+      "location": "Tabel 3.3 & Formula Naskah Word",
+      "title": "Penerapan Tabel 3.3 Bersih (5 Kolom) dan Penghapusan Tilde",
+      "problem": "Tabel 3.3 terdahulu terlalu padat (9 kolom) dan karakter tilde (~) berisiko terkonversi menjadi coret teks (strikethrough).",
+      "solution": "Ganti karakter tilde dengan kata 'sekitar' dan terapkan format ringkas Tabel 3.3 (5 kolom) sesuai panduan PANDUAN_TITIK_UBAH_BAB3.md pada naskah Word."
     }
   ]
 }
