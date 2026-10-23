@@ -254,7 +254,7 @@ function renderRQ(rqList) {
 }
 
 // --------------------------------------------------------------------------
-// 4. RENDER VIEW 2: DATASETS (D1 - D4)
+// 4. RENDER VIEW 2: DATASETS EMPIRIS
 // --------------------------------------------------------------------------
 function renderDatasets(datasetList) {
   const container = document.getElementById('datasets-container');

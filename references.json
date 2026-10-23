@@ -108,7 +108,7 @@
     "doi": "10.1007/s10664-023-10297-9",
     "index": "Scopus Q1 / Springer",
     "file": "02_Li2023_Automatic_Identification_Four_Sources.pdf",
-    "role": "Penyedia Dataset D2 Multi-Artefak (Commits, Issues, PRs dari 103 Proyek Apache)",
+    "role": "Kajian Komparatif Sumber Artefak SATD & Karakteristik Komentar Kode",
     "status": "Verified"
   },
   {
@@ -122,7 +122,7 @@
     "doi": "10.1145/3815572.3815759",
     "index": "Scopus / ACM",
     "file": "01_Melin2026_MultiArtifact_Scientific_Software.pdf",
-    "role": "Penyedia Dataset D3 Korpus Software Ilmiah DOE/ORNL (Domain Transfer)",
+    "role": "Literatur Pembanding Karakteristik SATD Lintas Proyek",
     "status": "Verified"
   },
   {

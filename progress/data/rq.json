@@ -2,49 +2,49 @@
   {
     "id": "RQ1",
     "number": "01",
-    "title": "Pengaruh Knowledge Distillation",
-    "question": "Bagaimana pengaruh penerapan distilasi pengetahuan pada arsitektur CodeBERT terhadap peningkatan kemampuan deteksi Self-Admitted Technical Debt dibandingkan model baseline?",
-    "focus": "Knowledge Distillation vs Baseline",
+    "title": "Efektivitas Deteksi SATD",
+    "question": "Bagaimana efektivitas kinerja klasifikasi deteksi Self-Admitted Technical Debt (Macro-F1, MCC, AUC-PR) model Distilled-CodeBERT (Student 6-layer) dibandingkan model Teacher (CodeBERT-base 12-layer) serta model baseline pembanding (TextCNN, BiLSTM, dan Student 6-layer tanpa distilasi) pada dataset komentar kode Java?",
+    "focus": "Knowledge Distillation vs Baselines",
     "metrics": [
-      { "name": "Macro-F1", "target": "Signifikan > Baseline", "desc": "Keseimbangan presisi & recall kelas minoritas" },
-      { "name": "MCC", "target": "Signifikan > Baseline", "desc": "Matthews Correlation Coefficient (Chicco et al., 2021)" },
-      { "name": "AUC-PR", "target": "Signifikan > Baseline", "desc": "Evaluasi pada distribusi highly imbalanced" }
+      { "name": "Macro-F1", "target": "Retensi mendekati Teacher (Penurunan <= 1.50%)", "desc": "Keseimbangan presisi dan recall pada data tidak seimbang" },
+      { "name": "MCC", "target": "Signifikan > Baseline", "desc": "Matthews Correlation Coefficient untuk evaluasi class imbalance" },
+      { "name": "AUC-PR", "target": "Signifikan > Baseline", "desc": "Area under Precision-Recall curve pada kelas minoritas" }
     ],
-    "stats_test": "Wilcoxon Signed-Rank Test (p < 0.05) & Cliff's Delta (|d| > 0.33)",
-    "baselines": ["TextCNN", "BiLSTM", "Standard CodeBERT-base"],
-    "datasets": ["D1 (Java Code)", "D2 (Multi-Source Apache)", "D3 (DOE/ORNL HPC)"],
-    "objective": "Membuktikan transfer representasi semantik dari Teacher (DeepSeek-Coder-1.3B) ke Student (CodeBERT-base 125M) melampaui pembelajaran fitur konvensional."
+    "stats_test": "Wilcoxon Signed-Rank Test (p < 0.05) & Cliff's Delta (|d| >= 0.33)",
+    "baselines": ["TextCNN", "BiLSTM", "Student-6L Tanpa Distilasi", "Full CodeBERT-base 12L"],
+    "datasets": ["D1 (Java Code Comments Benchmark - 62.275 baris)"],
+    "objective": "Membuktikan transfer representasi semantik dari Teacher (CodeBERT 12L) ke Student (Distilled-CodeBERT 6L) mempertahankan akurasi klasifikasi SATD mendekati model acuan penuh."
   },
   {
     "id": "RQ2",
     "number": "02",
-    "title": "Ketahanan pada SATD Implisit",
-    "question": "Sejauh mana Distilled CodeBERT efektif dalam mendeteksi Self-Admitted Technical Debt yang bersifat implisit ketika kata kunci eksplisit disamarkan atau dihilangkan?",
-    "focus": "Anti-Shortcut Learning",
+    "title": "Efisiensi Kompresi Arsitektur",
+    "question": "Sejauh mana efisiensi kompresi arsitektur dari 12 layer ke 6 layer pada Distilled-CodeBERT mampu mereduksi parameter fisik, ukuran memori penyimpanan, serta mempercepat waktu inferensi komputasi pada CPU tunggal?",
+    "focus": "Model Compression & Resource Footprint",
     "metrics": [
-      { "name": "Macro-F1 Degradation", "target": "< 5.0%", "desc": "Penurunan performa saat token eksplisit di-mask" },
-      { "name": "Recall SATD Implisit", "target": "> 80.0%", "desc": "Sensitivitas menangkap utang tanpa TODO/FIXME" },
-      { "name": "Implicit Macro-F1", "target": "> 0.78", "desc": "F1-score pada subset SATD implisit tanpa pemicu eksplisit" }
+      { "name": "Rasio Kompresi Parameter (CR)", "target": "1.89x (Pengurangan 47.2%)", "desc": "Pemangkasan dari 125 juta parameter ke 66 juta parameter" },
+      { "name": "Ukuran Bobot Model", "target": "Turun dari ~490 MB ke ~260 MB", "desc": "Penyusutan alokasi memori fisik model" },
+      { "name": "Latensi Inferensi CPU (tau)", "target": "<= 30 ms / sampel", "desc": "Percepatan eksekusi inferensi pada CPU tunggal" }
     ],
-    "stats_test": "Ablation Masking Test pada D4 (Implicit Masked Suite)",
-    "baselines": ["Model Shortcut Learning (Conventional DL)", "Teacher Model Raw"],
-    "datasets": ["D4 (Implicit Masked Suite - 4.000 sampel seimbang)"],
-    "objective": "Menguji ketahanan model terhadap shortcut learning; membuktikan model memahami semantik utang teknis bukan sekadar hafalan kata kunci pemicu."
+    "stats_test": "Benchmark Throughput (sampel/detik) & Profiling Memori CPU",
+    "baselines": ["Full CodeBERT-base 12L (Teacher)", "Student-6L Tanpa Distilasi"],
+    "datasets": ["D1 (Java Code Comments Benchmark)"],
+    "objective": "Mengukur secara empiris penghematan sumber daya komputasi dan percepatan inferensi pada lingkungan CPU runner standar."
   },
   {
     "id": "RQ3",
     "number": "03",
-    "title": "Efisiensi Komputasi Lingkungan CI/CD",
-    "question": "Bagaimana perbandingan kinerja Distilled CodeBERT dengan model pembanding ditinjau dari akurasi deteksi dan efisiensi komputasi pada skenario implementasi CI/CD?",
-    "focus": "Edge/CPU Production Deployment",
+    "title": "Analisis Trade-off Kompresi vs Retensi F1 & XAI",
+    "question": "Bagaimana perbandingan trade-off antara rasio kompresi parameter terhadap toleransi degradasi skor Macro-F1 (Delta F1 <= 1.50%) pada Distilled-CodeBERT, serta bagaimana analisis atribusi fitur berbasis Explainable AI (Integrated Gradients) membuktikan bahwa model terkompresi tetap mempertahankan fokus pada konteks semantik kalimat utang teknis?",
+    "focus": "Trade-off Tolerance & Semantic Attribution",
     "metrics": [
-      { "name": "Inference Latency (tau)", "target": "< 30 ms / komentar", "desc": "Single-thread CPU inferensi via ONNX Runtime" },
-      { "name": "Peak Memory (RAM)", "target": "< 500 MB", "desc": "Runner container footprint (GitHub Actions compatible)" },
-      { "name": "Model Size", "target": "~125M params (< 500 MB disk)", "desc": "Bisa di-cache dalam workflow CI/CD tanpa GPU" }
+      { "name": "Batas Toleransi Delta F1", "target": "<= 1.50%", "desc": "Batas maksimum penurunan F1 dibanding Teacher 12L" },
+      { "name": "Atribusi Fitur XAI", "target": "Fokus pada semantik kompromi teknis", "desc": "Analisis Integrated Gradients pada representasi token kalimat" },
+      { "name": "Kontrol Ablasi", "target": "Student tanpa distilasi drop F1 >= 3.50%", "desc": "Membuktikan keunggulan distilasi dibanding model kompresi naif" }
     ],
-    "stats_test": "Benchmark Throughput (ops/sec) & Profile Memori ONNX Runtime FP16/INT8",
-    "baselines": ["DeepSeek-Coder-1.3B (Teacher)", "Standard CodeBERT", "LLM Cloud API"],
-    "datasets": ["Pipeline Runner Simulasi GitHub Actions"],
-    "objective": "Menghasilkan model deteksi siap produksi yang layak diintegrasikan langsung ke dalam pipeline pull-request tanpa membebani biaya GPU server."
+    "stats_test": "Perhitungan Trade-off Ratio & Analisis Atribusi Gradien Terintegrasi (Captum)",
+    "baselines": ["Student-6L Tanpa Distilasi (Ablation Control)", "Teacher 12L"],
+    "datasets": ["D1 (Java Code Comments Benchmark)"],
+    "objective": "Membuktikan kelayakan trade-off kompresi model dan memvalidasi bahwa model terkompresi mengambil keputusan berbasis makna semantik konteks kode."
   }
 ]
