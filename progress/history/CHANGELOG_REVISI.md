@@ -14,3 +14,6 @@ Format pencatatan riwayat revisi, koreksi typo, dan audit naskah akademik:
 | 2026-10-23 | Dataset & Scope | Eliminasi Dataset | Korpus D2, D3, dan D4 sintetis | Fokus eksklusif D1 Komentar Kode Java (62.275 baris) | Selesai di Repo | Arahan Dosen |
 | 2026-10-23 | Metodologi | Penangguhan Ablasi D4 | Ablasi data sintetis bertopeng D4 | Ditangguhkan; fokus utama distilasi CodeBERT (12L -> 6L) | Selesai di Repo | Arahan Dosen |
 | 2026-10-23 | Arsitektur & Tool | Eliminasi ONNX | Skrip ekspor ONNX (`export_onnx.py`) | Dihapus; evaluasi inferensi murni PyTorch CPU runner | Selesai di Repo | Klarifikasi Draft |
+| 2026-10-23 | Sitasi & Bibliografi | Testing Fisik 40/40 Sitasi | Cek berkas PDF 40 sitasi naskah | 100% berkas PDF fisik asli tersedia lengkap di repositori lokal | Selesai di Repo | Audit AI & PDF |
+| 2026-10-23 | Sitasi & Bibliografi | Deduplikasi Sitasi | 8 Paper duplikat/triplikat di PDF | Dipetakan lengkap ke matriks deduplikasi untuk file Word | Selesai di Repo | Audit AI & PDF |
+| 2026-10-23 | Metadata Repo | Pembersihan Info Pribadi | Nama, NIM, Prodi, Dosen di README | Dihapus; README hanya memuat judul resmi & navigasi riset | Selesai di Repo | Permintaan Pengguna |
