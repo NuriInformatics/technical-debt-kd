@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   
   <!-- Master Console Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=2.3">
+  <link rel="stylesheet" href="css/style.css?v=2.4">
 </head>
 <body>
 
@@ -53,40 +53,142 @@
     <section class="view-panel active-view" id="view-audit">
       <div class="panel-header">
         <div class="panel-title-wrap">
-          <h2><i class="ti ti-notes"></i> Audit Draft</h2>
+          <h2><i class="ti ti-notes"></i> Audit Naskah Draf &amp; Lembar Tindak Lanjut Revisi Dosen</h2>
         </div>
+        <div class="panel-actions">
+          <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-muted);" id="audit-doc-badge">Hanief Fathul Bahri Ahmad-Distilled-BAB1-3.pdf</span>
+        </div>
+      </div>
+
+      <!-- Sub-Navigation Toolbar for Audit Draft -->
+      <div class="audit-subnav-toolbar" id="audit-subnav">
+        <button class="audit-subnav-btn active" data-subview="revisi-draf">
+          <i class="ti ti-list-check"></i> 10 Poin Revisi Draf
+          <span class="subnav-badge badge-pending" id="badge-sub-pending">8 Perlu Tindakan</span>
+        </button>
+        <button class="audit-subnav-btn" data-subview="duplikasi-sitasi">
+          <i class="ti ti-copy"></i> Matriks 8 Paper Duplikat
+          <span class="subnav-badge badge-warn" id="badge-sub-dup">8 Duplikat</span>
+        </button>
+        <button class="audit-subnav-btn" data-subview="uji-sitasi">
+          <i class="ti ti-file-check"></i> Uji Fisik 40/40 Sitasi PDF
+          <span class="subnav-badge badge-verified" id="badge-sub-phys">100% Ada</span>
+        </button>
+        <button class="audit-subnav-btn" data-subview="metodologi-rq">
+          <i class="ti ti-adjustments-horizontal"></i> Penyelarasan Metodologi &amp; RQ
+        </button>
+        <button class="audit-subnav-btn" data-subview="all-views">
+          <i class="ti ti-layout-grid"></i> Tampilkan Semua Analisa
+        </button>
       </div>
 
       <div class="audit-cockpit">
         <!-- Left Sidebar: Meta & Metrics -->
         <aside class="audit-sidebar">
           <div class="audit-meta-card">
-            <h3>Snapshot Audit</h3>
-            <p>Tanggal: <strong id="audit-meta-date">-</strong></p>
-            <p style="margin-top:4px;">Naskah: <code id="audit-meta-doc">BAB 3.pdf</code></p>
+            <h3>Objek Telaah Draf Tesis</h3>
+            <p>File: <code id="audit-meta-doc">BAB1-3.pdf</code></p>
+            <p style="margin-top:4px;">Tanggal: <strong id="audit-meta-date">23 Okt 2026</strong></p>
+            <p style="margin-top:4px;">Cakupan: <strong>Bab I - Bab III (43 Hal.)</strong></p>
           </div>
 
           <div class="progress-ring-container">
             <div class="progress-numbers">
-              <span class="big" id="audit-pending-count">-</span>
-              <span class="label">Perlu Tindakan</span>
+              <span class="big" id="audit-pending-count" style="color:#f59e0b;">8</span>
+              <span class="label">Perlu Tindakan di Word</span>
             </div>
             <div style="height:32px; width:1px; background:var(--border-subtle); margin:0 4px;"></div>
             <div class="progress-numbers">
-              <span class="big" id="audit-resolved-count">-</span>
-              <span class="label">Telah Selesai</span>
+              <span class="big" id="audit-resolved-count" style="color:var(--accent);">2</span>
+              <span class="label">Sudah Sesuai di Draf</span>
+            </div>
+          </div>
+
+          <!-- Quick Filters for Action Items -->
+          <div class="audit-quick-filter-wrap">
+            <span class="filter-label">Filter Action Items:</span>
+            <div class="filter-chips" id="audit-filter-chips">
+              <button class="filter-chip active" data-filter="all">Semua (10)</button>
+              <button class="filter-chip chip-pending" data-filter="pending">Perlu Tindakan (8)</button>
+              <button class="filter-chip chip-resolved" data-filter="resolved">Sudah Sesuai (2)</button>
+            </div>
+          </div>
+
+          <div class="audit-stat-mini-box">
+            <div class="stat-mini-row">
+              <span class="mini-lbl"><i class="ti ti-books"></i> Total Sitasi Naskah:</span>
+              <span class="mini-val">40 Entri</span>
+            </div>
+            <div class="stat-mini-row">
+              <span class="mini-lbl"><i class="ti ti-copy"></i> Paper Duplikat/Triplikat:</span>
+              <span class="mini-val" style="color:#f59e0b;">8 Paper</span>
+            </div>
+            <div class="stat-mini-row">
+              <span class="mini-lbl"><i class="ti ti-file-certificate"></i> Paper Unik Sebenarnya:</span>
+              <span class="mini-val">26 Paper</span>
+            </div>
+            <div class="stat-mini-row">
+              <span class="mini-lbl"><i class="ti ti-check"></i> Uji Berkas Fisik PDF:</span>
+              <span class="mini-val" style="color:var(--accent);">100% (40/40)</span>
             </div>
           </div>
 
           <div style="font-size:11.5px; color:var(--text-muted); line-height:1.45; border-top:1px solid var(--border-subtle); padding-top:12px;">
-            <i class="ti ti-robot"></i> Status audit diverifikasi dan diperbarui otomatis oleh AI Agent.
+            <i class="ti ti-info-circle"></i> Status audit ini mengukur <strong>naskah draf tesis Word/PDF</strong> Anda untuk ditindaklanjuti pada penyuntingan dokumen resmi.
           </div>
         </aside>
 
-        <!-- Right Content: Interactive Items -->
-        <div class="audit-items-list" id="audit-items-container">
-          <div class="skeleton-loader"></div>
-          <div class="skeleton-loader"></div>
+        <!-- Right Main Content Area -->
+        <div class="audit-main-content">
+          <!-- SUB-VIEW 1: Interactive Audit Cards (Action Items) -->
+          <div class="audit-section-panel" id="panel-revisi-draf">
+            <div class="section-subhead">
+              <h3><i class="ti ti-list-check"></i> Tindak Lanjut Revisi Dosen pada Naskah Draf</h3>
+              <p class="section-desc">Daftar kutipan teks yang bermasalah/kurang di draf PDF saat ini serta langkah konkrit perbaikannya di file Word:</p>
+            </div>
+            <div class="audit-items-list" id="audit-items-container">
+              <div class="skeleton-loader"></div>
+              <div class="skeleton-loader"></div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 2: Matriks 8 Paper Duplikat di Naskah PDF -->
+          <div class="audit-section-panel is-hidden" id="panel-duplikasi-sitasi">
+            <div class="section-subhead">
+              <h3><i class="ti ti-copy"></i> Matriks 8 Paper Terduplikasi pada Daftar Pustaka Naskah</h3>
+              <p class="section-desc">Akibat penggabungan naskah Bab 1, 2, dan 3 secara terpisah, 8 paper terdaftar berulang kali memicu 40 entri sitasi (padahal total hanya 26 paper unik). Di bawah ini matriks pemetaannya untuk perbaikan di Mendeley/Zotero Word:</p>
+            </div>
+            <div class="ref-table-wrap" id="audit-duplicates-container">
+              <div style="padding:24px; text-align:center; color:var(--text-muted);"><i class="ti ti-loader-2 ti-spin"></i> Memuat matriks duplikasi...</div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 3: Audit Fisik & Distribusi 40/40 Sitasi PDF -->
+          <div class="audit-section-panel is-hidden" id="panel-uji-sitasi">
+            <div class="section-subhead">
+              <h3><i class="ti ti-file-check"></i> Sebaran &amp; Hasil Uji Fisik 40/40 Sitasi Naskah PDF</h3>
+              <p class="section-desc">Hasil pengujian deep audit membuktikan seluruh 40 nomor sitasi yang dikutip pada naskah memiliki berkas PDF fisik asli 100% lengkap di repositori lokal:</p>
+            </div>
+            <!-- Chapter distribution mini cards -->
+            <div class="chapter-stats-grid" id="audit-chapter-stats-container">
+              <!-- Rendered by app.js -->
+            </div>
+            <!-- Physical verification table -->
+            <div class="ref-table-wrap" style="margin-top:16px;" id="audit-citations-container">
+              <div style="padding:24px; text-align:center; color:var(--text-muted);"><i class="ti ti-loader-2 ti-spin"></i> Memuat verifikasi fisik sitasi...</div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 4: Penyelarasan Metodologi & Rumusan Masalah -->
+          <div class="audit-section-panel is-hidden" id="panel-metodologi-rq">
+            <div class="section-subhead">
+              <h3><i class="ti ti-adjustments-horizontal"></i> Matriks Penyelarasan Metodologi: Draf Lama vs Arahan Dosen</h3>
+              <p class="section-desc">Perbandingan langsung antara teks metodologi yang keliru pada draf terdahulu dengan arahan resmi dosen pembimbing:</p>
+            </div>
+            <div class="ref-table-wrap" id="audit-methodology-container">
+              <div style="padding:24px; text-align:center; color:var(--text-muted);"><i class="ti ti-loader-2 ti-spin"></i> Memuat penyelarasan metodologi...</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -175,12 +277,12 @@
       <button class="dock-btn tab-btn active" data-tab="audit">
         <span class="dock-num">1</span>
         <span class="dock-label">Audit Draft</span>
-        <span class="dock-badge" id="tab-count-audit">7</span>
+        <span class="dock-badge" id="tab-count-audit">8</span>
       </button>
       <button class="dock-btn tab-btn" data-tab="datasets">
         <span class="dock-num">2</span>
         <span class="dock-label">Dataset Empiris</span>
-        <span class="dock-badge" id="tab-count-data">4</span>
+        <span class="dock-badge" id="tab-count-data">1</span>
       </button>
       <button class="dock-btn tab-btn" data-tab="references">
         <span class="dock-num">3</span>
@@ -199,6 +301,6 @@
   <div class="toast-notice" id="toast"></div>
 
   <!-- Master Application Controller -->
-  <script src="js/app.js?v=2.3"></script>
+  <script src="js/app.js?v=2.4"></script>
 </body>
 </html>

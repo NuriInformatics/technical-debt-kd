@@ -1,93 +1,309 @@
 {
   "date": "2026-10-23",
-  "title": "Audit Naskah, Sitasi PDF & Lembar Tindak Lanjut Revisi Dosen",
-  "document": "Hanief Fathul Bahri Ahmad-Distilled-BAB1-3.pdf",
-  "status": "Audit Tuntas & Seluruh Perubahan Metodologis Telah Terhandle di Repositori",
+  "title": "Audit Naskah Draf Tesis & Matriks Tindak Lanjut Revisi Dosen",
+  "document": "Hanief Fathul Bahri Ahmad-Distilled-BAB1-3.pdf (43 Halaman)",
+  "status": "Audit Kritis Naskah Draf: 8 Poin Perlu Direvisi di File Word & 2 Poin Sudah Sesuai",
   "summary": {
-    "total": 8,
-    "pending": 1,
-    "resolved": 7
+    "total": 10,
+    "pending": 8,
+    "resolved": 2,
+    "duplicate_papers_count": 8,
+    "verified_pdf_count": 40
   },
   "items": [
     {
-      "id": "REV-01",
-      "category": "Administratif",
+      "id": "AUDIT-01",
+      "category": "Sitasi & Bibliografi",
       "severity": "Penting",
-      "status": "resolved",
-      "location": "Cover Bab I, II, III",
-      "title": "Penyelarasan Judul Resmi Proposal Tesis",
-      "problem": "Judul terdahulu menyebutkan domain multi-artefak ('Deteksi SATD Multi Artefak Domain...') yang sudah tidak relevan.",
-      "solution": "[TERHANDLE] Judul resmi diperbarui menjadi 'DETEKSI SELF-ADMITTED TECHNICAL DEBT MENGGUNAKAN DISTILASI CODEBERT UNTUK MITIGASI SHORTCUT LEARNING' di seluruh file README, Gap-research, dan konsol progres."
+      "status": "pending",
+      "location": "Daftar Pustaka Hal. 36-42",
+      "title": "Daftar Pustaka Draf Memuat 8 Paper Duplikat/Triplikat",
+      "problem": "Daftar Pustaka draf saat ini mencetak 40 entri sitasi, namun terdapat 8 paper yang terdaftar berulang kali akibat penggabungan naskah Bab 1, 2, dan 3 yang sitasinya terpisah: (1) Karelin et al. ganda di [1] & [39]; (2) Li et al. ganda di [2] & [25]; (3) Abdulaziz et al. ganda di [5] & [17]; (4) Sabbah & Hanani muncul 3 kali di [8], [33], & [38]; (5) Gu et al. ganda di [9] & [35]; (6) Zhuang et al. ganda di [10] & [34]; (7) Melin et al. ganda di [12] & [40]; (8) Qu et al. muncul 3 kali di [13], [26], & [32].",
+      "solution": "Pada file Word, lakukan sinkronisasi library reference manager (Mendeley/Zotero) ke satu database terpadu. Ubah sitasi di Bab II dan Bab III agar merujuk ke nomor entri pertama yang sudah terdaftar di Bab I, sehingga Daftar Pustaka final hanya berisi 26 paper unik tanpa nomor ganda."
     },
     {
-      "id": "REV-02",
-      "category": "Ruang Lingkup",
-      "severity": "Penting",
-      "status": "resolved",
-      "location": "Direktori Dataset & Subbab 3.3",
-      "title": "Penyempitan Dataset: Fokus Eksklusif Komentar Kode (D1)",
-      "problem": "Dataset D2 (commits/issues/PRs) dan D3 (scientific HPC) membuyarkan fokus penelitian utama.",
-      "solution": "[TERHANDLE] Sebanyak 175.135 baris data non-komentar kode (D2 dan D3) telah dihapus permanen dari repositori GitHub. Eksperimen dibatasi 100% pada D1_code_comments.csv (62.275 baris)."
-    },
-    {
-      "id": "REV-03",
+      "id": "AUDIT-02",
       "category": "Metodologi",
       "severity": "Penting",
-      "status": "resolved",
-      "location": "Subbab 1.2.2 & 3.2 (Rumusan Masalah)",
-      "title": "Penangguhan Studi Ablasi Data Sintetis Bertopeng (D4)",
-      "problem": "Dosen mengarahkan untuk menunda studi ablasi data sintetis bertopeng (D4) dan fokus mendalam ke masalah utama distilasi CodeBERT.",
-      "solution": "[TERHANDLE] Dataset sintetis D4 dan skrip pembuatannya dihapus dari repositori. Tiga RQ difokuskan pada: RQ1 (Efektivitas Deteksi SATD), RQ2 (Efisiensi Kompresi Parameter & Latensi CPU), dan RQ3 (Trade-off Kompresi vs Retensi F1 & XAI Integrated Gradients)."
+      "status": "pending",
+      "location": "Subbab 3.2 Poin 3 (Hal. 21)",
+      "title": "Teks Draf Masih Membahas Pembentukan Korpus Sintetis Bertopeng D4",
+      "problem": "Teks draf pada Halaman 21 masih tertulis: '3. Pembentukan Korpus Uji Bertopeng D4: Menghasilkan korpus evaluasi adversarial (Implicit Masked Test Suite) sebanyak 4.000 sampel seimbang (50% SATD implisit : 50% Non-SATD) dengan menyensor 6 kata kunci penanda leksikal eksplisit (TODO, FIXME, HACK, XXX, WORKAROUND, TEMP) secara deterministik menjadi token netral [MASK]'.",
+      "solution": "Sesuai arahan dosen pembimbing, studi ablasi data sintetis bertopeng ditunda agar fokus mendalam pada distilasi CodeBERT. HAPUS seluruh paragraf Poin 3 ini dari naskah Bab 3 file Word Anda, lalu sesuaikan nomor urut langkah berikutnya."
     },
     {
-      "id": "REV-04",
+      "id": "AUDIT-03",
+      "category": "Metodologi",
+      "severity": "Penting",
+      "status": "pending",
+      "location": "Subbab 3.2 Poin 6 (Hal. 22)",
+      "title": "Skenario RQ2 di Metodologi Masih Memuat Evaluasi Ketahanan D4",
+      "problem": "Teks draf pada Halaman 22 masih tertulis: 'Skenario RQ2 (Evaluasi Ketahanan D4): Menguji model pada data bertopeng D4 untuk mengukur delta penurunan skor (Delta F1) dan retensi skor F1 (FRR) guna membuktikan mitigasi shortcut learning'.",
+      "solution": "Ganti narasi Skenario RQ2 di draf Word menjadi: 'Skenario RQ2 (Evaluasi Efisiensi Kompresi & Latensi CPU): Mengukur pencapaian rasio kompresi parameter CR = 1,89x (pemangkasan 47,2% bobot) dan kecepatan inferensi pada CPU single-core runner'. Serta ubah Skenario RQ3 menjadi analisis trade-off kompresi vs toleransi penurunan F1 (Delta F1 <= 1,50%) dan interpretasi semantik XAI Integrated Gradients."
+    },
+    {
+      "id": "AUDIT-04",
+      "category": "Ruang Lingkup",
+      "severity": "Penting",
+      "status": "pending",
+      "location": "Subbab 3.3.2 Tabel 3.1 (Hal. 24)",
+      "title": "Tabel 3.1 di Draf Masih Mencantumkan Baris Korpus D4",
+      "problem": "Tabel 3.1 (Ringkasan Karakteristik Statistik Korpus Empiris) pada Halaman 24 draf masih memuat baris kedua: 'D4 | Implicit Masked Suite (Sintesis Adversarial) | Komentar Bertopeng [MASK] | 4.000 sampel'.",
+      "solution": "Hapus baris D4 tersebut dari Tabel 3.1 di naskah Word. Ubah narasi pengantar sebelum tabel dari 'dua korpus terstandardisasi' menjadi 'satu korpus patokan baku primer: Dataset D1 Komentar Kode Java Maldonado (62.275 baris)' agar sesuai dengan pembatasan ruang lingkup riset."
+    },
+    {
+      "id": "AUDIT-05",
+      "category": "Metodologi",
+      "severity": "Penting",
+      "status": "pending",
+      "location": "Subbab 3.5.2 (Hal. 31)",
+      "title": "Subbab 3.5.2 Masih Memuat Rumus FRR & Delta F1 D4 Adversarial",
+      "problem": "Pada Halaman 31 draf tertulis: 'Metrik Ketahanan Shortcut Learning (Evaluasi Penurunan Performa)' yang memuat rumus Delta F1 = Macro-F1(D1 Test) - Macro-F1(D4 Masked Test) dan FRR = [Macro-F1(D4) / Macro-F1(D1)] x 100%.",
+      "solution": "Karena pengujian sintetis D4 ditangguhkan, ubah rumus evaluasi penurunan performa menjadi Delta F1 = Macro-F1(Teacher 12L) - Macro-F1(Student 6L) pada data D1 dengan kriteria keberhasilan Delta F1 <= 1,50%. Hapus rumus FRR dari naskah Word."
+    },
+    {
+      "id": "AUDIT-06",
       "category": "Tooling & Deployment",
-      "severity": "Penting",
-      "status": "resolved",
-      "location": "Models & Subbab 3.6",
-      "title": "Peniadaan Dependensi dan Ekspor ONNX",
-      "problem": "Konversi ONNX tidak lagi menjadi sasaran keluaran wajib penelitian tesis.",
-      "solution": "[TERHANDLE] Skrip export_onnx.py telah dihapus dari folder models/; evaluasi latensi inferensi dialihkan murni ke PyTorch native CPU runner (torch.no_grad())."
+      "severity": "Sedang",
+      "status": "pending",
+      "location": "Subbab 3.6.2 Tabel 3.4 (Hal. 33)",
+      "title": "Tabel 3.4 Masih Mencantumkan Runtime ONNX",
+      "problem": "Tabel 3.4 (Spesifikasi Lingkungan Komputasi) pada baris 'Pustaka Inti Deep Learning' mencantumkan dependensi: 'ONNX Runtime 1.17+, Tokenizers Fast Backend'.",
+      "solution": "Hapus teks 'ONNX Runtime 1.17+' dari Tabel 3.4 di file Word. Ganti menjadi: 'PyTorch 2.2+ (CPU Execution), Transformers 4.38+' karena pengujian latensi inferensi dilakukan langsung pada PyTorch runtime tanpa ekspor ONNX."
     },
     {
-      "id": "REV-05",
-      "category": "Arsitektur Model",
-      "severity": "Penting",
-      "status": "resolved",
-      "location": "Subbab 3.4.1 (Teacher-Student Pipeline)",
-      "title": "Standardisasi Arsitektur Opsi B (CodeBERT 12L ke 6L)",
-      "problem": "Inkonsistensi parameter model Teacher (pernah menyebut DeepSeek-Coder 1.3B).",
-      "solution": "[TERHANDLE] Ditetapkan arsitektur Opsi B terpadu: Teacher = CodeBERT-base 12-layer (125M parameter), Student = Distilled-CodeBERT 6-layer (66M parameter) dengan inisialisasi lapisan berseling (1, 3, 5, 7, 9, 11)."
-    },
-    {
-      "id": "REV-06",
-      "category": "Sitasi & Bibliografi",
-      "severity": "Penting",
-      "status": "resolved",
-      "location": "Daftar Pustaka [1] - [40] PDF Tesis",
-      "title": "Verifikasi Ketersediaan Berkas Fisik 40/40 Sitasi PDF",
-      "problem": "Kekhawatiran terdapat sitasi hantu atau berkas PDF referensi rujukan yang hilang di repositori lokal.",
-      "solution": "[TERHANDLE] Audit mendalam membuktikan 100% berkas PDF fisik asli (40 entri sitasi / 26 paper unik) tersedia lengkap dan terverifikasi di direktori lokal (18 PDF di folder reference-bab2/pdf dan 22 PDF di technical-debt-kd/references)."
-    },
-    {
-      "id": "REV-07",
-      "category": "Sitasi & Bibliografi",
-      "severity": "Penting",
-      "status": "resolved",
-      "location": "Daftar Pustaka Bab I, II, III (Hal. 36-42)",
-      "title": "Deteksi & Pemetaan 8 Paper Duplikat pada Naskah PDF",
-      "problem": "Penggabungan naskah Bab 1, 2, dan 3 menghasilkan 8 paper yang terduplikasi/tertriplikasi nomornya di Daftar Pustaka (Karelin [1]/[39], Li [2]/[25], Abdulaziz [5]/[17], Sabbah [8]/[33]/[38], Gu [9]/[35], Zhuang [10]/[34], Melin [12]/[40], Qu [13]/[26]/[32]).",
-      "solution": "[TERHANDLE] Analisis matriks deduplikasi telah dipetakan lengkap pada dokumen audit INDEX_PDF_BAB2.md dan CHANGELOG sehingga siap dideplikasi saat penyuntingan file Word."
-    },
-    {
-      "id": "REV-08",
+      "id": "AUDIT-07",
       "category": "Tipografi & Format",
       "severity": "Sedang",
       "status": "pending",
-      "location": "Tabel 3.3 & Formula Naskah Word",
-      "title": "Penerapan Tabel 3.3 Bersih (5 Kolom) & Penghapusan Tilde pada Dokumen Word",
-      "problem": "Tabel 3.3 terdahulu terlalu padat (9 kolom) dan karakter tilde (~) berisiko terkonversi menjadi coret teks (strikethrough) saat diekspor.",
-      "solution": "[PERLU TINDAKAN DI WORD] Terapkan format ringkas Tabel 3.3 (5 kolom bersih) dan ganti semua simbol tilde dengan kata 'sekitar' saat melakukan editing manual di berkas Word."
+      "location": "Subbab 3.4.2 Tabel 3.3 (Hal. 29)",
+      "title": "Tabel 3.3 Masih 9 Kolom Padat & Memuat Karakter Tilde (~)",
+      "problem": "Tabel 3.3 konfigurasi model di draf memiliki 9 kolom yang terlalu padat sehingga margin tertekan, teks penjelasan di bawahnya mencapai 5 kalimat berulang, dan angka ukuran memuat simbol tilde (~490 MB, ~260 MB) yang berisiko terkonversi menjadi teks tercoret (strikethrough) saat ekspor.",
+      "solution": "Ganti Tabel 3.3 di naskah Word dengan format ringkas 5 kolom (Model, Tipe, Jml Lapisan, Parameter, Peran Pipeline). Ganti semua tanda tilde (~) dengan kata 'sekitar', dan persingkat narasi di bawah tabel menjadi 2 kalimat tegas."
+    },
+    {
+      "id": "AUDIT-08",
+      "category": "Ruang Lingkup",
+      "severity": "Penting",
+      "status": "pending",
+      "location": "Subbab 1.2.2 & 1.3 (Hal. 6-7)",
+      "title": "Rumusan Masalah (RQ2) & Tujuan Bab 1 Masih Berorientasi Masking D4",
+      "problem": "Pada Bab 1 Halaman 6-7 draf, RQ2 dan Tujuan Penelitian butir 2 masih berbunyi: 'mengukur efektivitas Distilled-CodeBERT dalam mendeteksi SATD implisit melalui skenario penyamaran (masking) kata kunci eksplisit pada korpus uji adversarial'.",
+      "solution": "Ubah RQ2 dan Tujuan 2 di draf Bab 1 menjadi fokus efisiensi kompresi arsitektur 12L ke 6L (rasio kompresi 1,89x dan latensi CPU runner), serta sesuaikan RQ3 untuk fokus pada analisis trade-off kompresi vs retensi F1 (Delta F1 <= 1,50%) dan atribusi semantik XAI Integrated Gradients."
+    },
+    {
+      "id": "AUDIT-09",
+      "category": "Administratif",
+      "severity": "Penting",
+      "status": "resolved",
+      "location": "Cover Bab 1 - Bab 3 (Hal. 1)",
+      "title": "Judul Rencana Tesis S2 pada Cover",
+      "problem": "Sebelumnya terdapat risiko judul belum diperbarui atau masih mencantumkan domain multi-artefak.",
+      "solution": "SUDAH SESUAI DI DRAF: Halaman 1 cover PDF telah menggunakan judul resmi 'DETEKSI SELF-ADMITTED TECHNICAL DEBT MENGGUNAKAN DISTILASI CODEBERT UNTUK MITIGASI SHORTCUT LEARNING'."
+    },
+    {
+      "id": "AUDIT-10",
+      "category": "Administratif",
+      "severity": "Penting",
+      "status": "resolved",
+      "location": "Cover Bab 1 - Bab 3 (Hal. 1)",
+      "title": "Nomor Induk Mahasiswa (NIM) pada Cover",
+      "problem": "Sebelumnya terdapat catatan kemungkinan salah ketik jumlah digit NIM.",
+      "solution": "SUDAH SESUAI DI DRAF: Halaman 1 cover PDF telah mencantumkan NIM yang benar yaitu 14250028."
+    }
+  ],
+  "duplicate_papers": [
+    {
+      "no": 1,
+      "author": "Karelin et al.",
+      "year": 2026,
+      "title": "On the Quantification of Technical Debt and Its Impact on Software Delivery: An Industrial Case Study",
+      "venue": "Automated Software Engineering",
+      "entries": ["[1]", "[39]"],
+      "chapters": "Bab I & Bab III",
+      "type": "Duplikat (2x)",
+      "action_word": "Di Bab III ganti sitasi [39] menjadi [1]. Hapus entri [39] di Daftar Pustaka Word."
+    },
+    {
+      "no": 2,
+      "author": "Li et al.",
+      "year": 2023,
+      "title": "Automatic identification of self-admitted technical debt from four different sources",
+      "venue": "Empirical Software Engineering",
+      "entries": ["[2]", "[25]"],
+      "chapters": "Bab I & Bab II",
+      "type": "Duplikat (2x)",
+      "action_word": "Di Bab II ganti sitasi [25] menjadi [2]. Hapus entri [25] di Daftar Pustaka Word."
+    },
+    {
+      "no": 3,
+      "author": "Abdulaziz et al.",
+      "year": 2026,
+      "title": "Automated Detection of Self-Admitted Technical Debt: A Systematic Literature Review",
+      "venue": "IEEE Access",
+      "entries": ["[5]", "[17]"],
+      "chapters": "Bab I & Bab II",
+      "type": "Duplikat (2x)",
+      "action_word": "Di Bab II ganti sitasi [17] menjadi [5]. Hapus entri [17] di Daftar Pustaka Word."
+    },
+    {
+      "no": 4,
+      "author": "Sabbah & Hanani",
+      "year": 2023,
+      "title": "Self-admitted technical debt classification based on word embeddings and deep learning",
+      "venue": "Int. J. of Electrical and Computer Engineering (IJECE)",
+      "entries": ["[8]", "[33]", "[38]"],
+      "chapters": "Bab I, Bab II & Bab III",
+      "type": "Triplikat (3x)",
+      "action_word": "Di Bab II & III ganti sitasi [33] & [38] menjadi [8]. Hapus entri [33] dan [38] di Daftar Pustaka."
+    },
+    {
+      "no": 5,
+      "author": "Gu et al.",
+      "year": 2024,
+      "title": "Identification of self-admitted technical debt: How far are we?",
+      "venue": "IEEE SANER 2024",
+      "entries": ["[9]", "[35]"],
+      "chapters": "Bab I & Bab III",
+      "type": "Duplikat (2x)",
+      "action_word": "Di Bab III ganti sitasi [35] menjadi [9]. Hapus entri [35] di Daftar Pustaka Word."
+    },
+    {
+      "no": 6,
+      "author": "Zhuang et al.",
+      "year": 2022,
+      "title": "Explainability of shortcut learning in deep neural networks for natural language processing",
+      "venue": "Journal of Information Technology",
+      "entries": ["[10]", "[34]"],
+      "chapters": "Bab I, II & Bab III",
+      "type": "Duplikat (2x)",
+      "action_word": "Di Bab III ganti sitasi [34] menjadi [10]. Hapus entri [34] di Daftar Pustaka Word."
+    },
+    {
+      "no": 7,
+      "author": "Melin et al.",
+      "year": 2026,
+      "title": "Automating Multi-Artifact Technical Debt Detection in Scientific Software",
+      "venue": "ACM PASC 2026",
+      "entries": ["[12]", "[40]"],
+      "chapters": "Bab I & Bab III",
+      "type": "Duplikat (2x)",
+      "action_word": "Di Bab III ganti sitasi [40] menjadi [12]. Hapus entri [40] di Daftar Pustaka Word."
+    },
+    {
+      "no": 8,
+      "author": "Qu et al.",
+      "year": 2023,
+      "title": "Detecting self-admitted technical debt with text convolution neural network",
+      "venue": "Journal of Information Technology",
+      "entries": ["[13]", "[26]", "[32]"],
+      "chapters": "Bab I, Bab II & Bab III",
+      "type": "Triplikat (3x)",
+      "action_word": "Di Bab II & III ganti sitasi [26] & [32] menjadi [13]. Hapus entri [26] dan [32] di Daftar Pustaka."
+    }
+  ],
+  "chapter_stats": [
+    {
+      "chapter": "Bab I (Pendahuluan)",
+      "pages": "Hal. 4 - 8",
+      "entries_range": "[1] - [14]",
+      "total_entries": 14,
+      "occurrences": 28,
+      "notes": "Menjadi jangkar nomor urut pertama. Seluruh pengulangan paper di bab selanjutnya harus disamakan ke nomor di Bab I."
+    },
+    {
+      "chapter": "Bab II (Tinjauan Pustaka)",
+      "pages": "Hal. 9 - 18",
+      "entries_range": "[15] - [29] (plus [3], [8], [10], [13])",
+      "total_entries": 15,
+      "occurrences": 49,
+      "notes": "Memuat sitasi baru [15]-[29] serta menggunakan ulang paper Bab I (Li [25], Abdulaziz [17], Qu [26])."
+    },
+    {
+      "chapter": "Bab III (Metodologi)",
+      "pages": "Hal. 19 - 35",
+      "entries_range": "[30] - [40] (plus [7], [10])",
+      "total_entries": 11,
+      "occurrences": 58,
+      "notes": "Memuat sitasi baru [30]-[40] dengan 7 entri duplikat dari Bab I & II (Qu [32], Sabbah [33][38], Zhuang [34], Gu [35], Karelin [39], Melin [40])."
+    },
+    {
+      "chapter": "Daftar Pustaka (Gabungan)",
+      "pages": "Hal. 36 - 42",
+      "entries_range": "[1] - [40]",
+      "total_entries": 40,
+      "occurrences": 135,
+      "notes": "Total 40 entri tercetak, namun hanya mencakup 26 paper unik (terdapat 8 paper terduplikasi/tertriplikasi)."
+    }
+  ],
+  "physical_verifications": [
+    { "no": 1, "range": "[1], [39]", "paper": "Karelin et al. (AIR 2026)", "file": "06_Karelin2026_TD_Quantification_Delivery_Impact.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 2, "range": "[2], [25]", "paper": "Li et al. (EMSE 2023)", "file": "02_Li2023_Automatic_Identification_Four_Sources.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 3, "range": "[3]", "paper": "Zhu et al. (JPCS 2021)", "file": "Zhu_2021_J._Phys.__Conf._Ser._1955_012102.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 4, "range": "[4]", "paper": "Tiwari et al. (IJETCSIT 2024)", "file": "09_Continuous_CICD_TD_Prediction.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 5, "range": "[5], [17]", "paper": "Abdulaziz et al. (IEEE Access 2026)", "file": "Automated_Detection_of_Self-Admitted_Technical_Debt_A_Systematic_Literature_Review.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 6, "range": "[6]", "paper": "Xiao et al. (IEEE TSE 2022)", "file": "05_IEEE_TSE2021_SATD_Characterizing_Mitigating.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 7, "range": "[7]", "paper": "Dou et al. (JIT 2025)", "file": "1.12_A_Survey_of_Self-Admitted_Technical_Debt_Detection.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 8, "range": "[8], [33], [38]", "paper": "Sabbah & Hanani (IJECE 2023)", "file": "14_IJECE2023_SATD_Classification_Word_Embeddings.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 9, "range": "[9], [35]", "paper": "Gu et al. (SANER 2024)", "file": "03_Guo2024_SATD_Identification_How_Far_Are_We.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 10, "range": "[10], [34]", "paper": "Zhuang et al. (JIT 2022)", "file": "08_Zhuang2022_Explainability_Shortcut_Learning.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 11, "range": "[11]", "paper": "Pavlič et al. (Applied Sciences 2022)", "file": "13_MDPI2023_Gap_Admitted_vs_Measured_TD.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 12, "range": "[12], [40]", "paper": "Melin et al. (PASC 2026)", "file": "01_Melin2026_MultiArtifact_Scientific_Software.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 13, "range": "[13], [26], [32]", "paper": "Qu et al. (JIT 2023)", "file": "2940-3963-1-PB (2).pdf / 07_JIT2023_Qu_TextCNN_SATD.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 14, "range": "[14]", "paper": "Gomes et al. (JSERD 2024)", "file": "2.19_Technical_Debt_Tools_a_Survey_and_an_Empirical_Evaluation.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 15, "range": "[15]", "paper": "Yu et al. (Electronics 2024)", "file": "electronics-13-04700.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 16, "range": "[16]", "paper": "Sridharan et al. (arXiv 2021)", "file": "2103.13165v1.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 17, "range": "[18]", "paper": "Lin et al. (Sensors 2023)", "file": "sensors-23-01483-v2.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 18, "range": "[19]", "paper": "Lin et al. (Mathematics 2022)", "file": "mathematics-10-04482.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 19, "range": "[20]", "paper": "Ahn et al. (GeBNLP 2022)", "file": "2022.gebnlp-1.27.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 20, "range": "[21]", "paper": "Dogra et al. (IEEE Access 2024)", "file": "Shortcut_Learning_Explanations_for_Deep_Natural_Language_Processing_A_Survey_on_Dataset_Biases.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 21, "range": "[22]", "paper": "Lavazza et al. (EASE 2025)", "file": "3756681.3756957.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 22, "range": "[23]", "paper": "Richardson et al. (Patterns 2024)", "file": "PIIS2666389924001090.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 23, "range": "[24]", "paper": "Huynh Thai et al. (Mathematics 2022)", "file": "mathematics-10-04649.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 24, "range": "[27]", "paper": "Sutoyo & Capiluppi (MSR 2024)", "file": "3643991.3644880.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 25, "range": "[28]", "paper": "Kabir et al. (Symmetry 2023)", "file": "symmetry-15-01934-v2.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 26, "range": "[29]", "paper": "Sutoyo et al. (EMSE 2026)", "file": "s10664-026-10916-1.pdf", "path": "Distillation/references/reference-bab2/pdf/", "status": "Terverifikasi Fisik" },
+    { "no": 27, "range": "[30]", "paper": "Xu et al. (Appl. Intell. 2023)", "file": "Springer2022_Teacher_Student_Knowledge_Distillation.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 28, "range": "[31]", "paper": "Jayadianti et al. (ILKOM 2022)", "file": "ILKOM2022_BERT_FineTuning_Optimization.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 29, "range": "[36]", "paper": "Abdu et al. (Sci. Rep. 2024)", "file": "NatureSR2024_Software_Defect_Wilcoxon_Cliffs.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" },
+    { "no": 30, "range": "[37]", "paper": "Laaber et al. (EMSE 2021)", "file": "SpringerEMSE2021_Software_Benchmark_Methodology.pdf", "path": "technical-debt-kd/references/", "status": "Terverifikasi Fisik" }
+  ],
+  "methodology_alignment": [
+    {
+      "aspect": "Rumusan Masalah 2 (RQ2)",
+      "draft_lama": "Evaluasi ketahanan terhadap masking kata kunci eksplisit pada data sintetis bertopeng D4.",
+      "arahan_dosen": "Efisiensi kompresi arsitektur 12L ke 6L: Rasio kompresi parameter 1,89x (47,2%) dan latensi inferensi CPU single-core runner.",
+      "status": "Perlu Revisi di Draf Word (Subbab 1.2.2 & 3.2)"
+    },
+    {
+      "aspect": "Rumusan Masalah 3 (RQ3)",
+      "draft_lama": "Sensitivitas model terhadap token netral [MASK] dan perbandingan penurunan skor FRR antar arsitektur.",
+      "arahan_dosen": "Analisis trade-off kompresi vs retensi F1 (toleransi Delta F1 <= 1,50%) dan interpretasi semantik XAI Integrated Gradients.",
+      "status": "Perlu Revisi di Draf Word (Subbab 1.2.2 & 3.2)"
+    },
+    {
+      "aspect": "Ruang Lingkup Korpus",
+      "draft_lama": "Mencantumkan korpus sintetis bertopeng D4 (4.000 sampel) pada langkah 3 dan Tabel 3.1.",
+      "arahan_dosen": "Fokus eksklusif pada 1 korpus empiris baku: Komentar Kode Java Maldonado D1 (62.275 baris). Korpus D4 ditunda.",
+      "status": "Perlu Revisi di Draf Word (Halaman 21 & 24)"
+    },
+    {
+      "aspect": "Metrik Evaluasi Penurunan",
+      "draft_lama": "FRR = [F1(D4) / F1(D1)] x 100% dan Delta F1 = F1(D1) - F1(D4).",
+      "arahan_dosen": "Delta F1 = Macro-F1(Teacher 12L) - Macro-F1(Student 6L) pada data D1 dengan target toleransi Delta F1 <= 1,50%. Rumus FRR dihapus.",
+      "status": "Perlu Revisi di Draf Word (Subbab 3.5.2 Hal. 31)"
+    },
+    {
+      "aspect": "Lingkungan Inferensi",
+      "draft_lama": "Tabel 3.4 mencantumkan ONNX Runtime 1.17+ dan ekspor model ONNX.",
+      "arahan_dosen": "Evaluasi latensi CPU murni PyTorch CPU execution tanpa dependensi ONNX Runtime.",
+      "status": "Perlu Revisi di Draf Word (Tabel 3.4 Hal. 33)"
+    },
+    {
+      "aspect": "Format Tabel Konfigurasi Model",
+      "draft_lama": "Tabel 3.3 terdiri atas 9 kolom padat, simbol tilde (~), dan 5 kalimat berulang di bawahnya.",
+      "arahan_dosen": "Sederhanakan menjadi format 5 kolom bersih, ubah simbol tilde menjadi kata 'sekitar', persingkat narasi jadi 2 kalimat tegas.",
+      "status": "Perlu Revisi di Draf Word (Tabel 3.3 Hal. 29)"
     }
   ]
 }

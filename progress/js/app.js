@@ -41,6 +41,7 @@ const dom = {
 document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
   initRouting();
+  initAuditControls();
   initKeyboardShortcuts();
   await loadAllData();
 });
@@ -452,8 +453,56 @@ function fallbackCopy(text, callback) {
 }
 
 // --------------------------------------------------------------------------
-// 6. RENDER VIEW 4: AUDIT CHECKLIST (BAB 3 DRAFT)
+// 6. RENDER VIEW 1: AUDIT CHECKLIST & DEEP ANALYSIS (DRAFT NASKAH)
 // --------------------------------------------------------------------------
+let currentAuditFilter = 'all';
+
+function initAuditControls() {
+  const subnavBtns = document.querySelectorAll('.audit-subnav-btn');
+  const panels = {
+    'revisi-draf': document.getElementById('panel-revisi-draf'),
+    'duplikasi-sitasi': document.getElementById('panel-duplikasi-sitasi'),
+    'uji-sitasi': document.getElementById('panel-uji-sitasi'),
+    'metodologi-rq': document.getElementById('panel-metodologi-rq')
+  };
+
+  subnavBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      subnavBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn.getAttribute('data-subview');
+
+      if (target === 'all-views') {
+        Object.values(panels).forEach(p => { if (p) p.classList.remove('is-hidden'); });
+      } else {
+        Object.keys(panels).forEach(key => {
+          if (panels[key]) {
+            if (key === target) {
+              panels[key].classList.remove('is-hidden');
+            } else {
+              panels[key].classList.add('is-hidden');
+            }
+          }
+        });
+      }
+    });
+  });
+
+  const filterChips = document.querySelectorAll('#audit-filter-chips .filter-chip');
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      filterChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentAuditFilter = chip.getAttribute('data-filter');
+      if (state.audit && state.audit.items) {
+        renderAuditItems(state.audit.items);
+      }
+    });
+  });
+}
+
 function loadAuditChecklistState() {
   state.completedAuditIds.clear();
   if (!state.audit || !state.audit.items) return;
@@ -467,34 +516,71 @@ function loadAuditChecklistState() {
 }
 
 function renderAudit(auditData) {
-  const container = document.getElementById('audit-items-container');
+  if (!auditData) return;
+
   const summaryPending = document.getElementById('audit-pending-count');
   const summaryResolved = document.getElementById('audit-resolved-count');
   const metaDate = document.getElementById('audit-meta-date');
   const metaDoc = document.getElementById('audit-meta-doc');
-
-  if (!container || !auditData) return;
+  const docBadge = document.getElementById('audit-doc-badge');
 
   if (metaDate && auditData.date) metaDate.textContent = auditData.date;
   if (metaDoc && auditData.document) {
-    metaDoc.textContent = auditData.document.split('/').pop();
+    metaDoc.textContent = auditData.document.split(' ')[0];
+  }
+  if (docBadge && auditData.document) {
+    docBadge.textContent = auditData.document;
   }
 
-  const total = auditData.items.length;
-  const resolved = auditData.items.filter(item => item.status === 'resolved').length;
+  const total = auditData.items ? auditData.items.length : 0;
+  const resolved = auditData.items ? auditData.items.filter(item => item.status === 'resolved').length : 0;
   const pending = total - resolved;
 
   if (summaryPending) summaryPending.textContent = pending;
   if (summaryResolved) summaryResolved.textContent = resolved;
   if (dom.headerStats.audit) dom.headerStats.audit.textContent = pending;
 
-  const html = auditData.items.map(item => {
+  // 1. Render Action Items Cards
+  renderAuditItems(auditData.items || []);
+
+  // 2. Render Duplicate Papers Table
+  if (auditData.duplicate_papers) {
+    renderDuplicatePapers(auditData.duplicate_papers);
+  }
+
+  // 3. Render Citations & Physical Verification
+  if (auditData.chapter_stats && auditData.physical_verifications) {
+    renderCitationAudit(auditData.chapter_stats, auditData.physical_verifications);
+  }
+
+  // 4. Render Methodology Alignment Matrix
+  if (auditData.methodology_alignment) {
+    renderMethodologyAlignment(auditData.methodology_alignment);
+  }
+}
+
+function renderAuditItems(items) {
+  const container = document.getElementById('audit-items-container');
+  if (!container || !items) return;
+
+  const filtered = items.filter(item => {
+    if (currentAuditFilter === 'pending') return item.status !== 'resolved';
+    if (currentAuditFilter === 'resolved') return item.status === 'resolved';
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="padding:24px; text-align:center; color:var(--text-muted); font-family:var(--font-mono);">Tidak ada item audit dalam filter ini.</div>';
+    return;
+  }
+
+  const html = filtered.map(item => {
     const isResolved = item.status === 'resolved';
     const sevClass = item.severity === 'Penting' ? 'sev-penting' : 'sev-sedang';
 
     return `
       <div class="audit-item-card ${isResolved ? 'is-completed' : ''}" id="audit-card-${item.id}">
-        <div class="audit-status-icon ${isResolved ? 'resolved' : 'pending'}" title="${isResolved ? 'Telah Diperbaiki' : 'Perlu Tindakan'}">
+        <div class="audit-status-icon ${isResolved ? 'resolved' : 'pending'}" title="${isResolved ? 'Sudah Sesuai di Draf' : 'Perlu Tindakan di Word'}">
           <i class="ti ${isResolved ? 'ti-check' : 'ti-alert-triangle'}"></i>
         </div>
         <div class="audit-item-content">
@@ -506,7 +592,7 @@ function renderAudit(auditData) {
             <div class="audit-badges-wrap">
               <span class="audit-sev-badge ${sevClass}">${item.severity}</span>
               <span class="audit-state-badge ${isResolved ? 'resolved' : 'pending'}">
-                ${isResolved ? '<i class="ti ti-check"></i> Selesai' : '<i class="ti ti-clock"></i> Perlu Tindakan'}
+                ${isResolved ? '<i class="ti ti-check"></i> Sudah Sesuai di Draf' : '<i class="ti ti-clock"></i> Perlu Tindakan di Word'}
               </span>
             </div>
           </div>
@@ -514,11 +600,11 @@ function renderAudit(auditData) {
           
           <div class="audit-diff-grid">
             <div class="diff-box diff-problem">
-              <div class="diff-tag"><i class="ti ti-alert-triangle"></i> Draf Saat Ini:</div>
+              <div class="diff-tag"><i class="ti ti-alert-triangle"></i> Masalah / Kutipan Teks Draf:</div>
               ${item.problem}
             </div>
             <div class="diff-box diff-solution">
-              <div class="diff-tag"><i class="ti ti-check"></i> Tindakan Perbaikan:</div>
+              <div class="diff-tag"><i class="ti ti-edit"></i> Tindakan Perbaikan di Word:</div>
               ${item.solution}
             </div>
           </div>
@@ -528,6 +614,147 @@ function renderAudit(auditData) {
   }).join('');
 
   container.innerHTML = html;
+}
+
+function renderDuplicatePapers(dupList) {
+  const container = document.getElementById('audit-duplicates-container');
+  if (!container || !dupList) return;
+
+  const rows = dupList.map((d, idx) => `
+    <tr>
+      <td style="font-family:var(--font-mono); font-weight:700; color:var(--text-muted);">${idx + 1}</td>
+      <td>
+        <div class="ref-title-text">${d.author} (${d.year})</div>
+        <div class="ref-authors"><em>${d.title}</em> &bull; ${d.venue}</div>
+      </td>
+      <td style="font-family:var(--font-mono); font-weight:700; color:#f59e0b;">
+        ${d.entries.join(', ')}
+      </td>
+      <td style="font-family:var(--font-mono); font-size:12px; color:var(--text-secondary);">
+        ${d.chapters}
+      </td>
+      <td>
+        <span class="audit-sev-badge sev-penting">${d.type}</span>
+      </td>
+      <td style="font-size:12.5px; color:var(--accent-text); line-height:1.4;">
+        <i class="ti ti-arrow-forward"></i> ${d.action_word}
+      </td>
+    </tr>
+  `).join('');
+
+  container.innerHTML = `
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th style="width: 40px;">No</th>
+          <th>Paper &amp; Penulis</th>
+          <th style="width: 100px;">Nomor di PDF</th>
+          <th style="width: 130px;">Bab Kemunculan</th>
+          <th style="width: 110px;">Status</th>
+          <th>Rekomendasi Tindakan di Word (Mendeley/Zotero)</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderCitationAudit(chapterStats, verifications) {
+  const statsContainer = document.getElementById('audit-chapter-stats-container');
+  const tableContainer = document.getElementById('audit-citations-container');
+
+  if (statsContainer && chapterStats) {
+    statsContainer.innerHTML = chapterStats.map(ch => `
+      <div class="chapter-stat-card">
+        <div class="ch-title">${ch.chapter}</div>
+        <div class="ch-pages">${ch.pages} &bull; Rentang: ${ch.entries_range}</div>
+        <div class="ch-count">${ch.total_entries} <span style="font-size:12px; font-weight:normal; color:var(--text-muted);">Entri (${ch.occurrences}x Sitir)</span></div>
+        <div class="ch-notes">${ch.notes}</div>
+      </div>
+    `).join('');
+  }
+
+  if (tableContainer && verifications) {
+    const rows = verifications.map(v => `
+      <tr>
+        <td style="font-family:var(--font-mono); font-weight:700; color:var(--text-muted);">${v.no}</td>
+        <td style="font-family:var(--font-mono); font-weight:700; color:var(--accent);">${v.range}</td>
+        <td>
+          <div style="font-weight:600; color:var(--text-primary);">${v.paper}</div>
+        </td>
+        <td>
+          <code style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-secondary); word-break:break-all;">${v.file}</code>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📁 ${v.path}</div>
+        </td>
+        <td>
+          <span class="audit-state-badge resolved"><i class="ti ti-check"></i> ${v.status}</span>
+        </td>
+      </tr>
+    `).join('');
+
+    tableContainer.innerHTML = `
+      <table class="ref-table">
+        <thead>
+          <tr>
+            <th style="width: 40px;">No</th>
+            <th style="width: 110px;">Entri di PDF</th>
+            <th>Paper / Literatur Rujukan</th>
+            <th>Berkas PDF Fisik Asli &amp; Path Lokal</th>
+            <th style="width: 150px;">Status Ketersediaan</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+    `;
+  }
+}
+
+function renderMethodologyAlignment(alignList) {
+  const container = document.getElementById('audit-methodology-container');
+  if (!container || !alignList) return;
+
+  const rows = alignList.map((a, idx) => `
+    <tr>
+      <td style="font-family:var(--font-mono); font-weight:700; color:var(--text-muted);">${idx + 1}</td>
+      <td style="font-weight:700; color:var(--text-primary); font-size:13px;">${a.aspect}</td>
+      <td style="background:rgba(239, 68, 68, 0.04); color:var(--text-secondary); font-size:12.5px; line-height:1.45;">
+        <div style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:#ef4444; margin-bottom:4px; text-transform:uppercase;">
+          <i class="ti ti-x"></i> Draf Terdahulu:
+        </div>
+        ${a.draft_lama}
+      </td>
+      <td style="background:var(--accent-tint); color:var(--text-primary); font-size:12.5px; line-height:1.45;">
+        <div style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:var(--accent); margin-bottom:4px; text-transform:uppercase;">
+          <i class="ti ti-check"></i> Arahan Resmi Dosen:
+        </div>
+        ${a.arahan_dosen}
+      </td>
+      <td style="font-family:var(--font-mono); font-size:11.5px; color:#f59e0b;">
+        <i class="ti ti-edit"></i> ${a.status}
+      </td>
+    </tr>
+  `).join('');
+
+  container.innerHTML = `
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th style="width: 40px;">No</th>
+          <th style="width: 170px;">Aspek Metodologi</th>
+          <th>Teks Draf Lama yang Keliru / Perlu Dihapus</th>
+          <th>Arahan Baru Dosen Pembimbing (Wajib Diterapkan)</th>
+          <th style="width: 180px;">Status Tindakan</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+  `;
 }
 
 // --------------------------------------------------------------------------

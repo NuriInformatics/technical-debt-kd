@@ -6,18 +6,20 @@
 
 ---
 
-## 📌 Ringkasan Status Progres Tindak Lanjut (Resolved vs Pending)
+## 📌 Ringkasan Status Tindak Lanjut Naskah Draf (8 Perlu Revisi di Word & 2 Sudah Sesuai)
 
-| ID | Item Audit / Arahan Dosen | Status Progres | Keterangan & Bentuk Penanganan di Repositori |
-|:--:|---|:---:|---|
-| **REV-01** | Penyelarasan Judul Resmi Proposal Tesis | **SOLVED / HANDLED** | Judul resmi diselaraskan ke: *"DETEKSI SELF-ADMITTED TECHNICAL DEBT MENGGUNAKAN DISTILASI CODEBERT UNTUK MITIGASI SHORTCUT LEARNING"* di seluruh file repo. |
-| **REV-02** | Penyempitan Dataset: Fokus Eksklusif Komentar Kode (D1) | **SOLVED / HANDLED** | 175.135 baris data luar lingkup (D2, D3, D4 sintetis) telah dihapus dari repositori. Repositori 100% fokus pada `D1_code_comments.csv` (62.275 baris). |
-| **REV-03** | Penangguhan Studi Ablasi Data Sintetis (D4) | **SOLVED / HANDLED** | Seluruh catatan metodologi dan 3 RQ diubah untuk fokus ke efektivitas distilasi, rasio kompresi parameter CPU, dan trade-off F1/XAI. |
-| **REV-04** | Peniadaan Dependensi ONNX Runtime | **SOLVED / HANDLED** | Berkas `models/export_onnx.py` dihapus; evaluasi inferensi murni dialihkan ke native PyTorch CPU runner. |
-| **REV-05** | Standardisasi Arsitektur Opsi B (CodeBERT 12L ke 6L) | **SOLVED / HANDLED** | Teacher = CodeBERT-base 12-layer (125M parameter), Student = Distilled-CodeBERT 6-layer (66M parameter) dengan inisialisasi lapisan berseling (1, 3, 5, 7, 9, 11). |
-| **REV-06** | Testing Ketersediaan Berkas Fisik 40/40 Sitasi PDF | **SOLVED / HANDLED** | Pengujian menyeluruh membuktikan 100% berkas PDF fisik asli (40 entri sitasi / 26 paper unik) tersedia lengkap di direktori lokal. |
-| **REV-07** | Deteksi & Pemetaan 8 Paper Duplikat di Naskah PDF | **SOLVED / HANDLED** | Analisis duplikasi sitasi selesai dipetakan untuk panduan deduplikasi referensi di dokumen Word. |
-| **REV-08** | Penerapan Tabel 3.3 Bersih (5 Kolom) di Dokumen Word | **PENDING (WORD)** | Perlu diterapkan saat penyuntingan berkas dokumen Word (`.docx`). |
+| ID | Item Audit / Masalah Naskah Draf | Lokasi di Draf PDF | Status Naskah | Instruksi Perbaikan pada Dokumen Word (.docx) |
+|:--:|---|:---:|:---:|---|
+| **AUDIT-01** | Daftar Pustaka Memuat 8 Paper Duplikat/Triplikat | Hal. 36–42 | **PERLU REVISI** | Sinkronisasi library Mendeley/Zotero; satukan sitasi di Bab II & III merujuk ke nomor entri Bab I agar tersisa 26 paper unik. |
+| **AUDIT-02** | Teks Draf Masih Membahas Pembentukan Korpus D4 | Subbab 3.2 Poin 3 (Hal. 21) | **PERLU REVISI** | HAPUS seluruh paragraf Poin 3 (Pembentukan Korpus Uji Bertopeng D4) di Bab 3 file Word; sesuaikan penomoran poin berikutnya. |
+| **AUDIT-03** | Skenario RQ2 Metodologi Masih Memuat Evaluasi Ketahanan D4 | Subbab 3.2 Poin 6 (Hal. 22) | **PERLU REVISI** | Ganti narasi Skenario RQ2 menjadi efisiensi kompresi (CR = 1,89x) & latensi CPU runner; ubah RQ3 menjadi trade-off kompresi vs retensi F1 & XAI. |
+| **AUDIT-04** | Tabel 3.1 Draf Masih Mencantumkan Baris Korpus Sintetis D4 | Subbab 3.3.2 (Hal. 24) | **PERLU REVISI** | Hapus baris D4 dari Tabel 3.1; ubah narasi pengantar sebelum tabel menjadi fokus 1 korpus patokan baku primer (D1 Maldonado). |
+| **AUDIT-05** | Subbab 3.5.2 Masih Memuat Rumus FRR & Delta F1 D4 Adversarial | Subbab 3.5.2 (Hal. 31) | **PERLU REVISI** | Ubah rumus Delta F1 menjadi Macro-F1(Teacher 12L) - Macro-F1(Student 6L) pada data D1 dengan target <= 1,50%; hapus rumus FRR. |
+| **AUDIT-06** | Tabel 3.4 Masih Mencantumkan Runtime ONNX | Subbab 3.6.2 (Hal. 33) | **PERLU REVISI** | Hapus teks 'ONNX Runtime 1.17+' dari Tabel 3.4; ganti dengan 'PyTorch 2.2+ (CPU Execution), Transformers 4.38+'. |
+| **AUDIT-07** | Tabel 3.3 Masih 9 Kolom Padat & Memuat Karakter Tilde (~) | Subbab 3.4.2 (Hal. 29) | **PERLU REVISI** | Ganti Tabel 3.3 menjadi 5 kolom ringkas; ganti semua tanda tilde (~) dengan kata 'sekitar'; persingkat narasi di bawah tabel jadi 2 kalimat. |
+| **AUDIT-08** | RQ2 & Tujuan Penelitian Bab 1 Masih Berorientasi Masking D4 | Subbab 1.2.2 & 1.3 (Hal. 6–7) | **PERLU REVISI** | Ubah RQ2 dan Tujuan butir 2 di Bab 1 menjadi fokus efisiensi kompresi 12L ke 6L & latensi CPU; ubah RQ3 ke trade-off retensi F1 & XAI. |
+| **AUDIT-09** | Penyelarasan Judul Resmi Proposal Tesis pada Cover | Cover Hal. 1 | **SUDAH SESUAI** | Judul resmi pada Cover PDF sudah sesuai: *"DETEKSI SELF-ADMITTED TECHNICAL DEBT MENGGUNAKAN DISTILASI CODEBERT UNTUK MITIGASI SHORTCUT LEARNING"*. |
+| **AUDIT-10** | Ketepatan Nomor Induk Mahasiswa (NIM) pada Cover | Cover Hal. 1 | **SUDAH SESUAI** | Penulisan NIM pada Cover PDF sudah tepat yaitu 14250028. |
 
 ---
 
